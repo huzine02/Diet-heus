@@ -271,10 +271,36 @@
         </div>
 
         <div id="tab-export" class="tab-content">
-            <h2 style="color: #667eea; margin-bottom: 15px;">📤 Export Données</h2>
-            <button class="btn btn-primary" style="width: 100%; margin: 10px 0;" onclick="exportRapport()">📋 Copier rapport complet</button>
-            <button class="btn btn-secondary" style="width: 100%; margin: 10px 0;" onclick="exportRapportSemaine()">📊 Rapport semaine actuelle</button>
-            <button class="btn btn-danger" style="width: 100%;" onclick="resetJour()">🔄 Reset aujourd'hui</button>
+            <h2 style="color: #667eea; margin-bottom: 15px;">📤 Export & Sauvegarde</h2>
+            
+            <div class="alert-box alert-info" style="margin-bottom: 20px;">
+                <strong>💾 SAUVEGARDE TES DONNÉES !</strong><br>
+                Les données sont stockées uniquement dans ton navigateur.<br>
+                Fais un backup régulier pour ne rien perdre !
+            </div>
+
+            <div class="progress-card">
+                <h3 style="color: #667eea; margin-bottom: 15px;">💾 Sauvegarde complète</h3>
+                <button class="btn btn-success" style="width: 100%; margin: 10px 0;" onclick="telechargerBackup()">💾 Télécharger backup (.json)</button>
+                <button class="btn btn-primary" style="width: 100%; margin: 10px 0;" onclick="document.getElementById('input-restore').click()">📥 Restaurer backup</button>
+                <input type="file" id="input-restore" accept=".json" style="display: none;" onchange="restaurerBackup(event)">
+                <div style="font-size: 12px; color: #999; margin-top: 10px; text-align: center;">
+                    Dernier backup : <span id="last-backup-date">Jamais</span>
+                </div>
+            </div>
+
+            <div class="progress-card">
+                <h3 style="color: #667eea; margin-bottom: 15px;">📋 Rapports texte</h3>
+                <button class="btn btn-primary" style="width: 100%; margin: 10px 0;" onclick="exportRapport()">📋 Copier rapport du jour</button>
+                <button class="btn btn-secondary" style="width: 100%; margin: 10px 0;" onclick="exportRapportSemaine()">📊 Copier rapport semaine</button>
+            </div>
+
+            <div class="progress-card">
+                <h3 style="color: #667eea; margin-bottom: 15px;">⚙️ Gestion</h3>
+                <button class="btn btn-danger" style="width: 100%; margin: 10px 0;" onclick="resetJour()">🔄 Reset jour actuel</button>
+                <button class="btn btn-danger" style="width: 100%; margin: 10px 0;" onclick="resetSemaine()">⚠️ Reset semaine actuelle</button>
+                <button class="btn btn-danger" style="width: 100%;" onclick="resetTout()">🗑️ Effacer toutes les données</button>
+            </div>
         </div>
     </div>
 
@@ -494,7 +520,64 @@ window.onload = function() {
     
     // Notification si changement de semaine détecté
     verifierEtNotifierChangementSemaine();
+    
+    // Vérifier si backup hebdomadaire nécessaire
+    verifierBackupHebdomadaire();
 };
+
+function verifierBackupHebdomadaire() {
+    const lastBackup = localStorage.getItem('last-backup');
+    const aujourdhui = new Date();
+    const jourSemaine = aujourdhui.getDay(); // 0=dimanche
+    
+    // Si dimanche
+    if (jourSemaine === 0) {
+        if (!lastBackup) {
+            // Jamais fait de backup
+            rappelBackup('Tu n\'as jamais fait de backup ! 💾');
+        } else {
+            const dateLastBackup = new Date(lastBackup);
+            const diffJours = Math.floor((aujourdhui - dateLastBackup) / (1000 * 60 * 60 * 24));
+            
+            // Si dernier backup > 7 jours
+            if (diffJours >= 7) {
+                rappelBackup(`Dernier backup il y a ${diffJours} jours ! 📅`);
+            }
+        }
+    }
+}
+
+function rappelBackup(message) {
+    const lastNotif = localStorage.getItem('derniere-notif-backup');
+    const today = new Date().toISOString().split('T')[0];
+    
+    // Ne notifier qu'une fois par jour
+    if (lastNotif === today) return;
+    
+    setTimeout(() => {
+        const notification = document.createElement('div');
+        notification.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 4000; max-width: 400px; text-align: center; animation: modalPop 0.5s;';
+        notification.innerHTML = `
+            <div style="font-size: 48px; margin-bottom: 15px;">💾</div>
+            <h3 style="color: #667eea; margin-bottom: 10px;">Rappel Backup Hebdomadaire</h3>
+            <p style="color: #666; margin-bottom: 20px;">${message}<br><small>Protège tes données avec un backup !</small></p>
+            <button onclick="this.parentElement.remove(); document.querySelector('.tab[onclick*=export]').click(); setTimeout(() => telechargerBackup(), 500);" style="background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%); color: white; border: none; padding: 12px 24px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-right: 10px;">💾 Faire backup</button>
+            <button onclick="this.parentElement.remove();" style="background: #f0f0f0; color: #666; border: none; padding: 12px 24px; border-radius: 10px; font-weight: bold; cursor: pointer;">Plus tard</button>
+        `;
+        document.body.appendChild(notification);
+        
+        // Créer overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3999;';
+        overlay.onclick = () => {
+            notification.remove();
+            overlay.remove();
+        };
+        document.body.appendChild(overlay);
+        
+        localStorage.setItem('derniere-notif-backup', today);
+    }, 3000);
+}
 
 function verifierChangementDate() {
     const dateActuelle = new Date().toISOString().split('T')[0];
@@ -1262,6 +1345,195 @@ function resetJour() {
     calculerProgression();
     alert('✅ Journée réinitialisée');
 }
+
+function resetSemaine() {
+    if (!confirm(`⚠️ Effacer TOUTES les données de ${semaineActuelle} ?\n\nCeci inclut :\n- Tous les repas validés cette semaine\n- Les grignotages\n- La pesée\n\nCette action est IRRÉVERSIBLE !`)) return;
+    
+    // Supprimer tous les repas de la semaine (7 jours)
+    const dateDebut = new Date(PLAN_HYBRIDE.dateDebut);
+    const numSemaine = parseInt(semaineActuelle.substring(1));
+    const debutSemaine = new Date(dateDebut);
+    debutSemaine.setDate(dateDebut.getDate() + ((numSemaine - 1) * 7));
+    
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(debutSemaine);
+        date.setDate(debutSemaine.getDate() + i);
+        const dateStr = date.toISOString().split('T')[0];
+        localStorage.removeItem(`repas-${dateStr}`);
+    }
+    
+    // Supprimer grignotages de la semaine
+    grignotages = grignotages.filter(g => {
+        const gDate = new Date(g.date);
+        return gDate < debutSemaine || gDate >= new Date(debutSemaine.getTime() + 7 * 24 * 60 * 60 * 1000);
+    });
+    localStorage.setItem('grignotages', JSON.stringify(grignotages));
+    
+    // Supprimer pesée
+    pesees = pesees.filter(p => p.semaine !== semaineActuelle);
+    localStorage.setItem('pesees-hebdo', JSON.stringify(pesees));
+    
+    afficherMenu();
+    loadGrignotages();
+    calculerProgression();
+    afficherCarteSemaine();
+    afficherGraphiquePoids();
+    afficherHistoriquePesees();
+    updateTimelineVisuel();
+    
+    alert('✅ Semaine réinitialisée');
+}
+
+function resetTout() {
+    if (!confirm('🗑️ ATTENTION : Effacer TOUTES les données ?\n\nCeci supprimera :\n- TOUS les repas validés\n- TOUTES les pesées\n- TOUS les grignotages\n- Toutes les notes\n\nCette action est DÉFINITIVE et IRRÉVERSIBLE !\n\nÊtes-vous SÛR ?')) return;
+    
+    if (!confirm('⚠️ DERNIÈRE CONFIRMATION\n\nVous allez perdre 100% de vos données.\n\nAvez-vous fait un backup ?\n\nContinuer ?')) return;
+    
+    // Supprimer toutes les clés localStorage liées à l'app
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('repas-') || key === 'grignotages' || key === 'pesees-hebdo' || key === 'jourType' || key === 'derniere-notif-pesee') {
+            keysToRemove.push(key);
+        }
+    }
+    
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+    
+    // Réinitialiser variables
+    grignotages = [];
+    pesees = [];
+    semaineActuelle = 'S1';
+    jourType = 'training';
+    
+    // Recharger l'app
+    location.reload();
+}
+
+function telechargerBackup() {
+    // Collecter toutes les données
+    const backup = {
+        version: '3.0',
+        dateExport: new Date().toISOString(),
+        dateDebut: PLAN_HYBRIDE.dateDebut,
+        poidsInitial: PLAN_HYBRIDE.poidsInitial,
+        tailleInitiale: PLAN_HYBRIDE.tailleInitiale,
+        semaineActuelle: semaineActuelle,
+        jourType: jourType,
+        repasValidations: {},
+        grignotages: grignotages,
+        pesees: pesees
+    };
+    
+    // Récupérer tous les repas validés
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('repas-')) {
+            const date = key.replace('repas-', '');
+            backup.repasValidations[date] = JSON.parse(localStorage.getItem(key));
+        }
+    }
+    
+    // Calculer stats
+    const nbJours = Object.keys(backup.repasValidations).length;
+    const nbPesees = backup.pesees.length;
+    const nbGrignotages = backup.grignotages.length;
+    
+    backup.stats = {
+        nbJours,
+        nbPesees,
+        nbGrignotages
+    };
+    
+    // Créer le fichier JSON
+    const jsonString = JSON.stringify(backup, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    // Télécharger
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `backup-plan-hybride-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    // Sauvegarder date dernier backup
+    localStorage.setItem('last-backup', new Date().toISOString());
+    updateLastBackupDate();
+    
+    alert(`✅ Backup téléchargé !\n\n📊 Contenu :\n- ${nbJours} jours de données\n- ${nbPesees} pesées\n- ${nbGrignotages} grignotages\n\n💾 Sauvegarde ce fichier en lieu sûr !`);
+}
+
+function restaurerBackup(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    if (!confirm('📥 Restaurer ce backup ?\n\n⚠️ Cela va REMPLACER toutes tes données actuelles !\n\nFais un backup de tes données actuelles avant de continuer.\n\nContinuer ?')) {
+        event.target.value = '';
+        return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const backup = JSON.parse(e.target.result);
+            
+            // Vérifier version
+            if (!backup.version || !backup.dateExport) {
+                throw new Error('Fichier invalide');
+            }
+            
+            // Restaurer les données
+            PLAN_HYBRIDE.dateDebut = backup.dateDebut;
+            PLAN_HYBRIDE.poidsInitial = backup.poidsInitial;
+            PLAN_HYBRIDE.tailleInitiale = backup.tailleInitiale;
+            
+            // Restaurer repas validations
+            Object.entries(backup.repasValidations).forEach(([date, validations]) => {
+                localStorage.setItem(`repas-${date}`, JSON.stringify(validations));
+            });
+            
+            // Restaurer grignotages
+            grignotages = backup.grignotages || [];
+            localStorage.setItem('grignotages', JSON.stringify(grignotages));
+            
+            // Restaurer pesées
+            pesees = backup.pesees || [];
+            localStorage.setItem('pesees-hebdo', JSON.stringify(pesees));
+            
+            // Restaurer paramètres
+            if (backup.jourType) {
+                jourType = backup.jourType;
+                localStorage.setItem('jourType', jourType);
+            }
+            
+            // Recharger l'app
+            alert(`✅ Backup restauré !\n\n📊 Données importées :\n- ${backup.stats?.nbJours || 0} jours\n- ${backup.stats?.nbPesees || 0} pesées\n- ${backup.stats?.nbGrignotages || 0} grignotages\n\nL'application va se recharger.`);
+            
+            location.reload();
+            
+        } catch (error) {
+            alert('❌ Erreur lors de la restauration !\n\nLe fichier est peut-être corrompu ou invalide.\n\nErreur : ' + error.message);
+        }
+    };
+    
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+function updateLastBackupDate() {
+    const lastBackup = localStorage.getItem('last-backup');
+    if (lastBackup) {
+        const date = new Date(lastBackup);
+        const formatted = date.toLocaleDateString('fr-FR') + ' à ' + date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'});
+        document.getElementById('last-backup-date').textContent = formatted;
+    }
+}
+
+// Appeler au chargement
+window.addEventListener('load', updateLastBackupDate);
 
 function showAutoSave() {
     const indicator = document.getElementById('auto-save-indicator');
