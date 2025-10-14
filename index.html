@@ -35,6 +35,8 @@
         .tab-content {display: none;}
         .tab-content.active {display: block; animation: fadeIn 0.4s;}
         @keyframes fadeIn {from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);}}
+        @keyframes slideIn {from {opacity: 0; transform: translateX(100px);} to {opacity: 1; transform: translateX(0);}}
+        @keyframes slideOut {from {opacity: 1; transform: translateX(0);} to {opacity: 0; transform: translateX(100px);}}
         .nutrition-section {background: #f0f4ff; border-radius: 15px; padding: 15px; margin-bottom: 15px; border-left: 5px solid #667eea;}
         .nutrition-section h3 {color: #667eea; margin-bottom: 12px; font-size: 18px;}
         .meal {background: white; padding: 12px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
@@ -468,10 +470,14 @@ let semaineActuelle = 'S1';
 let jourType = 'training';
 let grignotages = [];
 let pesees = JSON.parse(localStorage.getItem('pesees-hebdo') || '[]');
+let derniereDateChargee = new Date().toISOString().split('T')[0];
+let derniereSemaineChargee = 'S1';
 
 window.onload = function() {
     updateSeasonDisplay();
     semaineActuelle = getSemaineActuelle();
+    derniereSemaineChargee = semaineActuelle;
+    derniereDateChargee = new Date().toISOString().split('T')[0];
     loadDayType();
     afficherMenu();
     loadGrignotages();
@@ -482,7 +488,103 @@ window.onload = function() {
     afficherHistoriquePesees();
     afficherAlertes();
     updateTimelineVisuel();
+    
+    // Vérification automatique toutes les 60 secondes
+    setInterval(verifierChangementDate, 60000);
+    
+    // Notification si changement de semaine détecté
+    verifierEtNotifierChangementSemaine();
 };
+
+function verifierChangementDate() {
+    const dateActuelle = new Date().toISOString().split('T')[0];
+    const semaineActuelle_check = getSemaineActuelle();
+    
+    // Si la date a changé
+    if (dateActuelle !== derniereDateChargee) {
+        console.log('🔄 Changement de date détecté:', derniereDateChargee, '→', dateActuelle);
+        derniereDateChargee = dateActuelle;
+        
+        // Recharger les données du nouveau jour
+        afficherMenu();
+        loadGrignotages();
+        calculerProgression();
+        
+        // Afficher notification
+        const notification = document.createElement('div');
+        notification.style.cssText = 'position: fixed; top: 80px; right: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 20px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 3000; font-weight: bold; animation: slideIn 0.5s;';
+        notification.innerHTML = `📅 Nouveau jour détecté !<br><small style="opacity: 0.9; font-size: 12px;">Les données ont été mises à jour</small>`;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.5s';
+            setTimeout(() => notification.remove(), 500);
+        }, 3000);
+    }
+    
+    // Si la semaine a changé
+    if (semaineActuelle_check !== derniereSemaineChargee) {
+        console.log('🔄 Changement de semaine détecté:', derniereSemaineChargee, '→', semaineActuelle_check);
+        derniereSemaineChargee = semaineActuelle_check;
+        semaineActuelle = semaineActuelle_check;
+        
+        // Recharger toutes les vues
+        afficherMenu();
+        afficherCarteSemaine();
+        updateTimelineVisuel();
+        calculerProgression();
+        
+        // Notification changement semaine
+        const notification = document.createElement('div');
+        notification.style.cssText = 'position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%); color: white; padding: 20px 30px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 3000; font-weight: bold; text-align: center; animation: slideIn 0.5s; max-width: 90%;';
+        notification.innerHTML = `🎉 NOUVELLE SEMAINE !<br><span style="font-size: 24px; margin: 10px 0; display: block;">${semaineActuelle_check}</span><small style="opacity: 0.9; font-size: 12px;">Pense à faire ta pesée ce vendredi/samedi</small>`;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.5s';
+            setTimeout(() => notification.remove(), 500);
+        }, 5000);
+    }
+}
+
+function verifierEtNotifierChangementSemaine() {
+    const peseesSemaine = pesees.filter(p => p.semaine === semaineActuelle);
+    const aujourdhui = new Date();
+    const jourSemaine = aujourdhui.getDay(); // 0=dimanche, 5=vendredi, 6=samedi
+    
+    // Si vendredi ou samedi ET pas encore de pesée cette semaine
+    if ((jourSemaine === 5 || jourSemaine === 6) && peseesSemaine.length === 0) {
+        const lastNotif = localStorage.getItem('derniere-notif-pesee');
+        const today = new Date().toISOString().split('T')[0];
+        
+        // Ne notifier qu'une fois par jour
+        if (lastNotif !== today) {
+            setTimeout(() => {
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 4000; max-width: 400px; text-align: center; animation: modalPop 0.5s;';
+                notification.innerHTML = `
+                    <div style="font-size: 48px; margin-bottom: 15px;">⚖️</div>
+                    <h3 style="color: #667eea; margin-bottom: 10px;">Rappel Pesée Hebdomadaire</h3>
+                    <p style="color: #666; margin-bottom: 20px;">C'est le moment idéal pour te peser !<br><small>Vendredi/Samedi matin, à jeun, après toilettes</small></p>
+                    <button onclick="this.parentElement.remove(); ouvrirFormulairePesee();" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 12px 24px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-right: 10px;">⚖️ Faire ma pesée</button>
+                    <button onclick="this.parentElement.remove();" style="background: #f0f0f0; color: #666; border: none; padding: 12px 24px; border-radius: 10px; font-weight: bold; cursor: pointer;">Plus tard</button>
+                `;
+                document.body.appendChild(notification);
+                
+                // Créer overlay
+                const overlay = document.createElement('div');
+                overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3999;';
+                overlay.onclick = () => {
+                    notification.remove();
+                    overlay.remove();
+                };
+                document.body.appendChild(overlay);
+                
+                localStorage.setItem('derniere-notif-pesee', today);
+            }, 2000);
+        }
+    }
+}
 
 function getSemaineActuelle() {
     const dateDebut = new Date(PLAN_HYBRIDE.dateDebut);
