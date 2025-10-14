@@ -1,928 +1,112 @@
-<!DOCTYPE html>
+<invoke name="artifacts">
+<parameter name="type">text/html</parameter>
+<parameter name="id">nutri-track-complete</parameter>
+<parameter name="title">Nutri-Track Complet - Hocine</parameter>
+<parameter name="content"><!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutri-Track Lite - Hocine</title>
+    <title>Nutri-Track - Hocine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        }
-        .fade-in {
-            animation: fadeIn 0.3s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .modal-overlay {
-            backdrop-filter: blur(4px);
-        }
-        .checked-row {
-            opacity: 0.6;
-            background: #f0fdf4;
-        }
-        .progress-bar {
-            transition: width 0.5s ease;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .checked-row { opacity: 0.6; background: #f0fdf4; }
+        .progress-bar { transition: width 0.5s ease; }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-
     <div class="max-w-4xl mx-auto p-4 pb-24">
-        
         <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white shadow-lg mb-6">
             <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="text-3xl font-bold" id="dateDisplay"></h1>
-                    <p class="text-blue-100 mt-1" id="jourType"></p>
-                </div>
-                <div class="text-right">
-                    <div class="text-4xl font-bold" id="heureDisplay"></div>
-                </div>
+                <div><h1 class="text-3xl font-bold" id="dateDisplay">Chargement...</h1><p class="text-blue-100 mt-1" id="jourType">🏋️ JOUR TRAINING</p></div>
+                <div class="text-right"><div class="text-4xl font-bold" id="heureDisplay">--:--</div></div>
             </div>
         </div>
-
         <div class="bg-white rounded-xl shadow-md p-4 mb-6">
             <label class="block text-sm font-semibold text-gray-700 mb-2">Type de journée :</label>
             <div class="flex gap-3">
-                <button onclick="changerTypeJour('training')" id="btnTraining" 
-                    class="flex-1 py-3 rounded-lg font-semibold transition">
-                    🏋️ TRAINING
-                </button>
-                <button onclick="changerTypeJour('repos')" id="btnRepos"
-                    class="flex-1 py-3 rounded-lg font-semibold transition">
-                    💤 REPOS
-                </button>
+                <button onclick="changerTypeJour('training')" id="btnTraining" class="flex-1 py-3 rounded-lg font-semibold transition bg-blue-600 text-white">🏋️ TRAINING</button>
+                <button onclick="changerTypeJour('repos')" id="btnRepos" class="flex-1 py-3 rounded-lg font-semibold transition bg-gray-200 text-gray-700">💤 REPOS</button>
             </div>
         </div>
-
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
             <h2 class="text-xl font-bold mb-4 text-gray-800">📊 Progression du jour</h2>
-            
             <div class="mb-4">
-                <div class="flex justify-between text-sm text-gray-600 mb-2">
-                    <span>Progression</span>
-                    <span class="font-bold" id="pourcentageProgress">0%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-4">
-                    <div id="progressBar" class="progress-bar bg-gradient-to-r from-green-400 to-green-600 h-4 rounded-full" style="width: 0%"></div>
-                </div>
+                <div class="flex justify-between text-sm text-gray-600 mb-2"><span>Progression</span><span class="font-bold" id="pourcentageProgress">0%</span></div>
+                <div class="w-full bg-gray-200 rounded-full h-4"><div id="progressBar" class="progress-bar bg-gradient-to-r from-green-400 to-green-600 h-4 rounded-full" style="width: 0%"></div></div>
             </div>
-
             <div class="grid grid-cols-2 gap-4">
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <div class="text-xs text-gray-600">Calories</div>
-                    <div class="text-2xl font-bold text-gray-900">
-                        <span id="caloriesActuel">0</span>
-                        <span class="text-sm font-normal text-gray-500">/<span id="caloriesTotal">2480</span></span>
-                    </div>
-                </div>
-
-                <div class="bg-blue-50 rounded-lg p-4">
-                    <div class="text-xs text-blue-700">Protéines</div>
-                    <div class="text-2xl font-bold text-blue-900">
-                        <span id="proteinesActuel">0</span>
-                        <span class="text-sm font-normal text-blue-600">/<span id="proteinesTotal">208</span>g</span>
-                    </div>
-                </div>
-
-                <div class="bg-amber-50 rounded-lg p-4">
-                    <div class="text-xs text-amber-700">Glucides</div>
-                    <div class="text-2xl font-bold text-amber-900">
-                        <span id="glucidesActuel">0</span>
-                        <span class="text-sm font-normal text-amber-600">/<span id="glucidesTotal">264</span>g</span>
-                    </div>
-                </div>
-
-                <div class="bg-green-50 rounded-lg p-4">
-                    <div class="text-xs text-green-700">Lipides</div>
-                    <div class="text-2xl font-bold text-green-900">
-                        <span id="lipidesActuel">0</span>
-                        <span class="text-sm font-normal text-green-600">/<span id="lipidesTotal">90</span>g</span>
-                    </div>
-                </div>
+                <div class="bg-gray-50 rounded-lg p-4"><div class="text-xs text-gray-600">Calories</div><div class="text-2xl font-bold text-gray-900"><span id="caloriesActuel">0</span><span class="text-sm font-normal text-gray-500">/<span id="caloriesTotal">2480</span></span></div></div>
+                <div class="bg-blue-50 rounded-lg p-4"><div class="text-xs text-blue-700">Protéines</div><div class="text-2xl font-bold text-blue-900"><span id="proteinesActuel">0</span><span class="text-sm font-normal text-blue-600">/<span id="proteinesTotal">208</span>g</span></div></div>
+                <div class="bg-amber-50 rounded-lg p-4"><div class="text-xs text-amber-700">Glucides</div><div class="text-2xl font-bold text-amber-900"><span id="glucidesActuel">0</span><span class="text-sm font-normal text-amber-600">/<span id="glucidesTotal">264</span>g</span></div></div>
+                <div class="bg-green-50 rounded-lg p-4"><div class="text-xs text-green-700">Lipides</div><div class="text-2xl font-bold text-green-900"><span id="lipidesActuel">0</span><span class="text-sm font-normal text-green-600">/<span id="lipidesTotal">90</span>g</span></div></div>
             </div>
         </div>
-
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
             <h2 class="text-xl font-bold mb-4 text-gray-800">🍽️ Repas du jour</h2>
-            <div id="listeRepas" class="space-y-3"></div>
+            <div id="listeRepas" class="space-y-3"><p class="text-gray-500">Chargement des repas...</p></div>
         </div>
-
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-gray-800">🍪 Grignotages</h2>
-                <button onclick="ouvrirModalGrignotage()" 
-                    class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg font-semibold transition">
-                    + Ajouter
-                </button>
+                <button onclick="ouvrirModalGrignotage()" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg font-semibold transition">+ Ajouter</button>
             </div>
-            <div id="listeGrignotages" class="space-y-2">
-                <p class="text-gray-500 text-sm" id="aucunGrignotage">Aucun grignotage aujourd'hui 👍</p>
-            </div>
-            <div class="mt-4 pt-4 border-t border-gray-200">
-                <div class="flex justify-between items-center">
-                    <span class="font-semibold text-gray-700">Total grignotages :</span>
-                    <span class="text-xl font-bold" id="totalGrignotages">+0 kcal</span>
-                </div>
-            </div>
+            <div id="listeGrignotages" class="space-y-2"><p class="text-gray-500 text-sm">Aucun grignotage aujourd'hui 👍</p></div>
+            <div class="mt-4 pt-4 border-t border-gray-200"><div class="flex justify-between items-center"><span class="font-semibold text-gray-700">Total grignotages :</span><span class="text-xl font-bold" id="totalGrignotages">+0 kcal</span></div></div>
         </div>
-
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
             <div class="grid grid-cols-2 gap-4">
-                <button onclick="voirSemaine()" 
-                    class="bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition">
-                    📊 Voir semaine
-                </button>
-                <button onclick="exporterDonnees()" 
-                    class="bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition">
-                    📤 Exporter
-                </button>
-                <button onclick="resetJour()" 
-                    class="bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-semibold transition col-span-2">
-                    🔄 Reset aujourd'hui
-                </button>
+                <button onclick="voirSemaine()" class="bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition">📊 Voir semaine</button>
+                <button onclick="exporterDonnees()" class="bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition">📤 Exporter</button>
+                <button onclick="resetJour()" class="bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-semibold transition col-span-2">🔄 Reset aujourd'hui</button>
             </div>
         </div>
-
     </div>
-
-    <div id="modalRepas" class="hidden fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center p-4">
+    <div id="modalRepas" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl fade-in">
-            <div class="sticky top-0 bg-white border-b border-gray-200 p-6">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-2xl font-bold text-gray-900" id="modalTitre"></h3>
-                    <button onclick="fermerModal('modalRepas')" class="text-gray-500 hover:text-gray-700 text-3xl">×</button>
-                </div>
-            </div>
-            <div class="p-6">
-                <div id="modalContenu"></div>
-            </div>
+            <div class="sticky top-0 bg-white border-b border-gray-200 p-6"><div class="flex justify-between items-center"><h3 class="text-2xl font-bold text-gray-900" id="modalTitre">Repas</h3><button onclick="fermerModal('modalRepas')" class="text-gray-500 hover:text-gray-700 text-3xl">×</button></div></div>
+            <div class="p-6"><div id="modalContenu">Chargement...</div></div>
         </div>
     </div>
-
-    <div id="modalGrignotage" class="hidden fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center p-4">
+    <div id="modalGrignotage" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl fade-in">
-            <div class="bg-gradient-to-r from-amber-500 to-amber-600 p-6 rounded-t-2xl">
-                <h3 class="text-2xl font-bold text-white">🍪 Ajouter grignotage</h3>
-            </div>
+            <div class="bg-gradient-to-r from-amber-500 to-amber-600 p-6 rounded-t-2xl"><h3 class="text-2xl font-bold text-white">🍪 Ajouter grignotage</h3></div>
             <div class="p-6">
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Aliment</label>
-                        <input type="text" id="grignotageAliment" 
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                            placeholder="Ex: Chocolat noir">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Quantité (g)</label>
-                        <input type="number" id="grignotageQuantite" 
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                            placeholder="30">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Calories</label>
-                        <input type="number" id="grignotageCalories" 
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                            placeholder="165">
-                    </div>
+                    <div><label class="block text-sm font-semibold text-gray-700 mb-2">Aliment</label><input type="text" id="grignotageAliment" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Ex: Chocolat noir"></div>
+                    <div><label class="block text-sm font-semibold text-gray-700 mb-2">Quantité (g)</label><input type="number" id="grignotageQuantite" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="30"></div>
+                    <div><label class="block text-sm font-semibold text-gray-700 mb-2">Calories</label><input type="number" id="grignotageCalories" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="165"></div>
                     <div class="pt-4 flex gap-3">
-                        <button onclick="fermerModal('modalGrignotage')" 
-                            class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg font-semibold transition">
-                            Annuler
-                        </button>
-                        <button onclick="ajouterGrignotage()" 
-                            class="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-semibold transition">
-                            Ajouter ✓
-                        </button>
+                        <button onclick="fermerModal('modalGrignotage')" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg font-semibold transition">Annuler</button>
+                        <button onclick="ajouterGrignotage()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-semibold transition">Ajouter ✓</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div id="modalSemaine" class="hidden fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center p-4">
+    <div id="modalSemaine" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl fade-in">
-            <div class="sticky top-0 bg-white border-b border-gray-200 p-6">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-2xl font-bold text-gray-900">📊 Ma semaine</h3>
-                    <button onclick="fermerModal('modalSemaine')" class="text-gray-500 hover:text-gray-700 text-3xl">×</button>
-                </div>
-            </div>
-            <div class="p-6" id="contenuSemaine"></div>
+            <div class="sticky top-0 bg-white border-b border-gray-200 p-6"><div class="flex justify-between items-center"><h3 class="text-2xl font-bold text-gray-900">📊 Ma semaine</h3><button onclick="fermerModal('modalSemaine')" class="text-gray-500 hover:text-gray-700 text-3xl">×</button></div></div>
+            <div class="p-6" id="contenuSemaine">Chargement...</div>
         </div>
     </div>
-
     <script>
-        const MENUS = {
-            training: {
-                calories: 2480,
-                macros: { P: 208, G: 264, L: 90 },
-                repas: [
-                    {
-                        id: 'petit_dej',
-                        nom: 'Petit-déjeuner',
-                        heure: '08:00',
-                        calories: 520,
-                        macros: { P: 52, G: 48, L: 22 },
-                        aliments: [
-                            'Flocons avoine : 40g',
-                            'Whey isolate : 30g',
-                            'Œufs : 2 entiers + 2 blancs',
-                            'Lait noisette : 200ml',
-                            'Kiwi : 1 moyen',
-                            'Huile lin : 10ml'
-                        ],
-                        supplements: ['D3 5000 UI', 'Oméga-3 4g', 'Magnésium 300mg', 'Zinc 15mg', 'Berbérine 500mg']
-                    },
-                    {
-                        id: 'collation_matin',
-                        nom: 'Collation',
-                        heure: '10:30',
-                        calories: 180,
-                        macros: { P: 6, G: 24, L: 10 },
-                        aliments: [
-                            'Amandes : 25g',
-                            'Galettes riz : 2',
-                            'Thé vert matcha'
-                        ]
-                    },
-                    {
-                        id: 'pre_training',
-                        nom: 'Pré-Training',
-                        heure: '12:15',
-                        calories: 280,
-                        macros: { P: 22, G: 50, L: 5 },
-                        aliments: [
-                            'Riz basmati blanc cuit : 120g',
-                            'Blanc poulet : 60g',
-                            'Huile olive : 5ml',
-                            'Sel + cannelle'
-                        ],
-                        note: '⚠️ CRITIQUE : 75 min avant training'
-                    },
-                    {
-                        id: 'intra_training',
-                        nom: 'Intra-Training',
-                        heure: '13:30',
-                        calories: 60,
-                        macros: { P: 0, G: 15, L: 0 },
-                        aliments: [
-                            'Dextrose : 15g',
-                            'Sel : 1/2 c. café',
-                            'Eau : 750ml'
-                        ]
-                    },
-                    {
-                        id: 'post_training',
-                        nom: 'Post-Training',
-                        heure: '14:50',
-                        calories: 320,
-                        macros: { P: 34, G: 60, L: 1 },
-                        aliments: [
-                            'Whey isolate : 40g',
-                            'Banane très mûre : 1 grande',
-                            'Miel : 20g',
-                            'Glutamine : 5g'
-                        ],
-                        note: '⚠️ IMMÉDIAT vestiaire avant de partir'
-                    },
-                    {
-                        id: 'collation_aprem',
-                        nom: 'Collation',
-                        heure: '16:30',
-                        calories: 240,
-                        macros: { P: 20, G: 14, L: 14 },
-                        aliments: [
-                            'Skyr nature : 150g',
-                            'Beurre amande : 20g',
-                            'Chocolat noir 90% : 10g'
-                        ]
-                    },
-                    {
-                        id: 'diner',
-                        nom: 'Dîner',
-                        heure: '19:00',
-                        calories: 560,
-                        macros: { P: 48, G: 50, L: 26 },
-                        aliments: [
-                            'Saumon/Poulet/Maquereau : 180-200g',
-                            'Patate douce : 150g OU Courge : 200g',
-                            'Brocoli + carottes vapeur : 200g',
-                            'Huile olive : 15ml',
-                            'Avocat : 1/2 (optionnel)'
-                        ]
-                    },
-                    {
-                        id: 'marche',
-                        nom: 'Marche digestive',
-                        heure: '19:45',
-                        type: 'activite',
-                        duree: '20 min',
-                        note: '⚠️ OBLIGATOIRE : Réduit gaz 50%'
-                    },
-                    {
-                        id: 'avant_coucher',
-                        nom: 'Avant coucher',
-                        heure: '22:30',
-                        calories: 280,
-                        macros: { P: 26, G: 18, L: 12 },
-                        aliments: [
-                            'Skyr : 200g',
-                            'Beurre amande : 15g',
-                            'Miel thym : 5g'
-                        ],
-                        supplements: ['Magnésium 400mg', 'Ashwagandha 600mg', 'Glycine 3g', 'Vitamine C 1000mg', 'Berbérine 500mg', 'Probiotiques 50B UFC']
-                    }
-                ]
-            },
-            repos: {
-                calories: 2200,
-                macros: { P: 204, G: 168, L: 92 },
-                repas: [
-                    {
-                        id: 'petit_dej',
-                        nom: 'Petit-déjeuner',
-                        heure: '08:00',
-                        calories: 520,
-                        macros: { P: 52, G: 48, L: 22 },
-                        aliments: [
-                            'Flocons avoine : 40g',
-                            'Whey isolate : 30g',
-                            'Œufs : 2 entiers + 2 blancs',
-                            'Lait noisette : 200ml',
-                            'Kiwi : 1 moyen',
-                            'Huile lin : 10ml'
-                        ],
-                        supplements: ['D3 5000 UI', 'Oméga-3 4g', 'Magnésium 300mg', 'Zinc 15mg', 'Berbérine 500mg']
-                    },
-                    {
-                        id: 'collation_matin',
-                        nom: 'Collation',
-                        heure: '11:00',
-                        calories: 200,
-                        macros: { P: 14, G: 22, L: 11 },
-                        aliments: [
-                            'Amandes : 30g',
-                            'Galettes riz : 2',
-                            'Fromage blanc 0% : 100g',
-                            'Thé vert'
-                        ]
-                    },
-                    {
-                        id: 'dejeuner',
-                        nom: 'Déjeuner',
-                        heure: '13:00',
-                        calories: 580,
-                        macros: { P: 52, G: 58, L: 24 },
-                        aliments: [
-                            'Poulet/Dinde : 200g',
-                            'Riz basmati blanc : 100g cru',
-                            'Légumes vapeur : 250g',
-                            'Huile olive : 20ml',
-                            'Avocat : 1/2'
-                        ]
-                    },
-                    {
-                        id: 'collation_aprem',
-                        nom: 'Collation',
-                        heure: '16:00',
-                        calories: 220,
-                        macros: { P: 22, G: 6, L: 16 },
-                        aliments: [
-                            'Œufs durs : 3',
-                            'Noix : 15g',
-                            'Tomates cerises : 150g'
-                        ]
-                    },
-                    {
-                        id: 'diner',
-                        nom: 'Dîner',
-                        heure: '19:00',
-                        calories: 400,
-                        macros: { P: 42, G: 32, L: 16 },
-                        aliments: [
-                            'Poisson blanc : 180g',
-                            'Légumes rôtis : 300g',
-                            'Quinoa : 50g cuit',
-                            'Huile olive : 10ml'
-                        ]
-                    },
-                    {
-                        id: 'marche',
-                        nom: 'Marche digestive',
-                        heure: '19:45',
-                        type: 'activite',
-                        duree: '20 min'
-                    },
-                    {
-                        id: 'avant_coucher',
-                        nom: 'Avant coucher',
-                        heure: '22:30',
-                        calories: 280,
-                        macros: { P: 26, G: 18, L: 12 },
-                        aliments: [
-                            'Skyr : 200g',
-                            'Beurre amande : 15g',
-                            'Miel thym : 5g'
-                        ],
-                        supplements: ['Magnésium 400mg', 'Ashwagandha 600mg', 'Glycine 3g', 'Vitamine C 1000mg', 'Berbérine 500mg', 'Probiotiques 50B UFC']
-                    }
-                ]
-            }
-        };
+const MENUS={training:{calories:2480,macros:{P:208,G:264,L:90},repas:[{id:'petit_dej',nom:'Petit-déjeuner',heure:'08:00',calories:520,macros:{P:52,G:48,L:22},aliments:['Flocons avoine : 40g','Whey isolate : 30g','Œufs : 2 entiers + 2 blancs','Lait noisette : 200ml','Kiwi : 1 moyen','Huile lin : 10ml'],supplements:['D3 5000 UI','Oméga-3 4g','Magnésium 300mg','Zinc 15mg','Berbérine 500mg']},{id:'collation_matin',nom:'Collation',heure:'10:30',calories:180,macros:{P:6,G:24,L:10},aliments:['Amandes : 25g','Galettes riz : 2','Thé vert matcha']},{id:'pre_training',nom:'Pré-Training',heure:'12:15',calories:280,macros:{P:22,G:50,L:5},aliments:['Riz basmati blanc cuit : 120g','Blanc poulet : 60g','Huile olive : 5ml','Sel + cannelle'],note:'⚠️ CRITIQUE : 75 min avant training'},{id:'intra_training',nom:'Intra-Training',heure:'13:30',calories:60,macros:{P:0,G:15,L:0},aliments:['Dextrose : 15g','Sel : 1/2 c. café','Eau : 750ml']},{id:'post_training',nom:'Post-Training',heure:'14:50',calories:320,macros:{P:34,G:60,L:1},aliments:['Whey isolate : 40g','Banane très mûre : 1 grande','Miel : 20g','Glutamine : 5g'],note:'⚠️ IMMÉDIAT vestiaire'},{id:'collation_aprem',nom:'Collation',heure:'16:30',calories:240,macros:{P:20,G:14,L:14},aliments:['Skyr nature : 150g','Beurre amande : 20g','Chocolat noir 90% : 10g']},{id:'diner',nom:'Dîner',heure:'19:00',calories:560,macros:{P:48,G:50,L:26},aliments:['Saumon/Poulet/Maquereau : 180-200g','Patate douce : 150g OU Courge : 200g','Brocoli + carottes vapeur : 200g','Huile olive : 15ml','Avocat : 1/2']},{id:'marche',nom:'Marche digestive',heure:'19:45',type:'activite',duree:'20 min',note:'⚠️ OBLIGATOIRE : Réduit gaz 50%'},{id:'avant_coucher',nom:'Avant coucher',heure:'22:30',calories:280,macros:{P:26,G:18,L:12},aliments:['Skyr : 200g','Beurre amande : 15g','Miel thym : 5g'],supplements:['Magnésium 400mg','Ashwagandha 600mg','Glycine 3g','Vitamine C 1000mg','Berbérine 500mg','Probiotiques 50B UFC']}]},repos:{calories:2200,macros:{P:204,G:168,L:92},repas:[{id:'petit_dej',nom:'Petit-déjeuner',heure:'08:00',calories:520,macros:{P:52,G:48,L:22},aliments:['Flocons avoine : 40g','Whey isolate : 30g','Œufs : 2 entiers + 2 blancs','Lait noisette : 200ml','Kiwi : 1 moyen','Huile lin : 10ml'],supplements:['D3 5000 UI','Oméga-3 4g','Magnésium 300mg','Zinc 15mg','Berbérine 500mg']},{id:'collation_matin',nom:'Collation',heure:'11:00',calories:200,macros:{P:14,G:22,L:11},aliments:['Amandes : 30g','Galettes riz : 2','Fromage blanc 0% : 100g','Thé vert']},{id:'dejeuner',nom:'Déjeuner',heure:'13:00',calories:580,macros:{P:52,G:58,L:24},aliments:['Poulet/Dinde : 200g','Riz basmati blanc : 100g cru','Légumes vapeur : 250g','Huile olive : 20ml','Avocat : 1/2']},{id:'collation_aprem',nom:'Collation',heure:'16:00',calories:220,macros:{P:22,G:6,L:16},aliments:['Œufs durs : 3','Noix : 15g','Tomates cerises : 150g']},{id:'diner',nom:'Dîner',heure:'19:00',calories:400,macros:{P:42,G:32,L:16},aliments:['Poisson blanc : 180g','Légumes rôtis : 300g','Quinoa : 50g cuit','Huile olive : 10ml']},{id:'marche',nom:'Marche digestive',heure:'19:45',type:'activite',duree:'20 min'},{id:'avant_coucher',nom:'Avant coucher',heure:'22:30',calories:280,macros:{P:26,G:18,L:12},aliments:['Skyr : 200g','Beurre amande : 15g','Miel thym : 5g'],supplements:['Magnésium 400mg','Ashwagandha 600mg','Glycine 3g','Vitamine C 1000mg','Berbérine 500mg','Probiotiques 50B UFC']}]}};let typeJour='training',repasValides=[],grignotages=[];function init(){chargerDonnees();afficherDateTime();setInterval(afficherDateTime,1e3);changerTypeJour(typeJour);afficherRepas();afficherGrignotages();calculerProgression()}function afficherDateTime(){const e=new Date,t={weekday:"long",day:"numeric",month:"long"};document.getElementById("dateDisplay").textContent=e.toLocaleDateString("fr-FR",t),document.getElementById("heureDisplay").textContent=e.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}function changerTypeJour(e){typeJour=e,localStorage.setItem("typeJour",e);const t=document.getElementById("btnTraining"),a=document.getElementById("btnRepos");"training"===e?(t.className="flex-1 py-3 rounded-lg font-semibold transition bg-blue-600 text-white",a.className="flex-1 py-3 rounded-lg font-semibold transition bg-gray-200 text-gray-700",document.getElementById("jourType").textContent="🏋️ JOUR TRAINING - 2480 KCAL"):(t.className="flex-1 py-3 rounded-lg font-semibold transition bg-gray-200 text-gray-700",a.className="flex-1 py-3 rounded-lg font-semibold transition bg-purple-600 text-white",document.getElementById("jourType").textContent="💤 JOUR REPOS - 2200 KCAL");const n=MENUS[e];document.getElementById("caloriesTotal").textContent=n.calories,document.getElementById("proteinesTotal").textContent=n.macros.P,document.getElementById("glucidesTotal").textContent=n.macros.G,document.getElementById("lipidesTotal").textContent=n.macros.L,afficherRepas(),calculerProgression()}function afficherRepas(){const e=MENUS[typeJour].repas.map(e=>{const t=repasValides.includes(e.id)?"checked-row":"";return"activite"===e.type?`<div class="${t} border border-gray-200 rounded-lg p-4 transition"><div class="flex items-center justify-between"><div class="flex items-center gap-3"><input type="checkbox" ${repasValides.includes(e.id)?"checked":""} onchange="toggleRepas('${e.id}')" class="w-5 h-5 text-blue-600 rounded focus:ring-2"><div><div class="font-semibold text-gray-900">${e.heure} - ${e.nom}</div><div class="text-sm text-gray-600">${e.duree}</div></div></div></div>${e.note?`<div class="mt-2 text-sm text-amber-700 bg-amber-50 p-2 rounded">${e.note}</div>`:""}</div>`:`<div class="${t} border border-gray-200 rounded-lg p-4 transition hover:shadow-md cursor-pointer" onclick="afficherDetailRepas('${e.id}')"><div class="flex items-center justify-between"><div class="flex items-center gap-3"><input type="checkbox" ${repasValides.includes(e.id)?"checked":""} onchange="toggleRepas('${e.id}')" onclick="event.stopPropagation()" class="w-5 h-5 text-blue-600 rounded focus:ring-2"><div><div class="font-semibold text-gray-900">${e.heure} - ${e.nom}</div><div class="text-sm text-gray-600">${e.calories} kcal • P${e.macros.P} G${e.macros.G} L${e.macros.L}</div></div></div><div class="text-blue-600 font-bold">→</div></div>${e.note?`<div class="mt-2 text-sm text-amber-700 bg-amber-50 p-2 rounded">${e.note}</div>`:""}</div>`}).join("");document.getElementById("listeRepas").innerHTML=e}function toggleRepas(e){const t=repasValides.indexOf(e);t>-1?repasValides.splice(t,1):repasValides.push(e),sauvegarderDonnees(),afficherRepas(),calculerProgression()}function afficherDetailRepas(e){const t=MENUS[typeJour].repas.find(t=>t.id===e);if(!t||"activite"===t.type)return;let a=`<div class="space-y-4"><div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg"><div class="text-sm text-blue-700 font-semibold">MACROS</div><div class="text-2xl font-bold text-blue-900">${t.calories} kcal</div><div class="text-sm text-blue-700 mt-1">P ${t.macros.P}g • G ${t.macros.G}g • L ${t.macros.L}g</div></div><div><h4 class="font-bold text-gray-900 mb-2">🥘 Aliments</h4><ul class="space-y-2">${t.aliments.map(e=>`<li class="flex items-start gap-2 text-gray-700"><span class="text-blue-600">•</span>${e}</li>`).join("")}</ul></div>`;t.supplements&&(a+=`<div><h4 class="font-bold text-gray-900 mb-2">💊 Suppléments</h4><ul class="space-y-2">${t.supplements.map(e=>`<li class="flex items-start gap-2 text-gray-700"><span class="text-purple-600">•</span>${e}</li>`).join("")}</ul></div>`),a+="</div>",document.getElementById("modalTitre").textContent=t.heure+" - "+t.nom,document.getElementById("modalContenu").innerHTML=a,document.getElementById("modalRepas").classList.remove("hidden")}function ouvrirModalGrignotage(){document.getElementById("grignotageAliment").value="",document.getElementById("grignotageQuantite").value="",document.getElementById("grignotageCalories").value="",document.getElementById("modalGrignotage").classList.remove("hidden")}function ajouterGrignotage(){const e=document.getElementById("grignotageAliment").value.trim(),t=document.getElementById("grignotageQuantite").value,a=document.getElementById("grignotageCalories").value;if(!e||!t||!a)return void alert("⚠️ Remplis tous les champs");const n={id:Date.now(),date:(new Date).toISOString().split("T")[0],heure:(new Date).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}),aliment:e,quantite:parseInt(t),calories:parseInt(a)};grignotages.push(n),sauvegarderDonnees(),afficherGrignotages(),calculerProgression(),fermerModal("modalGrignotage")}function afficherGrignotages(){const e=(new Date).toISOString().split("T")[0],t=grignotages.filter(t=>t.date===e);if(0===t.length)return document.getElementById("listeGrignotages").innerHTML='<p class="text-gray-500 text-sm">Aucun grignotage aujourd\'hui 👍</p>',void(document.getElementById("totalGrignotages").textContent="+0 kcal");const a=t.reduce((e,t)=>e+t.calories,0),n=t.map(e=>`<div class="flex items-center justify-between bg-amber-50 p-3 rounded-lg border border-amber-200"><div><div class="font-semibold text-gray-900">${e.heure} - ${e.aliment}</div><div class="text-sm text-gray-600">${e.quantite}g • ${e.calories} kcal</div></div><button onclick="supprimerGrignotage(${e.id})" class="text-red-500 hover:text-red-700 text-xl font-bold">×</button></div>`).join("");document.getElementById("listeGrignotages").innerHTML=n;const r=a>500?"text-red-600":a>300?"text-amber-600":"text-green-600";document.getElementById("totalGrignotages").innerHTML=`<span class="${r}">+${a} kcal</span>`}function supprimerGrignotage(e){confirm("Supprimer ce grignotage ?")&&(grignotages=grignotages.filter(t=>t.id!==e),sauvegarderDonnees(),afficherGrignotages(),calculerProgression())}function calculerProgression(){const e=MENUS[typeJour],t=(new Date).toISOString().split("T")[0];let a=0,n=0,r=0,s=0;repasValides.forEach(t=>{const i=e.repas.find(e=>e.id===t);i&&i.calories&&(a+=i.calories,n+=i.macros.P,r+=i.macros.G,s+=i.macros.L)});const i=grignotages.filter(e=>e.date===t).reduce((e,t)=>e+t.calories,0);a+=i,document.getElementById("caloriesActuel").textContent=a,document.getElementById("proteinesActuel").textContent=n,document.getElementById("glucidesActuel").textContent=r,document.getElementById("lipidesActuel").textContent=s;const o=Math.min(100,Math.round(a/e.calories*100));document.getElementById("progressBar").style.width=o+"%",document.getElementById("pourcentageProgress").textContent=o+"%";const l=document.getElementById("progressBar");l.className=o>=100?"progress-bar bg-gradient-to-r from-green-400 to-green-600 h-4 rounded-full":o>=80?"progress-bar bg-gradient-to-r from-blue-400 to-blue-600 h-4 rounded-full":"progress-bar bg-gradient-to-r from-amber-400 to-amber-600 h-4 rounded-full"}function voirSemaine(){const e=JSON.parse(localStorage.getItem("historiqueSemaine")||"{}"),t=Object.keys(e).sort().reverse().slice(0,7);if(0===t.length)return document.getElementById("contenuSemaine").innerHTML='<p class="text-gray-500 text-center py-8">Aucune donnée cette semaine</p>',void document.getElementById("modalSemaine").classList.remove("hidden");let a=0,n=0,r=0;const s=t.map(t=>{const s=e[t],i=new Date(t).toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"short"});a+=s.calories||0,n+=s.grignotages||0,s.adherence>=80&&r++;const o=s.adherence>=90?"text-green-600":s.adherence>=70?"text-blue-600":"text-amber-600";return`<div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition"><div class="flex justify-between items-center mb-2"><div class="font-bold text-gray-900">${i}</div><div class="text-sm ${"training"===s.type?"bg-blue-100 text-blue-800":"bg-purple-100 text-purple-800"} px-3 py-1 rounded-full font-semibold">${"training"===s.type?"🏋️ Training":"💤 Repos"}</div></div><div class="grid grid-cols-3 gap-3 text-sm"><div><div class="text-gray-600">Calories</div><div class="font-bold text-gray-900">${s.calories||0} kcal</div></div><div><div class="text-gray-600">Grignotages</div><div class="font-bold ${s.grignotages>0?"text-amber-600":"text-green-600"}">${s.grignotages>0?"+"+s.grignotages:"0"} kcal</div></div><div><div class="text-gray-600">Adhérence</div><div class="font-bold ${o}">${s.adherence||0}%</div></div></div></div>`}).join(""),i=Math.round(a/t.length),o=Math.round(n/t.length),l=Math.round(r/t.length*100),c=`<div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white mb-6"><h4 class="text-xl font-bold mb-4">📊 Récapitulatif semaine</h4><div class="grid grid-cols-3 gap-4 text-center"><div><div class="text-3xl font-bold">${i}</div><div class="text-sm text-blue-100">kcal moy/jour</div></div><div><div class="text-3xl font-bold">${o}</div><div class="text-sm text-blue-100">grignotages moy</div></div><div><div class="text-3xl font-bold">${l}%</div><div class="text-sm text-blue-100">adhérence</div></div></div></div><div class="space-y-3RéessayerHContinuer">{s}</div>`;document.getElementById("contenuSemaine").innerHTML=c,document.getElementById("modalSemaine").classList.remove("hidden")}function exporterDonnees(){const e=MENUS[typeJour],t=(new Date).toISOString().split("T")[0],a=grignotages.filter(e=>e.date===t);let n=0,r=0,s=0,i=0;const o=repasValides.map(t=>{const a=e.repas.find(e=>e.id===t);if(a&&a.calories)return n+=a.calories,r+=a.macros.P,s+=a.macros.G,i+=a.macros.L,`
+{a.heure} - a.nom({a.nom} (
+a.nom({a.calories} kcal)`;return null}).filter(Boolean),l=a.reduce((e,t)=>e+t.calories,0);n+=l;const c={date:t,typeJour:typeJour,objectifs:{calories:e.calories,proteines:e.macros.P,glucides:e.macros.G,lipides:e.macros.L},realisations:{calories:n,proteines:r,glucides:s,lipides:i},adherence:Math.round(repasValides.length/e.repas.filter(e=>e.calories).length*100),repas_valides:o,grignotages:a.map(e=>`{e.heure} - ${e.aliment} ${e.quantite}g (+
+{e.calories} kcal)`),total_grignotages:l,notes:`Adhérence: Math.round(repasValides.length/e.repas.filter(e=>e.calories).length∗100){Math.round(repasValides.length/e.repas.filter(e=>e.calories).length*100)}% | Surplus grignotages: ${l>500?"⚠️ ÉLEVÉ":l>300?"⚠️ MODÉRÉ":"✅ OK"}`},d=JSON.stringify(c,null,2),m="data:application/json;charset=utf-8,"+encodeURIComponent(d),u=document.createElement("a");u.setAttribute("href",m),u.setAttribute("download",`nutrition-
+Math.round(repasValides.length/e.repas.filter(e=>e.calories).length∗100){t}.json`),u.click();const g=`\n📊 RAPPORT NUTRITION - t\n{t}\n
+t\n{"training"===typeJour?"🏋️ JOUR TRAINING":"💤 JOUR REPOS"}\n\n🎯 OBJECTIFS\nCalories: {e.calories} kcal\nProtéines: ${e.macros.P}g | Glucides: ${e.macros.G}g | Lipides: ${e.macros.L}g\n\n✅ RÉALISATIONS\nCalories: ${n} kcal (
+{Math.round(n/e.calories*100)}%)\nProtéines: {r}g | Glucides: ${s}g | Lipides: ${i}g\n\n📋 REPAS VALIDÉS (
+{repasValides.length}/e.repas.filter(e=>e.calories).length)\n{e.repas.filter(e=>e.calories).length})\n
+e.repas.filter(e=>e.calories).length)\n{o.join("\n")}\n\n🍪 GRIGNOTAGES\n{a.length>0?a.map(e=>`
+{e.heure} - {e.aliment} ${e.quantite}g (+
+{e.calories} kcal)`).join("\n"):"Aucun grignotage 👍"}\nTotal: +${l} kcal\n\n📈 ADHÉRENCE: ${Math.round(repasValides.length/e.repas.filter(e=>e.calories).length*100)}%\n            `.trim();navigator.clipboard.writeText(g).then(()=>alert("✅ Rapport copié dans le presse-papier ET téléchargé en JSON !")).catch(()=>alert("✅ Rapport téléchargé en JSON !"))}function resetJour(){confirm("⚠️ Réinitialiser toutes les données d'aujourd'hui ?")&&(repasValides=[],(new Date).toISOString().split("T")[0],grignotages=grignotages.filter(e=>e.date!==(new Date).toISOString().split("T")[0]),sauvegarderDonnees(),afficherRepas(),afficherGrignotages(),calculerProgression(),alert("✅ Journée réinitialisée"))}function sauvegarderDonnees(){const e=(new Date).toISOString().split("T")[0];localStorage.setItem("repasValides",JSON.stringify(repasValides)),localStorage.setItem("grignotages",JSON.stringify(grignotages)),localStorage.setItem("typeJour",typeJour),localStorage.setItem("derniereSauvegarde",e),sauvegarderHistoriqueSemaine()}function chargerDonnees(){const e=(new Date).toISOString().split("T")[0],t=localStorage.getItem("derniereSauvegarde");t&&t!==e?(repasValides=[],localStorage.removeItem("repasValides")):repasValides=JSON.parse(localStorage.getItem("repasValides")||"[]"),grignotages=JSON.parse(localStorage.getItem("grignotages")||"[]"),typeJour=localStorage.getItem("typeJour")||"training"}function sauvegarderHistoriqueSemaine(){const e=(new Date).toISOString().split("T")[0],t=MENUS[typeJour],a=grignotages.filter(t=>t.date===e);let n=0;repasValides.forEach(e=>{const a=t.repas.find(t=>t.id===e);a&&a.calories&&(n+=a.calories)});const r=a.reduce((e,t)=>e+t.calories,0),s=JSON.parse(localStorage.getItem("historiqueSemaine")||"{}");s[e]={type:typeJour,calories:n,grignotages:r,adherence:Math.round(repasValides.length/t.repas.filter(e=>e.calories).length*100)},localStorage.setItem("historiqueSemaine",JSON.stringify(s))}function fermerModal(e){document.getElementById(e).classList.add("hidden")}document.addEventListener("keydown",e=>{"Escape"===e.key&&(fermerModal("modalRepas"),fermerModal("modalGrignotage"),fermerModal("modalSemaine"))}),window.onload=init;
+    </script>
 
-        let typeJour = 'training';
-        let repasValides = [];
-        let grignotages = [];
-
-        function init() {
-            chargerDonnees();
-            afficherDateTime();
-            setInterval(afficherDateTime, 1000);
-            changerTypeJour(typeJour);
-            afficherRepas();
-            afficherGrignotages();
-            calculerProgression();
-        }
-
-        function afficherDateTime() {
-            const maintenant = new Date();
-            const options = { weekday: 'long', day: 'numeric', month: 'long' };
-            document.getElementById('dateDisplay').textContent = maintenant.toLocaleDateString('fr-FR', options);
-            document.getElementById('heureDisplay').textContent = maintenant.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function changerTypeJour(type) {
-            typeJour = type;
-            localStorage.setItem('typeJour', type);
-            
-            const btnTraining = document.getElementById('btnTraining');
-            const btnRepos = document.getElementById('btnRepos');
-            
-            if (type === 'training') {
-                btnTraining.className = 'flex-1 py-3 rounded-lg font-semibold transition bg-blue-600 text-white';
-                btnRepos.className = 'flex-1 py-3 rounded-lg font-semibold transition bg-gray-200 text-gray-700';
-                document.getElementById('jourType').textContent = '🏋️ JOUR TRAINING - 2480 KCAL';
-            } else {
-                btnTraining.className = 'flex-1 py-3 rounded-lg font-semibold transition bg-gray-200 text-gray-700';
-                btnRepos.className = 'flex-1 py-3 rounded-lg font-semibold transition bg-purple-600 text-white';
-                document.getElementById('jourType').textContent = '💤 JOUR REPOS - 2200 KCAL';
-            }
-            
-            const menu = MENUS[type];
-            document.getElementById('caloriesTotal').textContent = menu.calories;
-            document.getElementById('proteinesTotal').textContent = menu.macros.P;
-            document.getElementById('glucidesTotal').textContent = menu.macros.G;
-            document.getElementById('lipidesTotal').textContent = menu.macros.L;
-            
-            afficherRepas();
-            calculerProgression();
-        }
-
-        function afficherRepas() {
-            const menu = MENUS[typeJour];
-            const html = menu.repas.map(repas => {
-                const isValidated = repasValides.includes(repas.id);
-                const rowClass = isValidated ? 'checked-row' : '';
-                
-                if (repas.type === 'activite') {
-                    return `
-                        <div class="${rowClass} border border-gray-200 rounded-lg p-4 transition">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <input type="checkbox" ${isValidated ? 'checked' : ''} 
-                                        onchange="toggleRepas('${repas.id}')"
-                                        class="w-5 h-5 text-blue-600 rounded focus:ring-2">
-                                    <div>
-                                        <div class="font-semibold text-gray-900">${repas.heure} - ${repas.nom}</div>
-                                        <div class="text-sm text-gray-600">${repas.duree}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            ${repas.note ? `<div class="mt-2 text-sm text-amber-700 bg-amber-50 p-2 rounded">${repas.note}</div>` : ''}
-                        </div>
-                    `;
-                }
-                
-                return `
-                    <div class="${rowClass} border border-gray-200 rounded-lg p-4 transition hover:shadow-md cursor-pointer"
-                         onclick="afficherDetailRepas('${repas.id}')">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" ${isValidated ? 'checked' : ''} 
-                                    onchange="toggleRepas('${repas.id}')" 
-                                    onclick="event.stopPropagation()"
-                                    class="w-5 h-5 text-blue-600 rounded focus:ring-2">
-                                <div>
-                                    <div class="font-semibold text-gray-900">${repas.heure} - ${repas.nom}</div>
-                                    <div class="text-sm text-gray-600">
-                                        ${repas.calories} kcal • P${repas.macros.P} G${repas.macros.G} L${repas.macros.L}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-blue-600 font-bold">→</div>
-                        </div>
-                        ${repas.note ? `<div class="mt-2 text-sm text-amber-700 bg-amber-50 p-2 rounded">${repas.note}</div>` : ''}
-                    </div>
-                `;
-            }).join('');
-            
-            document.getElementById('listeRepas').innerHTML = html;
-        }
-
-        function toggleRepas(repasId) {
-            const index = repasValides.indexOf(repasId);
-            if (index > -1) {
-                repasValides.splice(index, 1);
-            } else {
-                repasValides.push(repasId);
-            }
-            sauvegarderDonnees();
-            afficherRepas();
-            calculerProgression();
-        }
-
-        function afficherDetailRepas(repasId) {
-            const menu = MENUS[typeJour];
-            const repas = menu.repas.find(r => r.id === repasId);
-            
-            if (!repas || repas.type === 'activite') return;
-            
-            let html = `
-                <div class="space-y-4">
-                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
-                        <div class="text-sm text-blue-700 font-semibold">MACROS</div>
-                        <div class="text-2xl font-bold text-blue-900">
-                            ${repas.calories} kcal
-                        </div>
-                        <div class="text-sm text-blue-700 mt-1">
-                            P ${repas.macros.P}g • G ${repas.macros.G}g • L ${repas.macros.L}g
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-bold text-gray-900 mb-2">🥘 Aliments</h4>
-                        <ul class="space-y-2">
-                            ${repas.aliments.map(a => `<li class="flex items-start gap-2 text-gray-700"><span class="text-blue-600">•</span>${a}</li>`).join('')}
-                        </ul>
-                    </div>
-            `;
-            
-            if (repas.supplements) {
-                html += `
-                    <div>
-                        <h4 class="font-bold text-gray-900 mb-2">💊 Suppléments</h4>
-                        <ul class="space-y-2">
-                            ${repas.supplements.map(s => `<li class="flex items-start gap-2 text-gray-700"><span class="text-purple-600">•</span>${s}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            }
-            
-            html += '</div>';
-            
-            document.getElementById('modalTitre').textContent = repas.heure + ' - ' + repas.nom;
-            document.getElementById('modalContenu').innerHTML = html;
-            document.getElementById('modalRepas').classList.remove('hidden');
-        }
-
-        function ouvrirModalGrignotage() {
-            document.getElementById('grignotageAliment').value = '';
-            document.getElementById('grignotageQuantite').value = '';
-            document.getElementById('grignotageCalories').value = '';
-            document.getElementById('modalGrignotage').classList.remove('hidden');
-        }
-
-        function ajouterGrignotage() {
-            const aliment = document.getElementById('grignotageAliment').value.trim();
-            const quantite = document.getElementById('grignotageQuantite').value;
-            const calories = document.getElementById('grignotageCalories').value;
-            
-            if (!aliment || !quant
-                ité || !calories) {
-alert('⚠️ Remplis tous les champs');
-return;
-}
-     const grignotage = {
-            id: Date.now(),
-            date: new Date().toISOString().split('T')[0],
-            heure: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
-            aliment: aliment,
-            quantite: parseInt(quantite),
-            calories: parseInt(calories)
-        };
-        
-        grignotages.push(grignotage);
-        sauvegarderDonnees();
-        afficherGrignotages();
-        calculerProgression();
-        fermerModal('modalGrignotage');
-    }
-
-    function afficherGrignotages() {
-        const aujourdhui = new Date().toISOString().split('T')[0];
-        const grignotagesJour = grignotages.filter(g => g.date === aujourdhui);
-        
-        if (grignotagesJour.length === 0) {
-            document.getElementById('aucunGrignotage').classList.remove('hidden');
-            document.getElementById('listeGrignotages').innerHTML = '<p class="text-gray-500 text-sm">Aucun grignotage aujourd\'hui 👍</p>';
-            document.getElementById('totalGrignotages').textContent = '+0 kcal';
-            return;
-        }
-        
-        document.getElementById('aucunGrignotage').classList.add('hidden');
-        
-        const total = grignotagesJour.reduce((sum, g) => sum + g.calories, 0);
-        
-        const html = grignotagesJour.map(g => `
-            <div class="flex items-center justify-between bg-amber-50 p-3 rounded-lg border border-amber-200">
-                <div>
-                    <div class="font-semibold text-gray-900">${g.heure} - ${g.aliment}</div>
-                    <div class="text-sm text-gray-600">${g.quantite}g • ${g.calories} kcal</div>
-                </div>
-                <button onclick="supprimerGrignotage(${g.id})" 
-                    class="text-red-500 hover:text-red-700 text-xl font-bold">×</button>
-            </div>
-        `).join('');
-        
-        document.getElementById('listeGrignotages').innerHTML = html;
-        
-        const totalClass = total > 500 ? 'text-red-600' : total > 300 ? 'text-amber-600' : 'text-green-600';
-        document.getElementById('totalGrignotages').innerHTML = `<span class="${totalClass}">+${total} kcal</span>`;
-    }
-
-    function supprimerGrignotage(id) {
-        if (confirm('Supprimer ce grignotage ?')) {
-            grignotages = grignotages.filter(g => g.id !== id);
-            sauvegarderDonnees();
-            afficherGrignotages();
-            calculerProgression();
-        }
-    }
-
-    function calculerProgression() {
-        const menu = MENUS[typeJour];
-        const aujourdhui = new Date().toISOString().split('T')[0];
-        
-        let totalCal = 0;
-        let totalP = 0;
-        let totalG = 0;
-        let totalL = 0;
-        
-        repasValides.forEach(repasId => {
-            const repas = menu.repas.find(r => r.id === repasId);
-            if (repas && repas.calories) {
-                totalCal += repas.calories;
-                totalP += repas.macros.P;
-                totalG += repas.macros.G;
-                totalL += repas.macros.L;
-            }
-        });
-        
-        const grignotagesJour = grignotages.filter(g => g.date === aujourdhui);
-        const totalGrignotages = grignotagesJour.reduce((sum, g) => sum + g.calories, 0);
-        totalCal += totalGrignotages;
-        
-        document.getElementById('caloriesActuel').textContent = totalCal;
-        document.getElementById('proteinesActuel').textContent = totalP;
-        document.getElementById('glucidesActuel').textContent = totalG;
-        document.getElementById('lipidesActuel').textContent = totalL;
-        
-        const pourcentage = Math.min(100, Math.round((totalCal / menu.calories) * 100));
-        document.getElementById('progressBar').style.width = pourcentage + '%';
-        document.getElementById('pourcentageProgress').textContent = pourcentage + '%';
-        
-        const progressBar = document.getElementById('progressBar');
-        if (pourcentage >= 100) {
-            progressBar.className = 'progress-bar bg-gradient-to-r from-green-400 to-green-600 h-4 rounded-full';
-        } else if (pourcentage >= 80) {
-            progressBar.className = 'progress-bar bg-gradient-to-r from-blue-400 to-blue-600 h-4 rounded-full';
-        } else {
-            progressBar.className = 'progress-bar bg-gradient-to-r from-amber-400 to-amber-600 h-4 rounded-full';
-        }
-    }
-
-    function voirSemaine() {
-        const historique = JSON.parse(localStorage.getItem('historiqueSemaine') || '{}');
-        const dates = Object.keys(historique).sort().reverse().slice(0, 7);
-        
-        if (dates.length === 0) {
-            document.getElementById('contenuSemaine').innerHTML = '<p class="text-gray-500 text-center py-8">Aucune donnée cette semaine</p>';
-            document.getElementById('modalSemaine').classList.remove('hidden');
-            return;
-        }
-        
-        let totalCalories = 0;
-        let totalGrignotages = 0;
-        let joursValides = 0;
-        
-        const html = dates.map(date => {
-            const jour = historique[date];
-            const dateObj = new Date(date);
-            const nomJour = dateObj.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' });
-            
-            totalCalories += jour.calories || 0;
-            totalGrignotages += jour.grignotages || 0;
-            if (jour.adherence >= 80) joursValides++;
-            
-            const adherenceClass = jour.adherence >= 90 ? 'text-green-600' : jour.adherence >= 70 ? 'text-blue-600' : 'text-amber-600';
-            
-            return `
-                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="font-bold text-gray-900">${nomJour}</div>
-                        <div class="text-sm ${jour.type === 'training' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'} px-3 py-1 rounded-full font-semibold">
-                            ${jour.type === 'training' ? '🏋️ Training' : '💤 Repos'}
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-3 text-sm">
-                        <div>
-                            <div class="text-gray-600">Calories</div>
-                            <div class="font-bold text-gray-900">${jour.calories || 0} kcal</div>
-                        </div>
-                        <div>
-                            <div class="text-gray-600">Grignotages</div>
-                            <div class="font-bold ${jour.grignotages > 0 ? 'text-amber-600' : 'text-green-600'}">${jour.grignotages > 0 ? '+' + jour.grignotages : '0'} kcal</div>
-                        </div>
-                        <div>
-                            <div class="text-gray-600">Adhérence</div>
-                            <div class="font-bold ${adherenceClass}">${jour.adherence || 0}%</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-        
-        const moyenneCalories = Math.round(totalCalories / dates.length);
-        const moyenneGrignotages = Math.round(totalGrignotages / dates.length);
-        const tauxReussite = Math.round((joursValides / dates.length) * 100);
-        
-        const recap = `
-            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white mb-6">
-                <h4 class="text-xl font-bold mb-4">📊 Récapitulatif semaine</h4>
-                <div class="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                        <div class="text-3xl font-bold">${moyenneCalories}</div>
-                        <div class="text-sm text-blue-100">kcal moy/jour</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold">${moyenneGrignotages}</div>
-                        <div class="text-sm text-blue-100">grignotages moy</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold">${tauxReussite}%</div>
-                        <div class="text-sm text-blue-100">adhérence</div>
-                    </div>
-                </div>
-            </div>
-            <div class="space-y-3">
-                ${html}
-            </div>
-        `;
-        
-        document.getElementById('contenuSemaine').innerHTML = recap;
-        document.getElementById('modalSemaine').classList.remove('hidden');
-    }
-
-    function exporterDonnees() {
-        const menu = MENUS[typeJour];
-        const aujourdhui = new Date().toISOString().split('T')[0];
-        const grignotagesJour = grignotages.filter(g => g.date === aujourdhui);
-        
-        let totalCal = 0;
-        let totalP = 0;
-        let totalG = 0;
-        let totalL = 0;
-        
-        const repasDetails = repasValides.map(repasId => {
-            const repas = menu.repas.find(r => r.id === repasId);
-            if (repas && repas.calories) {
-                totalCal += repas.calories;
-                totalP += repas.macros.P;
-                totalG += repas.macros.G;
-                totalL += repas.macros.L;
-                return `${repas.heure} - ${repas.nom} (${repas.calories} kcal)`;
-            }
-            return null;
-        }).filter(Boolean);
-        
-        const totalGrignotagesCal = grignotagesJour.reduce((sum, g) => sum + g.calories, 0);
-        totalCal += totalGrignotagesCal;
-        
-        const rapport = {
-            date: aujourdhui,
-            typeJour: typeJour,
-            objectifs: {
-                calories: menu.calories,
-                proteines: menu.macros.P,
-                glucides: menu.macros.G,
-                lipides: menu.macros.L
-            },
-            realisations: {
-                calories: totalCal,
-                proteines: totalP,
-                glucides: totalG,
-                lipides: totalL
-            },
-            adherence: Math.round((repasValides.length / menu.repas.filter(r => r.calories).length) * 100),
-            repas_valides: repasDetails,
-            grignotages: grignotagesJour.map(g => `${g.heure} - ${g.aliment} ${g.quantite}g (+${g.calories} kcal)`),
-            total_grignotages: totalGrignotagesCal,
-            notes: `Adhérence: ${Math.round((repasValides.length / menu.repas.filter(r => r.calories).length) * 100)}% | Surplus grignotages: ${totalGrignotagesCal > 500 ? '⚠️ ÉLEVÉ' : totalGrignotagesCal > 300 ? '⚠️ MODÉRÉ' : '✅ OK'}`
-        };
-        
-        const dataStr = JSON.stringify(rapport, null, 2);
-        const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-        const exportFileDefaultName = `nutrition-${aujourdhui}.json`;
-        
-        const linkElement = document.createElement('a');
-        linkElement.setAttribute('href', dataUri);
-        linkElement.setAttribute('download', exportFileDefaultName);
-        linkElement.click();
-        
-        const texte = `       
-        navigator.clipboard.writeText(texte).then(() => {
-            alert('✅ Rapport copié dans le presse-papier ET téléchargé en JSON !');
-        });
-    }
-
-    function resetJour() {
-        if (confirm('⚠️ Réinitialiser toutes les données d\'aujourd\'hui ?')) {
-            repasValides = [];
-            const aujourdhui = new Date().toISOString().split('T')[0];
-            grignotages = grignotages.filter(g => g.date !== aujourdhui);
-            sauvegarderDonnees();
-            afficherRepas();
-            afficherGrignotages();
-            calculerProgression();
-            alert('✅ Journée réinitialisée');
-        }
-    }
-
-    function sauvegarderDonnees() {
-        const aujourdhui = new Date().toISOString().split('T')[0];
-        
-        localStorage.setItem('repasValides', JSON.stringify(repasValides));
-        localStorage.setItem('grignotages', JSON.stringify(grignotages));
-        localStorage.setItem('typeJour', typeJour);
-        localStorage.setItem('derniereSauvegarde', aujourdhui);
-        
-        sauvegarderHistoriqueSemaine();
-    }
-
-    function chargerDonnees() {
-        const aujourdhui = new Date().toISOString().split('T')[0];
-        const derniereSauvegarde = localStorage.getItem('derniereSauvegarde');
-        
-        if (derniereSauvegarde && derniereSauvegarde !== aujourdhui) {
-            repasValides = [];
-            localStorage.removeItem('repasValides');
-        } else {
-            repasValides = JSON.parse(localStorage.getItem('repasValides') || '[]');
-        }
-        
-        grignotages = JSON.parse(localStorage.getItem('grignotages') || '[]');
-        typeJour = localStorage.getItem('typeJour') || 'training';
-    }
-
-    function sauvegarderHistoriqueSemaine() {
-        const aujourdhui = new Date().toISOString().split('T')[0];
-        const menu = MENUS[typeJour];
-        const grignotagesJour = grignotages.filter(g => g.date === aujourdhui);
-        
-        let totalCal = 0;
-        repasValides.forEach(repasId => {
-            const repas = menu.repas.find(r => r.id === repasId);
-            if (repas && repas.calories) totalCal += repas.calories;
-        });
-        
-        const totalGrignotagesCal = grignotagesJour.reduce((sum, g) => sum + g.calories, 0);
-        
-        const historique = JSON.parse(localStorage.getItem('historiqueSemaine') || '{}');
-        historique[aujourdhui] = {
-            type: typeJour,
-            calories: totalCal,
-            grignotages: totalGrignotagesCal,
-            adherence: Math.round((repasValides.length / menu.repas.filter(r => r.calories).length) * 100)
-        };
-        
-        localStorage.setItem('historiqueSemaine', JSON.stringify(historique));
-    }
-
-    function fermerModal(modalId) {
-        document.getElementById(modalId).classList.add('hidden');
-    }
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            fermerModal('modalRepas');
-            fermerModal('modalGrignotage');
-            fermerModal('modalSemaine');
-        }
-    });
-
-    window.onload = init;
-</script>
+</body>
+</html></parameter>
+</invoke>
