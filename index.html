@@ -602,3 +602,327 @@
             const calories = document.getElementById('grignotageCalories').value;
             
             if (!aliment || !quant
+                ité || !calories) {
+alert('⚠️ Remplis tous les champs');
+return;
+}
+     const grignotage = {
+            id: Date.now(),
+            date: new Date().toISOString().split('T')[0],
+            heure: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+            aliment: aliment,
+            quantite: parseInt(quantite),
+            calories: parseInt(calories)
+        };
+        
+        grignotages.push(grignotage);
+        sauvegarderDonnees();
+        afficherGrignotages();
+        calculerProgression();
+        fermerModal('modalGrignotage');
+    }
+
+    function afficherGrignotages() {
+        const aujourdhui = new Date().toISOString().split('T')[0];
+        const grignotagesJour = grignotages.filter(g => g.date === aujourdhui);
+        
+        if (grignotagesJour.length === 0) {
+            document.getElementById('aucunGrignotage').classList.remove('hidden');
+            document.getElementById('listeGrignotages').innerHTML = '<p class="text-gray-500 text-sm">Aucun grignotage aujourd\'hui 👍</p>';
+            document.getElementById('totalGrignotages').textContent = '+0 kcal';
+            return;
+        }
+        
+        document.getElementById('aucunGrignotage').classList.add('hidden');
+        
+        const total = grignotagesJour.reduce((sum, g) => sum + g.calories, 0);
+        
+        const html = grignotagesJour.map(g => `
+            <div class="flex items-center justify-between bg-amber-50 p-3 rounded-lg border border-amber-200">
+                <div>
+                    <div class="font-semibold text-gray-900">${g.heure} - ${g.aliment}</div>
+                    <div class="text-sm text-gray-600">${g.quantite}g • ${g.calories} kcal</div>
+                </div>
+                <button onclick="supprimerGrignotage(${g.id})" 
+                    class="text-red-500 hover:text-red-700 text-xl font-bold">×</button>
+            </div>
+        `).join('');
+        
+        document.getElementById('listeGrignotages').innerHTML = html;
+        
+        const totalClass = total > 500 ? 'text-red-600' : total > 300 ? 'text-amber-600' : 'text-green-600';
+        document.getElementById('totalGrignotages').innerHTML = `<span class="${totalClass}">+${total} kcal</span>`;
+    }
+
+    function supprimerGrignotage(id) {
+        if (confirm('Supprimer ce grignotage ?')) {
+            grignotages = grignotages.filter(g => g.id !== id);
+            sauvegarderDonnees();
+            afficherGrignotages();
+            calculerProgression();
+        }
+    }
+
+    function calculerProgression() {
+        const menu = MENUS[typeJour];
+        const aujourdhui = new Date().toISOString().split('T')[0];
+        
+        let totalCal = 0;
+        let totalP = 0;
+        let totalG = 0;
+        let totalL = 0;
+        
+        repasValides.forEach(repasId => {
+            const repas = menu.repas.find(r => r.id === repasId);
+            if (repas && repas.calories) {
+                totalCal += repas.calories;
+                totalP += repas.macros.P;
+                totalG += repas.macros.G;
+                totalL += repas.macros.L;
+            }
+        });
+        
+        const grignotagesJour = grignotages.filter(g => g.date === aujourdhui);
+        const totalGrignotages = grignotagesJour.reduce((sum, g) => sum + g.calories, 0);
+        totalCal += totalGrignotages;
+        
+        document.getElementById('caloriesActuel').textContent = totalCal;
+        document.getElementById('proteinesActuel').textContent = totalP;
+        document.getElementById('glucidesActuel').textContent = totalG;
+        document.getElementById('lipidesActuel').textContent = totalL;
+        
+        const pourcentage = Math.min(100, Math.round((totalCal / menu.calories) * 100));
+        document.getElementById('progressBar').style.width = pourcentage + '%';
+        document.getElementById('pourcentageProgress').textContent = pourcentage + '%';
+        
+        const progressBar = document.getElementById('progressBar');
+        if (pourcentage >= 100) {
+            progressBar.className = 'progress-bar bg-gradient-to-r from-green-400 to-green-600 h-4 rounded-full';
+        } else if (pourcentage >= 80) {
+            progressBar.className = 'progress-bar bg-gradient-to-r from-blue-400 to-blue-600 h-4 rounded-full';
+        } else {
+            progressBar.className = 'progress-bar bg-gradient-to-r from-amber-400 to-amber-600 h-4 rounded-full';
+        }
+    }
+
+    function voirSemaine() {
+        const historique = JSON.parse(localStorage.getItem('historiqueSemaine') || '{}');
+        const dates = Object.keys(historique).sort().reverse().slice(0, 7);
+        
+        if (dates.length === 0) {
+            document.getElementById('contenuSemaine').innerHTML = '<p class="text-gray-500 text-center py-8">Aucune donnée cette semaine</p>';
+            document.getElementById('modalSemaine').classList.remove('hidden');
+            return;
+        }
+        
+        let totalCalories = 0;
+        let totalGrignotages = 0;
+        let joursValides = 0;
+        
+        const html = dates.map(date => {
+            const jour = historique[date];
+            const dateObj = new Date(date);
+            const nomJour = dateObj.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' });
+            
+            totalCalories += jour.calories || 0;
+            totalGrignotages += jour.grignotages || 0;
+            if (jour.adherence >= 80) joursValides++;
+            
+            const adherenceClass = jour.adherence >= 90 ? 'text-green-600' : jour.adherence >= 70 ? 'text-blue-600' : 'text-amber-600';
+            
+            return `
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="font-bold text-gray-900">${nomJour}</div>
+                        <div class="text-sm ${jour.type === 'training' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'} px-3 py-1 rounded-full font-semibold">
+                            ${jour.type === 'training' ? '🏋️ Training' : '💤 Repos'}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 text-sm">
+                        <div>
+                            <div class="text-gray-600">Calories</div>
+                            <div class="font-bold text-gray-900">${jour.calories || 0} kcal</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-600">Grignotages</div>
+                            <div class="font-bold ${jour.grignotages > 0 ? 'text-amber-600' : 'text-green-600'}">${jour.grignotages > 0 ? '+' + jour.grignotages : '0'} kcal</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-600">Adhérence</div>
+                            <div class="font-bold ${adherenceClass}">${jour.adherence || 0}%</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        const moyenneCalories = Math.round(totalCalories / dates.length);
+        const moyenneGrignotages = Math.round(totalGrignotages / dates.length);
+        const tauxReussite = Math.round((joursValides / dates.length) * 100);
+        
+        const recap = `
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white mb-6">
+                <h4 class="text-xl font-bold mb-4">📊 Récapitulatif semaine</h4>
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-3xl font-bold">${moyenneCalories}</div>
+                        <div class="text-sm text-blue-100">kcal moy/jour</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">${moyenneGrignotages}</div>
+                        <div class="text-sm text-blue-100">grignotages moy</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">${tauxReussite}%</div>
+                        <div class="text-sm text-blue-100">adhérence</div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                ${html}
+            </div>
+        `;
+        
+        document.getElementById('contenuSemaine').innerHTML = recap;
+        document.getElementById('modalSemaine').classList.remove('hidden');
+    }
+
+    function exporterDonnees() {
+        const menu = MENUS[typeJour];
+        const aujourdhui = new Date().toISOString().split('T')[0];
+        const grignotagesJour = grignotages.filter(g => g.date === aujourdhui);
+        
+        let totalCal = 0;
+        let totalP = 0;
+        let totalG = 0;
+        let totalL = 0;
+        
+        const repasDetails = repasValides.map(repasId => {
+            const repas = menu.repas.find(r => r.id === repasId);
+            if (repas && repas.calories) {
+                totalCal += repas.calories;
+                totalP += repas.macros.P;
+                totalG += repas.macros.G;
+                totalL += repas.macros.L;
+                return `${repas.heure} - ${repas.nom} (${repas.calories} kcal)`;
+            }
+            return null;
+        }).filter(Boolean);
+        
+        const totalGrignotagesCal = grignotagesJour.reduce((sum, g) => sum + g.calories, 0);
+        totalCal += totalGrignotagesCal;
+        
+        const rapport = {
+            date: aujourdhui,
+            typeJour: typeJour,
+            objectifs: {
+                calories: menu.calories,
+                proteines: menu.macros.P,
+                glucides: menu.macros.G,
+                lipides: menu.macros.L
+            },
+            realisations: {
+                calories: totalCal,
+                proteines: totalP,
+                glucides: totalG,
+                lipides: totalL
+            },
+            adherence: Math.round((repasValides.length / menu.repas.filter(r => r.calories).length) * 100),
+            repas_valides: repasDetails,
+            grignotages: grignotagesJour.map(g => `${g.heure} - ${g.aliment} ${g.quantite}g (+${g.calories} kcal)`),
+            total_grignotages: totalGrignotagesCal,
+            notes: `Adhérence: ${Math.round((repasValides.length / menu.repas.filter(r => r.calories).length) * 100)}% | Surplus grignotages: ${totalGrignotagesCal > 500 ? '⚠️ ÉLEVÉ' : totalGrignotagesCal > 300 ? '⚠️ MODÉRÉ' : '✅ OK'}`
+        };
+        
+        const dataStr = JSON.stringify(rapport, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+        const exportFileDefaultName = `nutrition-${aujourdhui}.json`;
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+        
+        const texte = `       
+        navigator.clipboard.writeText(texte).then(() => {
+            alert('✅ Rapport copié dans le presse-papier ET téléchargé en JSON !');
+        });
+    }
+
+    function resetJour() {
+        if (confirm('⚠️ Réinitialiser toutes les données d\'aujourd\'hui ?')) {
+            repasValides = [];
+            const aujourdhui = new Date().toISOString().split('T')[0];
+            grignotages = grignotages.filter(g => g.date !== aujourdhui);
+            sauvegarderDonnees();
+            afficherRepas();
+            afficherGrignotages();
+            calculerProgression();
+            alert('✅ Journée réinitialisée');
+        }
+    }
+
+    function sauvegarderDonnees() {
+        const aujourdhui = new Date().toISOString().split('T')[0];
+        
+        localStorage.setItem('repasValides', JSON.stringify(repasValides));
+        localStorage.setItem('grignotages', JSON.stringify(grignotages));
+        localStorage.setItem('typeJour', typeJour);
+        localStorage.setItem('derniereSauvegarde', aujourdhui);
+        
+        sauvegarderHistoriqueSemaine();
+    }
+
+    function chargerDonnees() {
+        const aujourdhui = new Date().toISOString().split('T')[0];
+        const derniereSauvegarde = localStorage.getItem('derniereSauvegarde');
+        
+        if (derniereSauvegarde && derniereSauvegarde !== aujourdhui) {
+            repasValides = [];
+            localStorage.removeItem('repasValides');
+        } else {
+            repasValides = JSON.parse(localStorage.getItem('repasValides') || '[]');
+        }
+        
+        grignotages = JSON.parse(localStorage.getItem('grignotages') || '[]');
+        typeJour = localStorage.getItem('typeJour') || 'training';
+    }
+
+    function sauvegarderHistoriqueSemaine() {
+        const aujourdhui = new Date().toISOString().split('T')[0];
+        const menu = MENUS[typeJour];
+        const grignotagesJour = grignotages.filter(g => g.date === aujourdhui);
+        
+        let totalCal = 0;
+        repasValides.forEach(repasId => {
+            const repas = menu.repas.find(r => r.id === repasId);
+            if (repas && repas.calories) totalCal += repas.calories;
+        });
+        
+        const totalGrignotagesCal = grignotagesJour.reduce((sum, g) => sum + g.calories, 0);
+        
+        const historique = JSON.parse(localStorage.getItem('historiqueSemaine') || '{}');
+        historique[aujourdhui] = {
+            type: typeJour,
+            calories: totalCal,
+            grignotages: totalGrignotagesCal,
+            adherence: Math.round((repasValides.length / menu.repas.filter(r => r.calories).length) * 100)
+        };
+        
+        localStorage.setItem('historiqueSemaine', JSON.stringify(historique));
+    }
+
+    function fermerModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            fermerModal('modalRepas');
+            fermerModal('modalGrignotage');
+            fermerModal('modalSemaine');
+        }
+    });
+
+    window.onload = init;
+</script>
