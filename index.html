@@ -479,14 +479,14 @@ const PLAN_HYBRIDE = {
     poidsInitial: 93.4,
     tailleInitiale: 105,
     semaines: {
-        S1: {phase:'agressive',nom:'Agressive S1',objectif:'Kickstart + Anti-Cholestérol',calories:{training:2420,repos:2050},macros:{training:{P:239,G:252,L:74},repos:{P:223,G:166,L:78}},deficitCible:700,perteVisee:1.0,couleur:'#ff6b6b'},
-        S2: {phase:'agressive',nom:'Agressive S2',objectif:'Accélération',calories:{training:2420,repos:2050},macros:{training:{P:239,G:252,L:74},repos:{P:223,G:166,L:78}},deficitCible:700,perteVisee:1.0,couleur:'#ff6b6b'},
-        S3: {phase:'agressive',nom:'Agressive S3',objectif:'Momentum',calories:{training:2420,repos:2050},macros:{training:{P:239,G:252,L:74},repos:{P:223,G:166,L:78}},deficitCible:700,perteVisee:1.0,couleur:'#ff6b6b'},
-        S4: {phase:'agressive',nom:'Agressive S4',objectif:'Finalisation phase 1 + Analyses',calories:{training:2420,repos:2050},macros:{training:{P:239,G:252,L:74},repos:{P:223,G:166,L:78}},deficitCible:700,perteVisee:1.0,couleur:'#ff6b6b'},
-        S5: {phase:'deload',nom:'Deload & Contrôle',objectif:'Récupération + analyses',calories:{training:2400,repos:2200},macros:{training:{P:175,G:225,L:75},repos:{P:185,G:140,L:90}},deficitCible:200,perteVisee:0.3,couleur:'#ffc107'},
-        S6: {phase:'moderee',nom:'Modérée S6',objectif:'Consolidation',calories:{training:2350,repos:2100},macros:{training:{P:175,G:210,L:72},repos:{P:185,G:120,L:88}},deficitCible:500,perteVisee:0.7,couleur:'#51cf66'},
-        S7: {phase:'moderee',nom:'Modérée S7',objectif:'Stabilisation',calories:{training:2350,repos:2100},macros:{training:{P:175,G:210,L:72},repos:{P:185,G:120,L:88}},deficitCible:500,perteVisee:0.7,couleur:'#51cf66'},
-        S8: {phase:'moderee',nom:'Modérée S8',objectif:'Finalisation + Bilan sanguin',calories:{training:2350,repos:2100},macros:{training:{P:175,G:210,L:72},repos:{P:185,G:120,L:88}},deficitCible:500,perteVisee:0.7,couleur:'#51cf66'}
+        S1: {phase:'agressive',nom:'Sèche S1',objectif:'Kickstart Sèche + Anti-Cholestérol',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
+        S2: {phase:'agressive',nom:'Sèche S2',objectif:'Accélération perte gras',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
+        S3: {phase:'agressive',nom:'Sèche S3',objectif:'Momentum',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
+        S4: {phase:'agressive',nom:'Sèche S4',objectif:'Finalisation phase 1 + Analyses',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
+        S5: {phase:'deload',nom:'Deload & Contrôle',objectif:'Récupération + analyses',calories:{training:2450,repos:2150},macros:{training:{P:230,G:250,L:70},repos:{P:215,G:165,L:90}},deficitCible:400,perteVisee:0.4,couleur:'#ffc107'},
+        S6: {phase:'agressive',nom:'Sèche S6',objectif:'Reprise intensité',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
+        S7: {phase:'agressive',nom:'Sèche S7',objectif:'Finalisation',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
+        S8: {phase:'agressive',nom:'Sèche S8',objectif:'Bilan final + Préparation prise muscle',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'}
     }
 };
 
@@ -503,49 +503,52 @@ const MENUS_BASE={
                 type:'hydratation',
                 aliments:['500ml eau tiède + jus 1/2 citron'],
                 hydration:0.5,
-                gastip:'🌿 Hydratation matinale = activation métabolisme'
+                gastip:'🌿 Hydratation matinale = activation métabolisme + détox'
             },
             {
                 id:'petit_dej',
                 nom:'Petit-déjeuner',
                 heure:'08:30',
-                calories:600,
-                macros:{P:50,G:58,L:16},
+                calories:580,
+                macros:{P:52,G:60,L:16},
                 hydration:0.3,
                 aliments:[
-                    'Quinoa flocons : 60g <span class="cholesterol-tag">⭐ ANTI-CHOLESTÉROL</span>',
-                    'Whey isolat : 45g',
-                    'Œufs : 2 entiers + 4 blancs',
-                    'Kiwi : 2 moyens',
-                    'Noix : 10g <span class="cholesterol-tag">⭐ BAISSE LDL</span>',
-                    'Cannelle : 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>'
+                    'Flocons avoine 40g <span class="cholesterol-tag">⭐ BETA-GLUCANE = -7% CHOLESTÉROL</span>',
+                    'Quinoa flocons 25g <span class="cholesterol-tag">⭐ ANTI-CHOLESTÉROL</span>',
+                    'Lait avoine 200ml',
+                    'Whey isolat 45g',
+                    'Œufs 2 entiers + 4 blancs',
+                    'Pomme cuite 1 <span class="cholesterol-tag">⭐ PECTINE = BAISSE LDL</span>',
+                    'Noix 10g <span class="cholesterol-tag">⭐ OMÉGA-3 = -5% LDL</span>',
+                    'Cannelle 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>'
                 ],
                 supplements:[
                     'Vitamine D3 : 10000 UI',
                     'Vitamine C : 1000mg',
-                    'Oméga-3 : 3 gélules <span class="cholesterol-tag">⭐ -25% TRIGLYCÉRIDES</span>',
+                    'Oméga-3 : 4 gélules <span class="cholesterol-tag">⭐ -25% TRIGLYCÉRIDES</span>',
                     'Zinc : 15mg',
                     'Curcumine : 1000mg',
-                    'Créatine : 5g'
+                    'Créatine : 5g (dose unique)',
+                    'Berbérine : 500mg <span class="cholesterol-tag">⭐ DOSE 1/3 = -25% LDL</span>'
                 ],
-                gastip:'🌿 Fruit cuit = ultra-digeste',
-                cholesteroltip:'💊 Quinoa + Noix = combo anti-cholestérol puissant'
+                gastip:'🌿 Pomme cuite = meilleure digestion que crue',
+                cholesteroltip:'💊 Avoine + Noix + Berbérine = Combo anti-cholestérol matinal puissant'
             },
             {
                 id:'collation_matin',
                 nom:'Collation',
                 heure:'10:30',
                 calories:180,
-                macros:{P:16,G:22,L:8},
+                macros:{P:12,G:24,L:8},
                 hydration:0.4,
                 aliments:[
-                    'Pomme : 1 <span class="cholesterol-tag">⭐ PECTINE = BAISSE LDL</span>',
-                    'Amandes : 20g <span class="cholesterol-tag">⭐ BAISSE CHOLESTÉROL -5%</span>',
-                    'Fromage blanc 0% : 100g',
-                    'Thé vert + infusion fenouil'
+                    'Galettes riz complet 3',
+                    'Beurre cacahuète 12g',
+                    'Pomme 1 <span class="cholesterol-tag">⭐ PECTINE = CAPTURE CHOLESTÉROL</span>',
+                    'Infusion fenouil + Thé vert'
                 ],
-                gastip:'🌿 Infusion systématique',
-                cholesteroltip:'💊 Pectine de pomme capture le cholestérol'
+                gastip:'🌿 Infusion fenouil = anti-ballonnements',
+                cholesteroltip:'💊 2ème pomme = dose pectine efficace'
             },
             {
                 id:'hydra_11h30',
@@ -554,24 +557,25 @@ const MENUS_BASE={
                 type:'hydratation',
                 hydration:0.3,
                 aliments:['300ml eau'],
-                gastip:'🌿 Pré-hydratation avant repas'
+                gastip:'🌿 Pré-hydratation avant repas = meilleure digestion'
             },
             {
                 id:'pre_training',
                 nom:'Pré-Training',
                 heure:'12:00',
-                calories:200,
-                macros:{P:24,G:44,L:3},
+                calories:220,
+                macros:{P:24,G:50,L:3},
                 hydration:0.2,
                 aliments:[
-                    'Quinoa flocons : 45g <span class="cholesterol-tag">⭐ ANTI-CHOLESTÉROL</span>',
-                    'Whey isolat : 20g',
-                    'Banane : 1/2',
-                    'Créatine : 5g'
+                    'Riz basmati 50g cuit (17g sec)',
+                    'Whey isolat 20g',
+                    'Banane 1/2',
+                    'Cannelle 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>',
+                    'Berbérine 500mg <span class="cholesterol-tag">⭐ DOSE 2/3 avant glucides</span>'
                 ],
                 note:'⚠️ 90 min avant training',
-                gastip:'🌿 Banane mûre = digestion rapide',
-                cholesteroltip:'💊 Glucides + protéines pour performance'
+                gastip:'🌿 Riz basmati = IG moyen, digestion rapide',
+                cholesteroltip:'💊 Berbérine avant glucides = contrôle glycémie optimal'
             },
             {
                 id:'training',
@@ -580,27 +584,26 @@ const MENUS_BASE={
                 type:'activite',
                 duree:'75 min',
                 hydration:0.7,
-                aliments:['500-700ml eau + électrolytes'],
+                aliments:['600-700ml eau + électrolytes'],
                 note:'OBLIGATOIRE',
-                gastip:'🌿 Hydratation pendant effort = clé performance'
+                gastip:'🌿 Hydratation pendant effort = performance + récupération'
             },
             {
                 id:'post_training',
                 nom:'Post-Training',
                 heure:'14:50',
                 calories:300,
-                macros:{P:52,G:50,L:1},
+                macros:{P:50,G:55,L:1},
                 hydration:0.3,
                 aliments:[
-                    'Whey isolat : 50g',
-                    'Banane : 1 grosse',
-                    'Miel : 15g',
-                    'Glutamine : 5g',
-                    'Gingembre frais'
+                    'Whey isolat 50g',
+                    'Riz basmati 70g cuit (23g sec)',
+                    'Dattes Medjool 2 (au lieu miel = IG moyen + fibres)',
+                    'Cannelle 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>'
                 ],
-                note:'IMMÉDIAT vestiaire',
-                gastip:'🌿 Banane mûre = digestion rapide',
-                cholesteroltip:'💊 Fenêtre anabolique post-training'
+                note:'IMMÉDIAT dans vestiaire',
+                gastip:'🌿 Dattes = moins de pic glycémique que miel',
+                cholesteroltip:'💊 Fenêtre anabolique post-training optimisée'
             },
             {
                 id:'hydra_16h',
@@ -612,21 +615,27 @@ const MENUS_BASE={
                 gastip:'🌿 Récupération post-training'
             },
             {
-                id:'collation_aprem',
-                nom:'Collation',
+                id:'repas_16h30',
+                nom:'Repas post-training',
                 heure:'16:30',
-                calories:270,
-                macros:{P:18,G:22,L:12},
+                calories:520,
+                macros:{P:48,G:45,L:18},
                 hydration:0.2,
                 aliments:[
-                    'Fruits rouges : 150g <span class="cholesterol-tag">⭐ ANTHOCYANES = -8% LDL</span>',
-                    'Chocolat noir 90% : 20g <span class="cholesterol-tag">⭐ POLYPHÉNOLS = +12% HDL</span>',
-                    'Noix cajou : 15g',
-                    'Fromage blanc 0% : 100g',
-                    'Thé vert'
+                    'Poulet/Dinde 200g <span style="background: #e3f2fd; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">📦 BATCH COOKING</span>',
+                    'Patate douce 100g <span style="background: #e3f2fd; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">📦 BATCH COOKING</span>',
+                    'Légumes cuits 300g <span style="background: #e3f2fd; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">📦 BATCH</span> <span class="cholesterol-tag">⭐ FIBRES</span>',
+                    '• Mix anti-cholestérol : Brocoli 120g + Épinards 100g + Carottes 80g',
+                    '• OU Mix anti-gaz : Courge 120g + Courgettes 100g + Haricots verts 80g',
+                    'Lentilles corail 100g cuites <span style="background: #e3f2fd; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">📦 BATCH</span> <span class="cholesterol-tag">⭐ -11% LDL</span>',
+                    'Huile olive 10ml <span class="cholesterol-tag">⭐ ACIDE OLÉIQUE</span>',
+                    'Vinaigre cidre 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE -34%</span>',
+                    'Cumin + coriandre + gingembre',
+                    'Berbérine 500mg <span class="cholesterol-tag">⭐ DOSE 3/3</span>'
                 ],
-                gastip:'🌿 Fenouil = anti-ballonnements',
-                cholesteroltip:'💊 Chocolat 90% = boost HDL (bon cholestérol)'
+                note:'📦 Préparé dimanche - Réchauffer 2-3 min micro-ondes',
+                gastip:'🌿 Lentilles corail = ultra-digeste (15 min cuisson)',
+                cholesteroltip:'💊 Lentilles = fibres solubles champion anti-LDL (-11%)'
             },
             {
                 id:'hydra_18h30',
@@ -641,35 +650,35 @@ const MENUS_BASE={
                 id:'diner',
                 nom:'Dîner',
                 heure:'19:15',
-                calories:600,
-                macros:{P:50,G:38,L:22},
+                calories:620,
+                macros:{P:50,G:35,L:24},
                 hydration:0.4,
                 aliments:[
-                    'Saumon : 220g <span class="cholesterol-tag">⭐ OMÉGA-3 = -20% TRIGLYCÉRIDES</span>',
-                    'Patate douce : 120g',
-                    'Légumes verts : 350g <span class="cholesterol-tag">⭐ FIBRES = -10% LDL</span>',
-                    '• Brocoli : 150g <span class="cholesterol-tag">⭐ SULFORAPHANE</span>',
-                    '• Épinards : 100g',
-                    '• Poivrons : 100g',
-                    'Avocat : 1/2 <span class="cholesterol-tag">⭐ GRAISSES MONO = BAISSE LDL</span>',
-                    'Huile olive : 10ml <span class="cholesterol-tag">⭐ ACIDE OLÉIQUE = -15% LDL</span>',
-                    'Vinaigre cidre : 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE -34%</span>',
+                    'Saumon 220g <span class="cholesterol-tag">⭐ OMÉGA-3 = -20% TRIGLYCÉRIDES</span>',
+                    'Légumes cuits 450g <span class="cholesterol-tag">⭐ FIBRES MASSIF = -10% LDL</span>',
+                    '• Brocoli 180g <span class="cholesterol-tag">⭐ SULFORAPHANE = DÉTOX CHOLESTÉROL</span>',
+                    '• Épinards 150g',
+                    '• Carottes/Courgettes 120g',
+                    'Avocat 1/2 <span class="cholesterol-tag">⭐ GRAISSES MONO = BAISSE LDL + MONTE HDL</span>',
+                    'Huile olive 15ml <span class="cholesterol-tag">⭐ ACIDE OLÉIQUE = -15% LDL</span>',
+                    'Vinaigre cidre 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>',
                     'Cumin + coriandre + gingembre'
                 ],
-                gastip:'🌿 Cuisson vapeur 20 min minimum',
-                cholesteroltip:'💊 Saumon = champion anti-triglycérides'
+                note:'🔪 Cuisson vapeur 20 min minimum',
+                gastip:'🌿 Cuisson 20 min = légumes ultra-digestes, 0 gaz',
+                cholesteroltip:'💊 Saumon + Légumes massifs + Avocat = Trio gagnant cardiovasculaire'
             },
             {
                 id:'marche',
                 nom:'Marche digestive',
                 heure:'19:45',
                 type:'activite',
-                duree:'15-20 min',
+                duree:'20 min',
                 hydration:0.2,
                 aliments:['200ml eau'],
-                note:'OBLIGATOIRE',
-                gastip:'🌿 Évacue gaz 50%',
-                cholesteroltip:'💊 Marche = +5-10% HDL (bon cholestérol)'
+                note:'⚠️ OBLIGATOIRE - NON NÉGOCIABLE',
+                gastip:'🌿 Marche = évacue gaz 50% + améliore digestion',
+                cholesteroltip:'💊 Marche post-dîner = +5-10% HDL (bon cholestérol) prouvé'
             },
             {
                 id:'hydra_21h30',
@@ -684,27 +693,28 @@ const MENUS_BASE={
                 id:'avant_coucher',
                 nom:'Avant coucher',
                 heure:'22:00',
-                calories:310,
+                calories:330,
                 macros:{P:28,G:18,L:12},
-                hydration:0.6,
+                hydration:0.7,
                 aliments:[
-                    'Skyr 0% : 250g',
-                    'Fruits rouges : 50g <span class="cholesterol-tag">⭐ ANTIOXYDANTS</span>',
-                    'Cannelle : 1/2 c. café <span class="cholesterol-tag">⭐ INSULINE +29%</span>',
-                    'Graines chia : 15g <span class="cholesterol-tag">⭐ OMÉGA-3 + FIBRES = -15% TRIGLYCÉRIDES</span>',
-                    'Psyllium blond : 3g <span class="cholesterol-tag">⭐ FIBRES SOLUBLES = -18% LDL</span>',
-                    '200ml eau tiède + 400ml après psyllium',
+                    'Skyr 0% 250g',
+                    'Fruits rouges 80g <span class="cholesterol-tag">⭐ ANTHOCYANES = -8% LDL</span>',
+                    'Cannelle 1/2 c. café <span class="cholesterol-tag">⭐ INSULINE +29%</span>',
+                    'Graines chia 15g <span class="cholesterol-tag">⭐ OMÉGA-3 + FIBRES</span>',
+                    'Psyllium blond 5g <span class="cholesterol-tag">⭐ FIBRES SOLUBLES = -18% LDL</span>',
+                    '200ml eau tiède + 500ml après psyllium (attendre 30 min)',
                     'Tisane fenouil-gingembre'
                 ],
                 supplements:[
-                    'Magnésium : 500mg (sommeil + constipation)',
-                    'Berbérine : 500mg <span class="cholesterol-tag">⭐ -18% CHOLESTÉROL, -25% LDL</span>'
+                    'Magnésium 500mg (sommeil + constipation)',
+                    'Berbérine 500mg <span class="cholesterol-tag">⭐ Dose nocturne optimale</span>'
                 ],
-                gastip:'🌿 Routine soir = clé digestion',
-                cholesteroltip:'💊 Psyllium + Berbérine = combo ultra-puissant'
+                note:'⚠️ Psyllium = attendre 30 min puis boire 500ml eau',
+                gastip:'🌿 Routine soir = clé digestion + transit optimal',
+                cholesteroltip:'💊 Psyllium 5g + Berbérine = combo ultra-puissant avant sommeil'
             }
         ],
-        hydrationTotal:4.1
+        hydrationTotal:4.5
     },
     repos:{
         repas:[
@@ -715,49 +725,52 @@ const MENUS_BASE={
                 type:'hydratation',
                 aliments:['500ml eau tiède + citron'],
                 hydration:0.5,
-                gastip:'🌿 Hydratation matinale'
+                gastip:'🌿 Hydratation matinale = détox'
             },
             {
                 id:'petit_dej',
                 nom:'Petit-déjeuner',
                 heure:'08:30',
                 calories:580,
-                macros:{P:50,G:50,L:16},
+                macros:{P:52,G:55,L:18},
                 hydration:0.3,
                 aliments:[
-                    'Quinoa flocons : 55g <span class="cholesterol-tag">⭐ ANTI-CHOLESTÉROL</span>',
-                    'Whey isolat : 45g',
-                    'Œufs : 2 entiers + 4 blancs',
-                    'Fruits rouges : 120g <span class="cholesterol-tag">⭐ BAISSE LDL</span>',
-                    'Noix : 10g <span class="cholesterol-tag">⭐ OMÉGA-3</span>',
-                    'Cannelle'
+                    'Flocons avoine 40g <span class="cholesterol-tag">⭐ BETA-GLUCANE</span>',
+                    'Quinoa flocons 20g <span class="cholesterol-tag">⭐ ANTI-CHOLESTÉROL</span>',
+                    'Lait avoine 200ml',
+                    'Whey isolat 45g',
+                    'Œufs 2 entiers + 4 blancs',
+                    'Fruits rouges 120g <span class="cholesterol-tag">⭐ ANTHOCYANES = -8% LDL</span>',
+                    'Noix 12g <span class="cholesterol-tag">⭐ OMÉGA-3</span>',
+                    'Cannelle 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>'
                 ],
                 supplements:[
                     'Vitamine D3 : 10000 UI',
                     'Vitamine C : 1000mg',
-                    'Oméga-3 : 3 gélules',
+                    'Oméga-3 : 4 gélules <span class="cholesterol-tag">⭐ -25% TRIGLYCÉRIDES</span>',
                     'Zinc : 15mg',
                     'Curcumine : 1000mg',
-                    'Créatine : 5g'
+                    'Créatine : 5g',
+                    'Berbérine : 500mg <span class="cholesterol-tag">⭐ DOSE 1/3</span>'
                 ],
-                gastip:'🌿 Protocole identique',
+                gastip:'🌿 Protocole identique training',
                 cholesteroltip:'💊 Morning routine anti-cholestérol'
             },
             {
                 id:'collation_matin',
                 nom:'Collation',
                 heure:'10:30',
-                calories:150,
-                macros:{P:15,G:18,L:7},
+                calories:170,
+                macros:{P:12,G:22,L:8},
                 hydration:0.4,
                 aliments:[
-                    'Kiwi : 2',
-                    'Amandes : 15g <span class="cholesterol-tag">⭐ BAISSE CHOLESTÉROL</span>',
-                    'Fromage blanc 0% : 100g',
-                    'Infusion fenouil + thé vert'
+                    'Galettes riz complet 3',
+                    'Beurre cacahuète 10g',
+                    'Kiwi 2',
+                    'Infusion fenouil + Thé vert'
                 ],
-                gastip:'🌿 Oméga-3 végétal',
-                cholesteroltip:'💊 Amandes = protection cardiovasculaire'
+                gastip:'🌿 Infusion fenouil systématique',
+                cholesteroltip:'💊 Kiwi = vitamine C + fibres'
             },
             {
                 id:'hydra_11h30',
@@ -772,23 +785,24 @@ const MENUS_BASE={
                 id:'dejeuner',
                 nom:'Déjeuner',
                 heure:'13:00',
-                calories:600,
-                macros:{P:55,G:35,L:20},
+                calories:640,
+                macros:{P:58,G:40,L:24},
                 hydration:0.4,
                 aliments:[
-                    'Poulet/Dinde : 230g',
-                    'Légumes verts : 400g <span class="cholesterol-tag">⭐ FIBRES = BAISSE LDL</span>',
-                    '• Haricots verts : 150g',
-                    '• Courgettes : 150g',
-                    '• Aubergines : 100g',
-                    'Quinoa : 50g cru <span class="cholesterol-tag">⭐ FIBRES SOLUBLES</span>',
-                    'Avocat : 1/2 <span class="cholesterol-tag">⭐ GRAISSES MONO</span>',
-                    'Huile olive : 15ml <span class="cholesterol-tag">⭐ BAISSE LDL -15%</span>',
-                    'Vinaigre cidre : 1 c. soupe',
-                    'Cumin + coriandre'
+                    'Poulet/Dinde 240g',
+                    'Légumes cuits 400g <span class="cholesterol-tag">⭐ FIBRES MASSIF</span>',
+                    '• Courge butternut 160g (digeste)',
+                    '• Courgettes 120g',
+                    '• Haricots verts 120g',
+                    'Lentilles corail 150g cuites <span class="cholesterol-tag">⭐ FIBRES SOLUBLES = -11% LDL</span>',
+                    'Huile olive 15ml <span class="cholesterol-tag">⭐ BAISSE LDL</span>',
+                    'Vinaigre cidre 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>',
+                    'Berbérine 500mg <span class="cholesterol-tag">⭐ DOSE 2/3</span>',
+                    'Cumin + coriandre + gingembre'
                 ],
-                gastip:'🌿 Quinoa bien rincé',
-                cholesteroltip:'💊 Légumes variés = fibres anti-cholestérol'
+                note:'🔪 Cuisson vapeur 20 min',
+                gastip:'🌿 Lentilles bien cuites = ultra-digeste',
+                cholesteroltip:'💊 Déjeuner massif en légumes = effet max cholestérol'
             },
             {
                 id:'hydra_15h',
@@ -803,17 +817,17 @@ const MENUS_BASE={
                 id:'collation_aprem',
                 nom:'Collation',
                 heure:'16:00',
-                calories:200,
-                macros:{P:20,G:15,L:8},
+                calories:210,
+                macros:{P:22,G:16,L:9},
                 hydration:0.2,
                 aliments:[
-                    'Pomme : 1 <span class="cholesterol-tag">⭐ PECTINE = BAISSE LDL</span>',
-                    'Skyr 0% : 150g',
-                    'Noix : 10g',
+                    'Skyr 0% 200g',
+                    'Pomme 1 <span class="cholesterol-tag">⭐ PECTINE</span>',
+                    'Noix 10g <span class="cholesterol-tag">⭐ OMÉGA-3</span>',
                     'Thé vert'
                 ],
-                gastip:'🌿 Simple et digeste',
-                cholesteroltip:'💊 Collation légère'
+                gastip:'🌿 Collation simple et digeste',
+                cholesteroltip:'💊 Pomme quotidienne = pectine anti-LDL'
             },
             {
                 id:'hydra_18h',
@@ -828,33 +842,35 @@ const MENUS_BASE={
                 id:'diner',
                 nom:'Dîner',
                 heure:'19:30',
-                calories:520,
-                macros:{P:58,G:30,L:15},
+                calories:680,
+                macros:{P:58,G:36,L:28},
                 hydration:0.4,
                 aliments:[
-                    'Poisson blanc/Saumon : 220g <span class="cholesterol-tag">⭐ OMÉGA-3 = -20% TRIGLYCÉRIDES</span>',
-                    'Légumes verts : 350g <span class="cholesterol-tag">⭐ FIBRES</span>',
-                    '• Brocoli : 150g <span class="cholesterol-tag">⭐ ANTI-CHOLESTÉROL</span>',
-                    '• Épinards : 100g',
-                    '• Poivrons : 100g',
-                    'Lentilles corail : 70g cuites <span class="cholesterol-tag">⭐ FIBRES SOLUBLES = -11% LDL</span>',
-                    'Huile olive : 10ml',
-                    'Cumin + persil'
+                    'Saumon 240g <span class="cholesterol-tag">⭐ OMÉGA-3 = -20% TRIGLYCÉRIDES</span>',
+                    'Légumes cuits 500g <span class="cholesterol-tag">⭐ FIBRES ULTRA-MASSIF</span>',
+                    '• Brocoli 200g <span class="cholesterol-tag">⭐ SULFORAPHANE</span>',
+                    '• Épinards 150g',
+                    '• Carottes 150g <span class="cholesterol-tag">⭐ FIBRES SOLUBLES</span>',
+                    'Avocat 1/2 <span class="cholesterol-tag">⭐ GRAISSES MONO</span>',
+                    'Huile olive 15ml <span class="cholesterol-tag">⭐ ACIDE OLÉIQUE</span>',
+                    'Vinaigre cidre 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>',
+                    'Cumin + coriandre + gingembre'
                 ],
-                gastip:'🌿 Poisson blanc léger',
-                cholesteroltip:'💊 Lentilles = fibres solubles anti-LDL'
+                note:'🔪 Cuisson vapeur 20 min minimum',
+                gastip:'🌿 500g légumes = volume maximal digeste',
+                cholesteroltip:'💊 Dîner XXL légumes = 500g = effet cholestérol maximal'
             },
             {
                 id:'marche',
-                nom:'Marche',
+                nom:'Marche digestive',
                 heure:'19:45',
                 type:'activite',
-                duree:'20 min',
+                duree:'20-25 min',
                 hydration:0.2,
                 aliments:['200ml eau'],
-                note:'Tous les soirs',
-                gastip:'🌿 Systématique',
-                cholesteroltip:'💊 Marche = HDL +5-10%'
+                note:'⚠️ OBLIGATOIRE - Tous les soirs',
+                gastip:'🌿 Marche = systématique pour digestion',
+                cholesteroltip:'💊 Marche = +8-10% HDL (bon cholestérol)'
             },
             {
                 id:'hydra_21h30',
@@ -869,27 +885,28 @@ const MENUS_BASE={
                 id:'avant_coucher',
                 nom:'Avant coucher',
                 heure:'22:00',
-                calories:310,
-                macros:{P:28,G:18,L:12},
-                hydration:0.6,
+                calories:340,
+                macros:{P:28,G:20,L:12},
+                hydration:0.7,
                 aliments:[
-                    'Skyr 0% : 250g',
-                    'Fruits rouges : 50g',
-                    'Cannelle : 1/2 c. café',
-                    'Graines chia : 15g',
-                    'Psyllium : 3g <span class="cholesterol-tag">⭐ -18% LDL</span>',
-                    '200ml eau + 400ml après',
-                    'Tisane'
+                    'Skyr 0% 250g',
+                    'Fruits rouges 90g <span class="cholesterol-tag">⭐ ANTHOCYANES</span>',
+                    'Cannelle 1/2 c. café <span class="cholesterol-tag">⭐ INSULINE</span>',
+                    'Graines chia 15g <span class="cholesterol-tag">⭐ OMÉGA-3</span>',
+                    'Psyllium blond 5g <span class="cholesterol-tag">⭐ -18% LDL</span>',
+                    '200ml eau + 500ml après psyllium',
+                    'Tisane fenouil-gingembre'
                 ],
                 supplements:[
-                    'Magnésium : 500mg',
-                    'Berbérine : 500mg <span class="cholesterol-tag">⭐ -25% LDL</span>'
+                    'Magnésium 500mg',
+                    'Berbérine 500mg <span class="cholesterol-tag">⭐ DOSE 3/3</span>'
                 ],
-                gastip:'🌿 Routine fixe',
-                cholesteroltip:'💊 Psyllium + Berbérine = combo puissant'
+                note:'⚠️ Psyllium = attendre 30 min puis 500ml eau',
+                gastip:'🌿 Routine fixe optimale',
+                cholesteroltip:'💊 Psyllium 5g = dose optimale -18% LDL'
             }
         ],
-        hydrationTotal:4.0
+        hydrationTotal:4.3
     }
 };
 
