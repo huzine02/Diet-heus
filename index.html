@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutri-Track Anti-Cholestérol 8 Sem - Hocine</title>
+    <title>Nutri-Track Sèche 10 Sem - Hocine</title>
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box;}
         body {font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 15px; color: #333;}
@@ -108,45 +108,46 @@
         .notes-area {width: 100%; min-height: 80px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-family: inherit; font-size: 13px; margin-top: 10px;}
         .info-box {background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; border-radius: 8px; margin: 10px 0; font-size: 13px;}
         .warning-box {background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; border-radius: 8px; margin: 10px 0; font-size: 13px;}
+        .option-selector {background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 10px 0;}
+        .option-btn {padding: 8px 16px; background: white; border: 2px solid #e0e0e0; border-radius: 8px; margin: 4px; cursor: pointer; font-size: 12px; font-weight: bold; transition: all 0.3s;}
+        .option-btn.active {background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: #667eea;}
         @media (max-width: 600px) {.container {padding: 12px;} h1 {font-size: 22px;} .macro-grid, .stats-grid {grid-template-columns: repeat(2, 1fr);} .timeline-item {padding: 2px;} .timeline-dot {width: 30px; height: 30px; font-size: 10px;} .timeline-label, .timeline-phase {font-size: 9px;}}
     </style>
 </head>
 <body>
     <div class="auto-save-indicator" id="auto-save-indicator">✅ Sauvegardé</div>
     <div class="container">
-        <h1>🔥 PLAN ANTI-CHOLESTÉROL 8 SEMAINES</h1>
+        <h1>🔥 PLAN SÈCHE 10 SEMAINES</h1>
         <div style="text-align: center;">
-            <span class="version-badge">v4.0 ANTI-CHOLESTÉROL • Hocine 44 ans</span>
+            <span class="version-badge">v5.0 SÈCHE • Hocine 44 ans</span>
             <span class="version-badge season-badge" id="season-badge">🍂 AUTOMNE</span>
-            <span class="version-badge gas-badge">🌿 ANTI-GAZ</span>
-            <span class="version-badge cholesterol-badge">💊 ANTI-CHOLESTÉROL</span>
         </div>
-        <div class="header-info">93.4kg • 105cm taille • Objectif 88kg en 8 semaines • Cholestérol: 2.37g/L → &lt;2g/L</div>
+        <div class="header-info">93.4kg • 105cm taille • Objectif 88kg en 10 semaines • Phase de sèche maximale</div>
         
         <div class="timeline-container">
-            <div style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #667eea;">PROGRESSION 8 SEMAINES</div>
+            <div style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #667eea;">PROGRESSION 10 SEMAINES</div>
             <div class="timeline">
                 <div class="timeline-line"></div>
                 <div class="timeline-progress" id="timeline-progress" style="width: 0%"></div>
                 <div class="timeline-item" onclick="afficherSemaine(1)">
                     <div class="timeline-dot">S1</div>
                     <div class="timeline-label">Semaine 1</div>
-                    <div class="timeline-phase">Agressive</div>
+                    <div class="timeline-phase">Sèche</div>
                 </div>
                 <div class="timeline-item" onclick="afficherSemaine(2)">
                     <div class="timeline-dot">S2</div>
                     <div class="timeline-label">Semaine 2</div>
-                    <div class="timeline-phase">Agressive</div>
+                    <div class="timeline-phase">Sèche</div>
                 </div>
                 <div class="timeline-item" onclick="afficherSemaine(3)">
                     <div class="timeline-dot">S3</div>
                     <div class="timeline-label">Semaine 3</div>
-                    <div class="timeline-phase">Agressive</div>
+                    <div class="timeline-phase">Sèche</div>
                 </div>
                 <div class="timeline-item" onclick="afficherSemaine(4)">
                     <div class="timeline-dot">S4</div>
                     <div class="timeline-label">Semaine 4</div>
-                    <div class="timeline-phase">Agressive</div>
+                    <div class="timeline-phase">Sèche</div>
                 </div>
                 <div class="timeline-item" onclick="afficherSemaine(5)">
                     <div class="timeline-dot">S5</div>
@@ -156,17 +157,27 @@
                 <div class="timeline-item" onclick="afficherSemaine(6)">
                     <div class="timeline-dot">S6</div>
                     <div class="timeline-label">Semaine 6</div>
-                    <div class="timeline-phase">Modérée</div>
+                    <div class="timeline-phase">Sèche</div>
                 </div>
                 <div class="timeline-item" onclick="afficherSemaine(7)">
                     <div class="timeline-dot">S7</div>
                     <div class="timeline-label">Semaine 7</div>
-                    <div class="timeline-phase">Modérée</div>
+                    <div class="timeline-phase">Sèche</div>
                 </div>
                 <div class="timeline-item" onclick="afficherSemaine(8)">
                     <div class="timeline-dot">S8</div>
                     <div class="timeline-label">Semaine 8</div>
-                    <div class="timeline-phase">Modérée</div>
+                    <div class="timeline-phase">Sèche</div>
+                </div>
+                <div class="timeline-item" onclick="afficherSemaine(9)">
+                    <div class="timeline-dot">S9</div>
+                    <div class="timeline-label">Semaine 9</div>
+                    <div class="timeline-phase">Sèche</div>
+                </div>
+                <div class="timeline-item" onclick="afficherSemaine(10)">
+                    <div class="timeline-dot">S10</div>
+                    <div class="timeline-label">Semaine 10</div>
+                    <div class="timeline-phase">Finale</div>
                 </div>
             </div>
         </div>
@@ -182,10 +193,8 @@
 
         <div class="tabs">
             <button class="tab active" onclick="showTab('menu')">📋 MENU</button>
-            <button class="tab" onclick="showTab('suivi8sem')">📊 SUIVI</button>
+            <button class="tab" onclick="showTab('suivi10sem')">📊 SUIVI</button>
             <button class="tab" onclick="showTab('saison')">🍂 SAISON</button>
-            <button class="tab" onclick="showTab('antigaz')">🌿 ANTI-GAZ</button>
-            <button class="tab" onclick="showTab('cholesterol')">💊 CHOLESTÉROL</button>
             <button class="tab" onclick="showTab('grignotages')">🍪 SNACKS</button>
             <button class="tab" onclick="showTab('export')">📤 EXPORT</button>
         </div>
@@ -195,19 +204,18 @@
                 <h3 style="color: #667eea; margin-bottom: 10px;">📊 Progression du jour</h3>
                 <div class="progress-bar-container"><div class="progress-bar" id="progress-bar" style="width: 0%">0%</div></div>
                 <div class="macro-grid">
-                    <div class="macro-card calories"><div class="macro-label">Calories</div><div class="macro-value"><span id="cal-actuel">0</span>/<span id="cal-total">2420</span></div></div>
-                    <div class="macro-card proteines"><div class="macro-label">Protéines</div><div class="macro-value"><span id="prot-actuel">0</span>/<span id="prot-total">239</span>g</div></div>
-                    <div class="macro-card glucides"><div class="macro-label">Glucides</div><div class="macro-value"><span id="gluc-actuel">0</span>/<span id="gluc-total">252</span>g</div></div>
-                    <div class="macro-card lipides"><div class="macro-label">Lipides</div><div class="macro-value"><span id="lip-actuel">0</span>/<span id="lip-total">74</span>g</div></div>
-                    <div class="macro-card hydration"><div class="macro-label">Hydratation</div><div class="macro-value"><span id="hydra-actuel">0</span>/<span id="hydra-total">4.1</span>L</div></div>
+                    <div class="macro-card calories"><div class="macro-label">Calories</div><div class="macro-value"><span id="cal-actuel">0</span>/<span id="cal-total">2550</span></div></div>
+                    <div class="macro-card proteines"><div class="macro-label">Protéines</div><div class="macro-value"><span id="prot-actuel">0</span>/<span id="prot-total">240</span>g</div></div>
+                    <div class="macro-card glucides"><div class="macro-label">Glucides</div><div class="macro-value"><span id="gluc-actuel">0</span>/<span id="gluc-total">250</span>g</div></div>
+                    <div class="macro-card lipides"><div class="macro-label">Lipides</div><div class="macro-value"><span id="lip-actuel">0</span>/<span id="lip-total">75</span>g</div></div>
                 </div>
             </div>
             <div id="menu-container"></div>
-            <textarea class="notes-area" id="notes-jour" placeholder="📝 Notes du jour (énergie, sensations, gaz, digestion, cholestérol...)" oninput="showAutoSave()"></textarea>
+            <textarea class="notes-area" id="notes-jour" placeholder="📝 Notes du jour (énergie, sensations, digestion...)" oninput="showAutoSave()"></textarea>
         </div>
 
-        <div id="tab-suivi8sem" class="tab-content">
-            <h2 style="color: #667eea; margin-bottom: 15px;">📊 Suivi Plan Anti-Cholestérol 8 Semaines</h2>
+        <div id="tab-suivi10sem" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 15px;">📊 Suivi Plan Sèche 10 Semaines</h2>
             
             <div id="carte-semaine-actuelle"></div>
             
@@ -231,122 +239,7 @@
             <h2 style="color: #667eea; margin-bottom: 15px;">🍂 Fruits & Légumes de Saison</h2>
             <div class="info-box"><strong>📅 Saison actuelle :</strong> <span id="season-name-detail">Automne</span> (mise à jour automatique)</div>
             <div class="progress-card"><h3>🍎 Fruits disponibles</h3><div id="fruits-saison" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;"></div></div>
-            <div class="progress-card"><h3>🥦 Légumes anti-gaz disponibles</h3><div id="legumes-saison" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;"></div></div>
-        </div>
-
-        <div id="tab-antigaz" class="tab-content">
-            <h2 style="color: #667eea; margin-bottom: 15px;">🌿 Protocole Anti-Gaz</h2>
-            <div class="warning-box"><strong>⚠️ OBJECTIF</strong> : Réduction gaz 70-80% grâce aux aliments et épices sélectionnés</div>
-            <div class="progress-card">
-                <h3>✅ Aliments digestes (0 gaz)</h3>
-                <ul style="margin: 10px 0 10px 20px; line-height: 1.8;">
-                    <li><strong>Courge butternut / Potimarron</strong> : Champions digestion</li>
-                    <li><strong>Carottes cuites 20 min+</strong> : Fibres douces</li>
-                    <li><strong>Courgettes vapeur</strong> : Ultra-digeste</li>
-                    <li><strong>Fenouil cuit</strong> : Anti-ballonnements naturel</li>
-                    <li><strong>Haricots verts bien cuits</strong> : OK si 20 min vapeur</li>
-                    <li><strong>Épinards cuits</strong> : Digestion facile</li>
-                    <li><strong>Patate douce</strong> : IG bas + digeste</li>
-                </ul>
-            </div>
-            <div class="progress-card">
-                <h3>🌿 Épices carminatives (OBLIGATOIRES)</h3>
-                <ul style="margin: 10px 0 10px 20px; line-height: 1.8;">
-                    <li><strong>Fenouil</strong> (graines ou bulbe) : Champion anti-gaz</li>
-                    <li><strong>Cumin</strong> : Carminatif puissant</li>
-                    <li><strong>Coriandre</strong> : Aide digestion</li>
-                    <li><strong>Gingembre frais</strong> : Anti-ballonnements</li>
-                    <li><strong>Cannelle</strong> : Régule glycémie + digestion</li>
-                </ul>
-            </div>
-            <div class="progress-card">
-                <h3>❌ Aliments retirés (gazogènes)</h3>
-                <ul style="margin: 10px 0 10px 20px; line-height: 1.8; color: #d32f2f;">
-                    <li>Brocoli, chou-fleur, choux (tous)</li>
-                    <li>Champignons (fermentation)</li>
-                    <li>Oignons/ail crus (cuits OK petite quantité)</li>
-                    <li>Poireaux (partie verte)</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="tab-cholesterol" class="tab-content">
-            <h2 style="color: #667eea; margin-bottom: 15px;">💊 Protocole Anti-Cholestérol</h2>
-            
-            <div class="alert-box alert-info">
-                <strong>🎯 OBJECTIF</strong><br>
-                Cholestérol total : 2.37g/L → &lt;2g/L (-15%)<br>
-                LDL : 1.62g/L → &lt;1.16g/L (-28%)<br>
-                HDL : 0.52g/L → &gt;0.6g/L (+15%)<br>
-                Triglycérides : 1.16g/L → &lt;1g/L (-14%)
-            </div>
-
-            <div class="progress-card">
-                <h3>🥗 Aliments Clés Anti-Cholestérol</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 15px 0;">
-                    <div style="background: #fff9e6; padding: 12px; border-radius: 8px;">
-                        <strong>🌾 Quinoa flocons</strong><br>
-                        <small>Beta-glucane → -8% cholestérol</small>
-                    </div>
-                    <div style="background: #fff9e6; padding: 12px; border-radius: 8px;">
-                        <strong>🥜 Noix</strong><br>
-                        <small>Oméga-3 → -5% LDL</small>
-                    </div>
-                    <div style="background: #fff9e6; padding: 12px; border-radius: 8px;">
-                        <strong>🍎 Pomme</strong><br>
-                        <small>Pectine → baisse LDL</small>
-                    </div>
-                    <div style="background: #fff9e6; padding: 12px; border-radius: 8px;">
-                        <strong>🍫 Chocolat 90%</strong><br>
-                        <small>Polyphénols → +12% HDL</small>
-                    </div>
-                    <div style="background: #fff9e6; padding: 12px; border-radius: 8px;">
-                        <strong>🐟 Saumon</strong><br>
-                        <small>Oméga-3 → -20% triglycérides</small>
-                    </div>
-                    <div style="background: #fff9e6; padding: 12px; border-radius: 8px;">
-                        <strong>🥑 Avocat</strong><br>
-                        <small>Graisses mono → baisse LDL</small>
-                    </div>
-                    <div style="background: #fff9e6; padding: 12px; border-radius: 8px;">
-                        <strong>🥦 Brocoli</strong><br>
-                        <small>Sulforaphane → détox cholestérol</small>
-                    </div>
-                    <div style="background: #fff9e6; padding: 12px; border-radius: 8px;">
-                        <strong>🫐 Fruits rouges</strong><br>
-                        <small>Anthocyanes → -8% LDL</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="progress-card">
-                <h3>💊 Suppléments Anti-Cholestérol</h3>
-                <ul style="margin: 10px 0 10px 20px; line-height: 1.8;">
-                    <li><strong>Oméga-3 (3 gélules/jour)</strong> : -25% triglycérides</li>
-                    <li><strong>Berbérine 500mg x2/jour</strong> : -18% cholestérol total, -25% LDL</li>
-                    <li><strong>Psyllium blond 3g/soir</strong> : -18% LDL (fibres solubles)</li>
-                    <li><strong>Vitamine D3 10000 UI</strong> : optimise métabolisme lipidique</li>
-                    <li><strong>Curcumine 1000mg</strong> : anti-inflammatoire cardiovasculaire</li>
-                </ul>
-            </div>
-
-            <div class="progress-card">
-                <h3>🚶 Marche Obligatoire</h3>
-                <div class="info-box">
-                    <strong>Après chaque repas : 15-20 min</strong><br>
-                    Effet : +5-10% HDL (bon cholestérol)<br>
-                    Objectif : 10 000 pas/jour minimum
-                </div>
-            </div>
-
-            <div class="progress-card">
-                <h3>📊 Contrôles Sanguins</h3>
-                <ul style="margin: 10px 0 10px 20px; line-height: 1.8;">
-                    <li><strong>Avant programme</strong> : ✅ Fait (11/12/2024)</li>
-                    <li><strong>Semaine 4</strong> : Contrôle intermédiaire</li>
-                    <li><strong>Semaine 8</strong> : Bilan final complet</li>
-                </ul>
-            </div>
+            <div class="progress-card"><h3>🥦 Légumes disponibles</h3><div id="legumes-saison" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;"></div></div>
         </div>
 
         <div id="tab-grignotages" class="tab-content">
@@ -400,14 +293,16 @@
                 <div class="form-group">
                     <label class="form-label">Semaine concernée</label>
                     <select class="form-input" id="input-semaine">
-                        <option value="S1">S1 - Agressive</option>
-                        <option value="S2">S2 - Agressive</option>
-                        <option value="S3">S3 - Agressive</option>
-                        <option value="S4">S4 - Agressive</option>
+                        <option value="S1">S1 - Sèche</option>
+                        <option value="S2">S2 - Sèche</option>
+                        <option value="S3">S3 - Sèche</option>
+                        <option value="S4">S4 - Sèche</option>
                         <option value="S5">S5 - Deload</option>
-                        <option value="S6">S6 - Modérée</option>
-                        <option value="S7">S7 - Modérée</option>
-                        <option value="S8">S8 - Modérée</option>
+                        <option value="S6">S6 - Sèche</option>
+                        <option value="S7">S7 - Sèche</option>
+                        <option value="S8">S8 - Sèche</option>
+                        <option value="S9">S9 - Sèche</option>
+                        <option value="S10">S10 - Finale</option>
                     </select>
                 </div>
                 <div class="form-row">
@@ -439,10 +334,6 @@
                         <label class="form-label">🌿 Digestion (/10)</label>
                         <input type="number" min="1" max="10" class="form-input" id="input-digestion" placeholder="8">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">💨 Gaz (/10)</label>
-                        <input type="number" min="1" max="10" class="form-input" id="input-gaz" placeholder="3">
-                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">📝 Notes</label>
@@ -472,443 +363,458 @@
     </div>
 
     <script>
-const SAISONS={automne:{mois:[9,10,11],nom:'Automne',emoji:'🍂',fruits:['Pomme','Poire','Raisin'],legumes:['Courge butternut','Potimarron','Carottes','Courgettes','Fenouil','Haricots verts','Épinards','Betterave']},hiver:{mois:[12,1,2],nom:'Hiver',emoji:'❄️',fruits:['Pomme','Poire','Orange','Clémentine','Kiwi'],legumes:['Carottes','Courge','Épinards','Fenouil','Panais','Céleri','Mâche']},printemps:{mois:[3,4,5],nom:'Printemps',emoji:'🌸',fruits:['Fraise','Cerise','Pomme'],legumes:['Carottes nouvelles','Haricots verts','Épinards','Asperges','Radis','Laitue']},ete:{mois:[6,7,8],nom:'Été',emoji:'☀️',fruits:['Pêche','Abricot','Melon','Pastèque'],legumes:['Courgettes','Haricots verts','Carottes','Concombre','Fenouil','Tomate']}};
+// 🆕 Saisons simplifiées
+const SAISONS={automne:{mois:[9,10,11],nom:'Automne',emoji:'🍂',fruits:['Pomme','Poire','Raisin'],legumes:['Courge','Potimarron','Carottes','Courgettes','Brocoli','Haricots verts','Épinards']},hiver:{mois:[12,1,2],nom:'Hiver',emoji:'❄️',fruits:['Pomme','Poire','Orange','Kiwi'],legumes:['Carottes','Courge','Épinards','Brocoli']},printemps:{mois:[3,4,5],nom:'Printemps',emoji:'🌸',fruits:['Fraise','Cerise','Pomme'],legumes:['Carottes','Haricots verts','Épinards','Asperges']},ete:{mois:[6,7,8],nom:'Été',emoji:'☀️',fruits:['Pêche','Abricot','Melon'],legumes:['Courgettes','Haricots verts','Carottes','Tomate']}};
 
+// 🆕 PLAN SÈCHE 10 SEMAINES
 const PLAN_HYBRIDE = {
     dateDebut: new Date().toISOString().split('T')[0],
     poidsInitial: 93.4,
     tailleInitiale: 105,
     semaines: {
-        S1: {phase:'agressive',nom:'Sèche S1',objectif:'Kickstart Sèche + Anti-Cholestérol',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
-        S2: {phase:'agressive',nom:'Sèche S2',objectif:'Accélération perte gras',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
-        S3: {phase:'agressive',nom:'Sèche S3',objectif:'Momentum',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
-        S4: {phase:'agressive',nom:'Sèche S4',objectif:'Finalisation phase 1 + Analyses',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
-        S5: {phase:'deload',nom:'Deload & Contrôle',objectif:'Récupération + analyses',calories:{training:2450,repos:2150},macros:{training:{P:230,G:250,L:70},repos:{P:215,G:165,L:90}},deficitCible:400,perteVisee:0.4,couleur:'#ffc107'},
-        S6: {phase:'agressive',nom:'Sèche S6',objectif:'Reprise intensité',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
-        S7: {phase:'agressive',nom:'Sèche S7',objectif:'Finalisation',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'},
-        S8: {phase:'agressive',nom:'Sèche S8',objectif:'Bilan final + Préparation prise muscle',calories:{training:2350,repos:1950},macros:{training:{P:240,G:230,L:65},repos:{P:220,G:130,L:85}},deficitCible:680,perteVisee:0.8,couleur:'#ff6b6b'}
+        S1: {phase:'seche',nom:'Sèche S1',objectif:'Kickstart sèche intensive',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S2: {phase:'seche',nom:'Sèche S2',objectif:'Accélération perte gras',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S3: {phase:'seche',nom:'Sèche S3',objectif:'Momentum optimal',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S4: {phase:'seche',nom:'Sèche S4',objectif:'Finalisation phase 1',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S5: {phase:'deload',nom:'Deload',objectif:'Récupération métabolique',calories:{training:2750,repos:2350},macros:{training:{P:230,G:280,L:85},repos:{P:220,G:200,L:95}},deficitCible:400,perteVisee:0.3,couleur:'#ffc107'},
+        S6: {phase:'seche',nom:'Sèche S6',objectif:'Reprise intensité',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S7: {phase:'seche',nom:'Sèche S7',objectif:'Continuation sèche',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S8: {phase:'seche',nom:'Sèche S8',objectif:'Phase finale approche',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S9: {phase:'seche',nom:'Sèche S9',objectif:'Dernière ligne droite',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S10: {phase:'finale',nom:'Finale',objectif:'Bilan final & transition',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#51cf66'}
+    }
+};
+
+// 🆕 MENUS SÈCHE - 3 REPAS/JOUR AVEC OPTIONS MULTIPLES
+const MENUS_BASE = {
+    training: {
+        repas: [
+            {
+                id: 'repas1_training',
+                nom: 'REPAS 1 - Pré-Training',
+                heure: '12:00',
+                calories: 750,
+                macros: {P: 75, G: 85, L: 15},
+                note: '⏰ Finir 1h45 avant training (13h45)',
+                options: [
+                    {
+                        id: 'A',
+                        nom: 'Option A - Poulet-Riz',
+                        aliments: [
+                            '🍗 Poulet (filet) : 220g cru',
+                            '🍚 Riz basmati : 80g cru (240g cuit)',
+                            '🥦 Brocoli : 200g',
+                            '🫑 Poivrons : 100g',
+                            '🫒 Huile olive : 10ml (1 c. soupe)',
+                            '🍎 Pomme : 1 moyenne (150g)',
+                            '💪 Whey vanille : 25g (shaker eau)'
+                        ]
+                    },
+                    {
+                        id: 'B',
+                        nom: 'Option B - Dinde-Quinoa',
+                        aliments: [
+                            '🦃 Escalope dinde : 220g cru',
+                            '🌾 Quinoa : 70g cru (210g cuit)',
+                            '🥦 Haricots verts : 200g',
+                            '🍅 Tomates cerises : 100g',
+                            '🫒 Huile olive : 10ml',
+                            '🍊 Orange : 1 (150g)',
+                            '💪 Whey : 25g'
+                        ]
+                    },
+                    {
+                        id: 'C',
+                        nom: 'Option C - Bœuf-Pâtes',
+                        aliments: [
+                            '🥩 Bœuf haché 5% : 180g cru',
+                            '🍝 Pâtes complètes : 70g crues (210g cuites)',
+                            '🥬 Épinards : 200g',
+                            '🍄 Champignons : 100g',
+                            '🫒 Huile olive : 10ml',
+                            '🍌 Banane : 1 petite (100g)',
+                            '💪 Whey : 25g'
+                        ]
+                    },
+                    {
+                        id: 'D',
+                        nom: 'Option D - Poisson-Riz',
+                        aliments: [
+                            '🐟 Cabillaud/Colin : 250g cru',
+                            '🍚 Riz basmati : 80g cru',
+                            '🥒 Courgettes : 200g',
+                            '🥕 Carottes : 100g',
+                            '🫒 Huile olive : 10ml',
+                            '🍎 Poire : 1 moyenne',
+                            '💪 Whey : 25g'
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'repas2_training',
+                nom: 'REPAS 2 - Post-Training',
+                heure: '15:45',
+                calories: 550,
+                macros: {P: 60, G: 60, L: 10},
+                note: '⏰ Dans les 2h post-training MAX',
+                aliments: [
+                    '💪 SHAKER POST-WORKOUT (OBLIGATOIRE)',
+                    '━━━━━━━━━━━━━━━━━━',
+                    'Whey (vanille/chocolat) : 50g',
+                    'Bananes mûres : 2 moyennes (200g)',
+                    'Lait d\'avoine : 200ml',
+                    'Miel : 10g (1 c. café)',
+                    'Beurre cacahuète : 10g (optionnel)',
+                    'Eau : 200ml',
+                    'Glaçons : 3-4',
+                    '',
+                    '🔄 MIXER 30 secondes = Shake 750ml',
+                    '',
+                    '💡 Alternative sans mixeur :',
+                    '• Whey 50g (shaker eau)',
+                    '• Bananes 2 (manger)',
+                    '• Lait avoine 200ml (boire)',
+                    '• Miel 10g (sur bananes)'
+                ]
+            },
+            {
+                id: 'repas3_training',
+                nom: 'REPAS 3 - Familial Soir',
+                heure: '19:30',
+                calories: 1250,
+                macros: {P: 105, G: 105, L: 50},
+                note: '🍽️ Repas familial adapté - Dessert 30 min après',
+                options: [
+                    {
+                        id: 'A',
+                        nom: 'Option A - Saumon-Patate Douce',
+                        plat: [
+                            '🐟 Saumon (pavé) : 300g cru',
+                            '🍠 Patate douce : 300g (four/vapeur)',
+                            '🥦 Brocoli : 250g',
+                            '🥕 Carottes : 100g',
+                            '🥗 Salade verte : 100g',
+                            '🥑 Avocat : 1 entier (150g)',
+                            '🫒 Huile olive : 15ml',
+                            '🍋 Citron : 1/2 (sur saumon)',
+                            '🧄 Ail, herbes, épices'
+                        ],
+                        dessert: [
+                            '🍶 Skyr nature : 200g',
+                            '🫐 Fruits rouges : 100g',
+                            '🌰 Noix de Grenoble : 20g (8-10 cerneaux)',
+                            '🍯 Miel : 5g (optionnel)'
+                        ]
+                    },
+                    {
+                        id: 'B',
+                        nom: 'Option B - Poulet-Riz-Légumes',
+                        plat: [
+                            '🍗 Poulet (cuisses/filets) : 300g cru',
+                            '🍚 Riz basmati : 100g cru (300g cuit)',
+                            '🥦 Mix légumes : 400g (brocoli, carottes, courgettes)',
+                            '🥗 Salade composée : 100g',
+                            '🥑 Avocat : 1 entier',
+                            '🫒 Huile olive : 20ml',
+                            '🍅 Sauce tomate maison (optionnel)'
+                        ],
+                        dessert: [
+                            '🍶 Skyr : 200g',
+                            '🍓 Fraises : 100g',
+                            '🥜 Amandes : 20g'
+                        ]
+                    },
+                    {
+                        id: 'C',
+                        nom: 'Option C - Bœuf-Pommes de Terre',
+                        plat: [
+                            '🥩 Steak bœuf ou pavé : 280g cru',
+                            '🥔 Pommes de terre : 300g (vapeur/four)',
+                            '🥦 Haricots verts : 250g',
+                            '🍄 Champignons poêlés : 150g',
+                            '🥗 Salade : 100g',
+                            '🫒 Huile olive : 20ml',
+                            '🥑 Avocat : 1/2'
+                        ],
+                        dessert: [
+                            '🍶 Fromage blanc 0% : 250g',
+                            '🍌 Banane : 1',
+                            '🌰 Noix cajou : 20g',
+                            '🍯 Miel : 5g'
+                        ]
+                    },
+                    {
+                        id: 'D',
+                        nom: 'Option D - Poisson-Lentilles',
+                        plat: [
+                            '🐟 Cabillaud/Lieu : 300g cru',
+                            '🫘 Lentilles corail : 80g crues (240g cuites)',
+                            '🥦 Brocoli : 200g',
+                            '🥕 Carottes : 150g',
+                            '🥗 Salade : 100g',
+                            '🥑 Avocat : 1 entier',
+                            '🫒 Huile olive : 15ml'
+                        ],
+                        dessert: [
+                            '🍶 Skyr : 200g',
+                            '🍎 Compote pomme sans sucre : 100g',
+                            '🌰 Noisettes : 20g'
+                        ]
+                    },
+                    {
+                        id: 'E',
+                        nom: 'Option E - Dinde-Pâtes Complètes',
+                        plat: [
+                            '🦃 Escalope dinde : 300g cru',
+                            '🍝 Pâtes complètes : 100g crues (300g cuites)',
+                            '🍅 Sauce tomate maison : 150g',
+                            '🥬 Épinards : 250g',
+                            '🍄 Champignons : 100g',
+                            '🥗 Salade : 100g',
+                            '🥑 Avocat : 1 entier',
+                            '🫒 Huile olive : 15ml',
+                            '🧀 Parmesan râpé : 10g (optionnel)'
+                        ],
+                        dessert: [
+                            '🍶 Skyr : 200g',
+                            '🫐 Mix fruits rouges : 100g',
+                            '🥜 Amandes : 20g'
+                        ]
+                    },
+                    {
+                        id: 'F',
+                        nom: 'Option F - Œufs-Légumes',
+                        plat: [
+                            '🥚 Œufs entiers : 6 (omelette ou dur)',
+                            '🥔 Pommes de terre : 300g',
+                            '🥦 Mix légumes : 400g',
+                            '🥗 Salade : 100g',
+                            '🥑 Avocat : 1 entier',
+                            '🫒 Huile olive : 20ml',
+                            '🧀 Fromage râpé : 30g (optionnel)'
+                        ],
+                        dessert: [
+                            '🍶 Skyr : 250g',
+                            '🍌 Banane : 1',
+                            '🌰 Noix : 25g'
+                        ]
+                    }
+                ]
+            }
+        ],
+        supplements: [
+            {
+                moment: 'MATIN (6h30-7h00, à jeun)',
+                liste: [
+                    '☕ Café noir : 1-2 tasses (300mg caféine)',
+                    '💊 Vitamine D3 : 5000 UI (1 capsule)',
+                    '💧 Eau : 500ml'
+                ]
+            },
+            {
+                moment: 'PRÉ-TRAINING (11h45)',
+                liste: [
+                    '💊 Créatine monohydrate : 5g (avec eau)'
+                ]
+            },
+            {
+                moment: 'POST-TRAINING (avec shaker 15h45)',
+                liste: [
+                    '✅ Déjà whey 50g dans shaker'
+                ]
+            },
+            {
+                moment: 'SOIR (22h00, avant coucher)',
+                liste: [
+                    '💊 Oméga-3 EPA/DHA : 3g (3 capsules)',
+                    '💊 Magnésium : 400mg (2 comprimés)',
+                    '💊 Zinc : 30mg (1 comprimé)',
+                    '💊 Vitamine C : 1000mg (1 comprimé)',
+                    '',
+                    '🦴 ARTICULATIONS (44 ans) :',
+                    '💊 Glucosamine : 1500mg (2 comprimés)',
+                    '💊 Chondroïtine : 1200mg (2 comprimés)',
+                    '💊 Collagène : 10g (poudre dans eau)',
+                    '💊 Curcuma : 1000mg (2 capsules)',
+                    '',
+                    '💧 Eau : 500ml'
+                ]
+            }
+        ]
+    },
+    repos: {
+        repas: [
+            {
+                id: 'repas1_repos',
+                nom: 'REPAS 1',
+                heure: '12:00',
+                calories: 650,
+                macros: {P: 70, G: 50, L: 25},
+                options: [
+                    {
+                        id: 'A',
+                        nom: 'Option A - Base',
+                        aliments: [
+                            '🍗 Poulet : 200g cru',
+                            '🍚 Riz basmati : 50g cru (150g cuit)',
+                            '🥦 Légumes : 400g (augmenté)',
+                            '🫒 Huile olive : 15ml (+5ml vs training)',
+                            '🍎 Pomme : 1',
+                            '💪 Whey : 20g (optionnel)'
+                        ]
+                    },
+                    {
+                        id: 'B',
+                        nom: 'Option B - Dinde',
+                        aliments: [
+                            '🦃 Dinde : 200g',
+                            '🌾 Quinoa : 50g cru',
+                            '🥦 Légumes : 400g',
+                            '🫒 Huile olive : 15ml',
+                            '🍊 Orange : 1',
+                            '💪 Whey : 20g'
+                        ]
+                    },
+                    {
+                        id: 'C',
+                        nom: 'Option C - Bœuf',
+                        aliments: [
+                            '🥩 Bœuf 5% : 180g',
+                            '🍝 Pâtes : 50g crues',
+                            '🥬 Légumes : 400g',
+                            '🫒 Huile olive : 15ml',
+                            '🍌 Banane : 1'
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'repas2_repos',
+                nom: 'REPAS 2 - Collation',
+                heure: '16:00',
+                calories: 400,
+                macros: {P: 40, G: 30, L: 15},
+                options: [
+                    {
+                        id: 'A',
+                        nom: 'Option A',
+                        aliments: [
+                            '🍶 Skyr : 200g',
+                            '🍎 Pomme : 1',
+                            '🥜 Amandes : 15g (12 amandes)'
+                        ]
+                    },
+                    {
+                        id: 'B',
+                        nom: 'Option B',
+                        aliments: [
+                            '🥚 Œufs durs : 3 entiers',
+                            '🍌 Banane : 1',
+                            '🌰 Noix : 10g'
+                        ]
+                    },
+                    {
+                        id: 'C',
+                        nom: 'Option C',
+                        aliments: [
+                            '🧀 Fromage blanc 0% : 200g',
+                            '🫐 Fruits rouges : 80g',
+                            '🥜 Beurre cacahuète : 10g',
+                            '🍯 Miel : 5g'
+                        ]
+                    },
+                    {
+                        id: 'D',
+                        nom: 'Option D',
+                        aliments: [
+                            '💪 Whey : 30g',
+                            '🍌 Banane : 1',
+                            '🥛 Lait avoine : 200ml',
+                            '🥜 Amandes : 10g'
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'repas3_repos',
+                nom: 'REPAS 3 - Familial Soir',
+                heure: '19:30',
+                calories: 1050,
+                macros: {P: 120, G: 70, L: 45},
+                note: '🍽️ Portions légumes augmentées vs training',
+                options: [
+                    {
+                        id: 'A',
+                        nom: 'Option A - Saumon-Légumes',
+                        plat: [
+                            '🐟 Saumon : 300g cru',
+                            '🥔 Pommes de terre : 200g (-100g vs training)',
+                            '🥦 Légumes : 450g (+50g)',
+                            '🥗 Salade : 100g',
+                            '🥑 Avocat : 1 entier',
+                            '🫒 Huile olive : 20ml'
+                        ],
+                        dessert: [
+                            '🍶 Skyr : 250g (+50g)',
+                            '🫐 Fruits rouges : 50g',
+                            '🌰 Noix : 20g'
+                        ]
+                    },
+                    {
+                        id: 'B',
+                        nom: 'Option B - Poulet-Légumes',
+                        plat: [
+                            '🍗 Poulet : 300g',
+                            '🍚 Riz : 70g cru (-30g vs training)',
+                            '🥦 Légumes : 450g',
+                            '🥗 Salade : 100g',
+                            '🥑 Avocat : 1',
+                            '🫒 Huile olive : 20ml'
+                        ],
+                        dessert: [
+                            '🍶 Fromage blanc : 250g',
+                            '🍓 Fraises : 50g',
+                            '🥜 Amandes : 20g'
+                        ]
+                    }
+                ]
+            }
+        ],
+        supplements: [
+            {
+                moment: 'MATIN (7h00, à jeun)',
+                liste: [
+                    '☕ Café noir',
+                    '💊 Vitamine D3 : 5000 UI',
+                    '💧 Eau : 500ml'
+                ]
+            },
+            {
+                moment: 'APRÈS-MIDI (16h00 avec collation)',
+                liste: [
+                    '💊 Créatine : 5g (même jours repos)'
+                ]
+            },
+            {
+                moment: 'SOIR (22h00)',
+                liste: [
+                    '💊 Oméga-3 : 3g',
+                    '💊 Magnésium : 400mg',
+                    '💊 Zinc : 30mg',
+                    '💊 Articulations (mêmes doses)',
+                    '• Glucosamine 1500mg',
+                    '• Chondroïtine 1200mg',
+                    '• Collagène 10g',
+                    '• Curcuma 1000mg'
+                ]
+            }
+        ]
     }
 };
 
 function getSaison(){const mois=new Date().getMonth()+1;for(const[key,saison]of Object.entries(SAISONS)){if(saison.mois.includes(mois))return saison}return SAISONS.automne}
 let SAISON_ACTUELLE=getSaison();
-
-const MENUS_BASE={
-    training:{
-        repas:[
-            {
-                id:'reveil',
-                nom:'Au réveil',
-                heure:'06:30',
-                type:'hydratation',
-                aliments:['500ml eau tiède + jus 1/2 citron'],
-                hydration:0.5,
-                gastip:'🌿 Hydratation matinale = activation métabolisme + détox'
-            },
-            {
-                id:'petit_dej',
-                nom:'Petit-déjeuner',
-                heure:'08:30',
-                calories:580,
-                macros:{P:52,G:60,L:16},
-                hydration:0.3,
-                aliments:[
-                    'Flocons avoine 40g <span class="cholesterol-tag">⭐ BETA-GLUCANE = -7% CHOLESTÉROL</span>',
-                    'Quinoa flocons 25g <span class="cholesterol-tag">⭐ ANTI-CHOLESTÉROL</span>',
-                    'Lait avoine 200ml',
-                    'Whey isolat 45g',
-                    'Œufs 2 entiers + 4 blancs',
-                    'Pomme cuite 1 <span class="cholesterol-tag">⭐ PECTINE = BAISSE LDL</span>',
-                    'Noix 10g <span class="cholesterol-tag">⭐ OMÉGA-3 = -5% LDL</span>',
-                    'Cannelle 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>'
-                ],
-                supplements:[
-                    'Vitamine D3 : 10000 UI',
-                    'Vitamine C : 1000mg',
-                    'Oméga-3 : 4 gélules <span class="cholesterol-tag">⭐ -25% TRIGLYCÉRIDES</span>',
-                    'Zinc : 15mg',
-                    'Curcumine : 1000mg',
-                    'Créatine : 5g (dose unique)',
-                    'Berbérine : 500mg <span class="cholesterol-tag">⭐ DOSE 1/3 = -25% LDL</span>'
-                ],
-                gastip:'🌿 Pomme cuite = meilleure digestion que crue',
-                cholesteroltip:'💊 Avoine + Noix + Berbérine = Combo anti-cholestérol matinal puissant'
-            },
-            {
-                id:'collation_matin',
-                nom:'Collation',
-                heure:'10:30',
-                calories:180,
-                macros:{P:12,G:24,L:8},
-                hydration:0.4,
-                aliments:[
-                    'Galettes riz complet 3',
-                    'Beurre cacahuète 12g',
-                    'Pomme 1 <span class="cholesterol-tag">⭐ PECTINE = CAPTURE CHOLESTÉROL</span>',
-                    'Infusion fenouil + Thé vert'
-                ],
-                gastip:'🌿 Infusion fenouil = anti-ballonnements',
-                cholesteroltip:'💊 2ème pomme = dose pectine efficace'
-            },
-            {
-                id:'hydra_11h30',
-                nom:'Hydratation',
-                heure:'11:30',
-                type:'hydratation',
-                hydration:0.3,
-                aliments:['300ml eau'],
-                gastip:'🌿 Pré-hydratation avant repas = meilleure digestion'
-            },
-            {
-                id:'pre_training',
-                nom:'Pré-Training',
-                heure:'12:00',
-                calories:220,
-                macros:{P:24,G:50,L:3},
-                hydration:0.2,
-                aliments:[
-                    'Riz basmati 50g cuit (17g sec)',
-                    'Whey isolat 20g',
-                    'Banane 1/2',
-                    'Cannelle 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>',
-                    'Berbérine 500mg <span class="cholesterol-tag">⭐ DOSE 2/3 avant glucides</span>'
-                ],
-                note:'⚠️ 90 min avant training',
-                gastip:'🌿 Riz basmati = IG moyen, digestion rapide',
-                cholesteroltip:'💊 Berbérine avant glucides = contrôle glycémie optimal'
-            },
-            {
-                id:'training',
-                nom:'Training',
-                heure:'13:30-14:45',
-                type:'activite',
-                duree:'75 min',
-                hydration:0.7,
-                aliments:['600-700ml eau + électrolytes'],
-                note:'OBLIGATOIRE',
-                gastip:'🌿 Hydratation pendant effort = performance + récupération'
-            },
-            {
-                id:'post_training',
-                nom:'Post-Training',
-                heure:'14:50',
-                calories:300,
-                macros:{P:50,G:55,L:1},
-                hydration:0.3,
-                aliments:[
-                    'Whey isolat 50g',
-                    'Riz basmati 70g cuit (23g sec)',
-                    'Dattes Medjool 2 (au lieu miel = IG moyen + fibres)',
-                    'Cannelle 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>'
-                ],
-                note:'IMMÉDIAT dans vestiaire',
-                gastip:'🌿 Dattes = moins de pic glycémique que miel',
-                cholesteroltip:'💊 Fenêtre anabolique post-training optimisée'
-            },
-            {
-                id:'hydra_16h',
-                nom:'Hydratation',
-                heure:'16:00',
-                type:'hydratation',
-                hydration:0.4,
-                aliments:['400ml eau'],
-                gastip:'🌿 Récupération post-training'
-            },
-            {
-                id:'repas_16h30',
-                nom:'Repas post-training',
-                heure:'16:30',
-                calories:520,
-                macros:{P:48,G:45,L:18},
-                hydration:0.2,
-                aliments:[
-                    'Poulet/Dinde 200g <span style="background: #e3f2fd; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">📦 BATCH COOKING</span>',
-                    'Patate douce 100g <span style="background: #e3f2fd; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">📦 BATCH COOKING</span>',
-                    'Légumes cuits 300g <span style="background: #e3f2fd; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">📦 BATCH</span> <span class="cholesterol-tag">⭐ FIBRES</span>',
-                    '• Mix anti-cholestérol : Brocoli 120g + Épinards 100g + Carottes 80g',
-                    '• OU Mix anti-gaz : Courge 120g + Courgettes 100g + Haricots verts 80g',
-                    'Lentilles corail 100g cuites <span style="background: #e3f2fd; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">📦 BATCH</span> <span class="cholesterol-tag">⭐ -11% LDL</span>',
-                    'Huile olive 10ml <span class="cholesterol-tag">⭐ ACIDE OLÉIQUE</span>',
-                    'Vinaigre cidre 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE -34%</span>',
-                    'Cumin + coriandre + gingembre',
-                    'Berbérine 500mg <span class="cholesterol-tag">⭐ DOSE 3/3</span>'
-                ],
-                note:'📦 Préparé dimanche - Réchauffer 2-3 min micro-ondes',
-                gastip:'🌿 Lentilles corail = ultra-digeste (15 min cuisson)',
-                cholesteroltip:'💊 Lentilles = fibres solubles champion anti-LDL (-11%)'
-            },
-            {
-                id:'hydra_18h30',
-                nom:'Hydratation',
-                heure:'18:30',
-                type:'hydratation',
-                hydration:0.3,
-                aliments:['300ml eau'],
-                gastip:'🌿 Pré-hydratation dîner'
-            },
-            {
-                id:'diner',
-                nom:'Dîner',
-                heure:'19:15',
-                calories:620,
-                macros:{P:50,G:35,L:24},
-                hydration:0.4,
-                aliments:[
-                    'Saumon 220g <span class="cholesterol-tag">⭐ OMÉGA-3 = -20% TRIGLYCÉRIDES</span>',
-                    'Légumes cuits 450g <span class="cholesterol-tag">⭐ FIBRES MASSIF = -10% LDL</span>',
-                    '• Brocoli 180g <span class="cholesterol-tag">⭐ SULFORAPHANE = DÉTOX CHOLESTÉROL</span>',
-                    '• Épinards 150g',
-                    '• Carottes/Courgettes 120g',
-                    'Avocat 1/2 <span class="cholesterol-tag">⭐ GRAISSES MONO = BAISSE LDL + MONTE HDL</span>',
-                    'Huile olive 15ml <span class="cholesterol-tag">⭐ ACIDE OLÉIQUE = -15% LDL</span>',
-                    'Vinaigre cidre 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>',
-                    'Cumin + coriandre + gingembre'
-                ],
-                note:'🔪 Cuisson vapeur 20 min minimum',
-                gastip:'🌿 Cuisson 20 min = légumes ultra-digestes, 0 gaz',
-                cholesteroltip:'💊 Saumon + Légumes massifs + Avocat = Trio gagnant cardiovasculaire'
-            },
-            {
-                id:'marche',
-                nom:'Marche digestive',
-                heure:'19:45',
-                type:'activite',
-                duree:'20 min',
-                hydration:0.2,
-                aliments:['200ml eau'],
-                note:'⚠️ OBLIGATOIRE - NON NÉGOCIABLE',
-                gastip:'🌿 Marche = évacue gaz 50% + améliore digestion',
-                cholesteroltip:'💊 Marche post-dîner = +5-10% HDL (bon cholestérol) prouvé'
-            },
-            {
-                id:'hydra_21h30',
-                nom:'Hydratation',
-                heure:'21:30',
-                type:'hydratation',
-                hydration:0.3,
-                aliments:['300ml eau'],
-                gastip:'🌿 Pré-hydratation coucher'
-            },
-            {
-                id:'avant_coucher',
-                nom:'Avant coucher',
-                heure:'22:00',
-                calories:330,
-                macros:{P:28,G:18,L:12},
-                hydration:0.7,
-                aliments:[
-                    'Skyr 0% 250g',
-                    'Fruits rouges 80g <span class="cholesterol-tag">⭐ ANTHOCYANES = -8% LDL</span>',
-                    'Cannelle 1/2 c. café <span class="cholesterol-tag">⭐ INSULINE +29%</span>',
-                    'Graines chia 15g <span class="cholesterol-tag">⭐ OMÉGA-3 + FIBRES</span>',
-                    'Psyllium blond 5g <span class="cholesterol-tag">⭐ FIBRES SOLUBLES = -18% LDL</span>',
-                    '200ml eau tiède + 500ml après psyllium (attendre 30 min)',
-                    'Tisane fenouil-gingembre'
-                ],
-                supplements:[
-                    'Magnésium 500mg (sommeil + constipation)',
-                    'Berbérine 500mg <span class="cholesterol-tag">⭐ Dose nocturne optimale</span>'
-                ],
-                note:'⚠️ Psyllium = attendre 30 min puis boire 500ml eau',
-                gastip:'🌿 Routine soir = clé digestion + transit optimal',
-                cholesteroltip:'💊 Psyllium 5g + Berbérine = combo ultra-puissant avant sommeil'
-            }
-        ],
-        hydrationTotal:4.5
-    },
-    repos:{
-        repas:[
-            {
-                id:'reveil',
-                nom:'Au réveil',
-                heure:'06:30',
-                type:'hydratation',
-                aliments:['500ml eau tiède + citron'],
-                hydration:0.5,
-                gastip:'🌿 Hydratation matinale = détox'
-            },
-            {
-                id:'petit_dej',
-                nom:'Petit-déjeuner',
-                heure:'08:30',
-                calories:580,
-                macros:{P:52,G:55,L:18},
-                hydration:0.3,
-                aliments:[
-                    'Flocons avoine 40g <span class="cholesterol-tag">⭐ BETA-GLUCANE</span>',
-                    'Quinoa flocons 20g <span class="cholesterol-tag">⭐ ANTI-CHOLESTÉROL</span>',
-                    'Lait avoine 200ml',
-                    'Whey isolat 45g',
-                    'Œufs 2 entiers + 4 blancs',
-                    'Fruits rouges 120g <span class="cholesterol-tag">⭐ ANTHOCYANES = -8% LDL</span>',
-                    'Noix 12g <span class="cholesterol-tag">⭐ OMÉGA-3</span>',
-                    'Cannelle 1 c. café <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>'
-                ],
-                supplements:[
-                    'Vitamine D3 : 10000 UI',
-                    'Vitamine C : 1000mg',
-                    'Oméga-3 : 4 gélules <span class="cholesterol-tag">⭐ -25% TRIGLYCÉRIDES</span>',
-                    'Zinc : 15mg',
-                    'Curcumine : 1000mg',
-                    'Créatine : 5g',
-                    'Berbérine : 500mg <span class="cholesterol-tag">⭐ DOSE 1/3</span>'
-                ],
-                gastip:'🌿 Protocole identique training',
-                cholesteroltip:'💊 Morning routine anti-cholestérol'
-            },
-            {
-                id:'collation_matin',
-                nom:'Collation',
-                heure:'10:30',
-                calories:170,
-                macros:{P:12,G:22,L:8},
-                hydration:0.4,
-                aliments:[
-                    'Galettes riz complet 3',
-                    'Beurre cacahuète 10g',
-                    'Kiwi 2',
-                    'Infusion fenouil + Thé vert'
-                ],
-                gastip:'🌿 Infusion fenouil systématique',
-                cholesteroltip:'💊 Kiwi = vitamine C + fibres'
-            },
-            {
-                id:'hydra_11h30',
-                nom:'Hydratation',
-                heure:'11:30',
-                type:'hydratation',
-                hydration:0.3,
-                aliments:['300ml eau'],
-                gastip:'🌿 Pré-hydratation déjeuner'
-            },
-            {
-                id:'dejeuner',
-                nom:'Déjeuner',
-                heure:'13:00',
-                calories:640,
-                macros:{P:58,G:40,L:24},
-                hydration:0.4,
-                aliments:[
-                    'Poulet/Dinde 240g',
-                    'Légumes cuits 400g <span class="cholesterol-tag">⭐ FIBRES MASSIF</span>',
-                    '• Courge butternut 160g (digeste)',
-                    '• Courgettes 120g',
-                    '• Haricots verts 120g',
-                    'Lentilles corail 150g cuites <span class="cholesterol-tag">⭐ FIBRES SOLUBLES = -11% LDL</span>',
-                    'Huile olive 15ml <span class="cholesterol-tag">⭐ BAISSE LDL</span>',
-                    'Vinaigre cidre 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>',
-                    'Berbérine 500mg <span class="cholesterol-tag">⭐ DOSE 2/3</span>',
-                    'Cumin + coriandre + gingembre'
-                ],
-                note:'🔪 Cuisson vapeur 20 min',
-                gastip:'🌿 Lentilles bien cuites = ultra-digeste',
-                cholesteroltip:'💊 Déjeuner massif en légumes = effet max cholestérol'
-            },
-            {
-                id:'hydra_15h',
-                nom:'Hydratation',
-                heure:'15:00',
-                type:'hydratation',
-                hydration:0.4,
-                aliments:['400ml eau'],
-                gastip:'🌿 Hydratation après-midi'
-            },
-            {
-                id:'collation_aprem',
-                nom:'Collation',
-                heure:'16:00',
-                calories:210,
-                macros:{P:22,G:16,L:9},
-                hydration:0.2,
-                aliments:[
-                    'Skyr 0% 200g',
-                    'Pomme 1 <span class="cholesterol-tag">⭐ PECTINE</span>',
-                    'Noix 10g <span class="cholesterol-tag">⭐ OMÉGA-3</span>',
-                    'Thé vert'
-                ],
-                gastip:'🌿 Collation simple et digeste',
-                cholesteroltip:'💊 Pomme quotidienne = pectine anti-LDL'
-            },
-            {
-                id:'hydra_18h',
-                nom:'Hydratation',
-                heure:'18:00',
-                type:'hydratation',
-                hydration:0.3,
-                aliments:['300ml eau'],
-                gastip:'🌿 Pré-hydratation dîner'
-            },
-            {
-                id:'diner',
-                nom:'Dîner',
-                heure:'19:30',
-                calories:680,
-                macros:{P:58,G:36,L:28},
-                hydration:0.4,
-                aliments:[
-                    'Saumon 240g <span class="cholesterol-tag">⭐ OMÉGA-3 = -20% TRIGLYCÉRIDES</span>',
-                    'Légumes cuits 500g <span class="cholesterol-tag">⭐ FIBRES ULTRA-MASSIF</span>',
-                    '• Brocoli 200g <span class="cholesterol-tag">⭐ SULFORAPHANE</span>',
-                    '• Épinards 150g',
-                    '• Carottes 150g <span class="cholesterol-tag">⭐ FIBRES SOLUBLES</span>',
-                    'Avocat 1/2 <span class="cholesterol-tag">⭐ GRAISSES MONO</span>',
-                    'Huile olive 15ml <span class="cholesterol-tag">⭐ ACIDE OLÉIQUE</span>',
-                    'Vinaigre cidre 1 c. soupe <span class="cholesterol-tag">⭐ BAISSE GLYCÉMIE</span>',
-                    'Cumin + coriandre + gingembre'
-                ],
-                note:'🔪 Cuisson vapeur 20 min minimum',
-                gastip:'🌿 500g légumes = volume maximal digeste',
-                cholesteroltip:'💊 Dîner XXL légumes = 500g = effet cholestérol maximal'
-            },
-            {
-                id:'marche',
-                nom:'Marche digestive',
-                heure:'19:45',
-                type:'activite',
-                duree:'20-25 min',
-                hydration:0.2,
-                aliments:['200ml eau'],
-                note:'⚠️ OBLIGATOIRE - Tous les soirs',
-                gastip:'🌿 Marche = systématique pour digestion',
-                cholesteroltip:'💊 Marche = +8-10% HDL (bon cholestérol)'
-            },
-            {
-                id:'hydra_21h30',
-                nom:'Hydratation',
-                heure:'21:30',
-                type:'hydratation',
-                hydration:0.3,
-                aliments:['300ml eau'],
-                gastip:'🌿 Pré-hydratation coucher'
-            },
-            {
-                id:'avant_coucher',
-                nom:'Avant coucher',
-                heure:'22:00',
-                calories:340,
-                macros:{P:28,G:20,L:12},
-                hydration:0.7,
-                aliments:[
-                    'Skyr 0% 250g',
-                    'Fruits rouges 90g <span class="cholesterol-tag">⭐ ANTHOCYANES</span>',
-                    'Cannelle 1/2 c. café <span class="cholesterol-tag">⭐ INSULINE</span>',
-                    'Graines chia 15g <span class="cholesterol-tag">⭐ OMÉGA-3</span>',
-                    'Psyllium blond 5g <span class="cholesterol-tag">⭐ -18% LDL</span>',
-                    '200ml eau + 500ml après psyllium',
-                    'Tisane fenouil-gingembre'
-                ],
-                supplements:[
-                    'Magnésium 500mg',
-                    'Berbérine 500mg <span class="cholesterol-tag">⭐ DOSE 3/3</span>'
-                ],
-                note:'⚠️ Psyllium = attendre 30 min puis 500ml eau',
-                gastip:'🌿 Routine fixe optimale',
-                cholesteroltip:'💊 Psyllium 5g = dose optimale -18% LDL'
-            }
-        ],
-        hydrationTotal:4.3
-    }
-};
 
 let semaineActuelle = 'S1';
 let jourType = 'training';
@@ -916,7 +822,7 @@ let grignotages = [];
 let pesees = JSON.parse(localStorage.getItem('pesees-hebdo') || '[]');
 let derniereDateChargee = new Date().toISOString().split('T')[0];
 let derniereSemaineChargee = 'S1';
-let hydratationJour = 0;
+let optionsSelectionnees = JSON.parse(localStorage.getItem('options-repas') || '{}');
 
 window.onload = function() {
     updateSeasonDisplay();
@@ -924,7 +830,6 @@ window.onload = function() {
     derniereSemaineChargee = semaineActuelle;
     derniereDateChargee = new Date().toISOString().split('T')[0];
     loadDayType();
-    loadHydratation();
     afficherMenu();
     loadGrignotages();
     calculerProgression();
@@ -994,44 +899,19 @@ function verifierChangementDate() {
     const semaineActuelle_check = getSemaineActuelle();
     
     if (dateActuelle !== derniereDateChargee) {
-        console.log('🔄 Changement de date détecté:', derniereDateChargee, '→', dateActuelle);
         derniereDateChargee = dateActuelle;
-        
         afficherMenu();
         loadGrignotages();
-        loadHydratation();
         calculerProgression();
-        
-        const notification = document.createElement('div');
-        notification.style.cssText = 'position: fixed; top: 80px; right: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 20px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 3000; font-weight: bold; animation: slideIn 0.5s;';
-        notification.innerHTML = `📅 Nouveau jour détecté !<br><small style="opacity: 0.9; font-size: 12px;">Les données ont été mises à jour</small>`;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.5s';
-            setTimeout(() => notification.remove(), 500);
-        }, 3000);
     }
     
     if (semaineActuelle_check !== derniereSemaineChargee) {
-        console.log('🔄 Changement de semaine détecté:', derniereSemaineChargee, '→', semaineActuelle_check);
         derniereSemaineChargee = semaineActuelle_check;
         semaineActuelle = semaineActuelle_check;
-        
         afficherMenu();
         afficherCarteSemaine();
         updateTimelineVisuel();
         calculerProgression();
-        
-        const notification = document.createElement('div');
-        notification.style.cssText = 'position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%); color: white; padding: 20px 30px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 3000; font-weight: bold; text-align: center; animation: slideIn 0.5s; max-width: 90%;';
-        notification.innerHTML = `🎉 NOUVELLE SEMAINE !<br><span style="font-size: 24px; margin: 10px 0; display: block;">${semaineActuelle_check}</span><small style="opacity: 0.9; font-size: 12px;">Pense à faire ta pesée ce vendredi/samedi</small>`;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.5s';
-            setTimeout(() => notification.remove(), 500);
-        }, 5000);
     }
 }
 
@@ -1071,12 +951,13 @@ function verifierEtNotifierChangementSemaine() {
     }
 }
 
+// 🆕 Fonction semaine actuelle étendue à 10 semaines
 function getSemaineActuelle() {
     const dateDebut = new Date(PLAN_HYBRIDE.dateDebut);
     const aujourdhui = new Date();
     const diffJours = Math.floor((aujourdhui - dateDebut) / (1000*60*60*24));
     const numSemaine = Math.floor(diffJours / 7) + 1;
-    const semaine = 'S' + (numSemaine > 8 ? 8 : numSemaine < 1 ? 1 : numSemaine);
+    const semaine = 'S' + (numSemaine > 10 ? 10 : numSemaine < 1 ? 1 : numSemaine);
     return semaine;
 }
 
@@ -1105,7 +986,6 @@ function setDayType(type) {
     document.getElementById('prot-total').textContent = config.macros[type].P;
     document.getElementById('gluc-total').textContent = config.macros[type].G;
     document.getElementById('lip-total').textContent = config.macros[type].L;
-    document.getElementById('hydra-total').textContent = menu.hydrationTotal.toFixed(1);
     
     afficherMenu();
     calculerProgression();
@@ -1118,29 +998,7 @@ function loadDayType() {
     document.getElementById('day-display').textContent = jourType === 'training' ? '🏋️ JOUR TRAINING' : '💤 JOUR REPOS';
 }
 
-function loadHydratation() {
-    const today = new Date().toISOString().split('T')[0];
-    const key = `hydra-${today}`;
-    hydratationJour = parseFloat(localStorage.getItem(key) || '0');
-}
-
-function toggleHydratation(repasId, hydration) {
-    const today = new Date().toISOString().split('T')[0];
-    const key = `hydra-${today}`;
-    const validations = JSON.parse(localStorage.getItem(`repas-${today}`) || '[]');
-    
-    if (validations.includes(repasId)) {
-        hydratationJour += hydration;
-    } else {
-        hydratationJour -= hydration;
-    }
-    
-    hydratationJour = Math.max(0, hydratationJour);
-    localStorage.setItem(key, hydratationJour.toString());
-    
-    document.getElementById('hydra-actuel').textContent = hydratationJour.toFixed(1);
-}
-
+// 🆕 Fonction affichage menu avec options
 function afficherMenu() {
     const menu = MENUS_BASE[jourType];
     const config = PLAN_HYBRIDE.semaines[semaineActuelle];
@@ -1148,46 +1006,9 @@ function afficherMenu() {
     document.getElementById('semaine-actuelle-label').textContent = `${semaineActuelle} - ${config.nom.toUpperCase()}`;
     
     let html = '';
+    
     menu.repas.forEach(repas => {
         const valide = isRepasValide(repas.id);
-        
-        if (repas.type === 'hydratation') {
-            html += `<div class="nutrition-section">
-                <h3>${repas.heure} - ${repas.nom}</h3>
-                <div class="meal">
-                    <div class="hydration-note">
-                        <strong>💧 ${repas.hydration}L</strong><br>
-                        ${repas.aliments.join('<br>')}
-                    </div>
-                    ${repas.gastip ? `<div class="gas-tip"><strong>🌿 ASTUCE :</strong> ${repas.gastip}</div>` : ''}
-                    <div class="validation-checkbox ${valide ? 'validated' : ''}" onclick="toggleRepas('${repas.id}', ${repas.hydration || 0})">
-                        <input type="checkbox" ${valide ? 'checked' : ''} onclick="event.stopPropagation()">
-                        <span><strong>${valide ? '✅ Fait' : '⏸️ À faire'}</strong></span>
-                    </div>
-                </div>
-            </div>`;
-            return;
-        }
-        
-        if (repas.type === 'activite') {
-            html += `<div class="nutrition-section">
-                <h3>${repas.heure} - ${repas.nom}</h3>
-                <div class="meal">
-                    <div style="background: #fff9e6; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                        <strong>⏱️ ${repas.duree}</strong>
-                    </div>
-                    ${repas.hydration ? `<div class="hydration-note"><strong>💧 Hydratation :</strong> ${repas.hydration}L<br>${repas.aliments.join('<br>')}</div>` : ''}
-                    ${repas.note ? `<div style="background: #ffebee; padding: 8px; border-radius: 6px; margin: 8px 0; font-size: 12px;"><strong>⚠️</strong> ${repas.note}</div>` : ''}
-                    ${repas.gastip ? `<div class="gas-tip"><strong>🌿 ASTUCE :</strong> ${repas.gastip}</div>` : ''}
-                    ${repas.cholesteroltip ? `<div style="background: #fff3bf; border-left: 4px solid #f59f00; padding: 10px; margin: 10px 0; border-radius: 6px; font-size: 12px;"><strong>💊 CHOLESTÉROL :</strong> ${repas.cholesteroltip}</div>` : ''}
-                    <div class="validation-checkbox ${valide ? 'validated' : ''}" onclick="toggleRepas('${repas.id}', ${repas.hydration || 0})">
-                        <input type="checkbox" ${valide ? 'checked' : ''} onclick="event.stopPropagation()">
-                        <span><strong>${valide ? '✅ Fait' : '⏸️ À faire'}</strong></span>
-                    </div>
-                </div>
-            </div>`;
-            return;
-        }
         
         html += `<div class="nutrition-section">
             <h3>${repas.heure} - ${repas.nom}</h3>
@@ -1197,33 +1018,55 @@ function afficherMenu() {
                     <div class="detail-item"><span class="detail-label">P:</span> ${repas.macros.P}g</div>
                     <div class="detail-item"><span class="detail-label">G:</span> ${repas.macros.G}g</div>
                     <div class="detail-item"><span class="detail-label">L:</span> ${repas.macros.L}g</div>
-                    ${repas.hydration ? `<div class="detail-item" style="background: #e3f2fd;"><span class="detail-label">💧:</span> ${repas.hydration}L</div>` : ''}
-                </div>
-                <div class="meal-foods">
-                    <strong>🥘 Aliments:</strong>
-                    <ul>${repas.aliments.map(a => `<li>${a}</li>`).join('')}</ul>
                 </div>`;
-        
-        if (repas.supplements) {
-            html += `<div class="meal-foods">
-                <strong>💊 Suppléments:</strong>
-                <ul>${repas.supplements.map(s => `<li>${s}</li>`).join('')}</ul>
-            </div>`;
-        }
         
         if (repas.note) {
             html += `<div style="background: #fff9e6; padding: 8px; border-radius: 6px; margin: 8px 0; font-size: 12px;"><strong>⚠️</strong> ${repas.note}</div>`;
         }
         
-        if (repas.gastip) {
-            html += `<div class="gas-tip"><strong>🌿 ASTUCE :</strong> ${repas.gastip}</div>`;
+        if (repas.options) {
+            const today = new Date().toISOString().split('T')[0];
+            const optionKey = `${today}-${repas.id}`;
+            const optionSelectionnee = optionsSelectionnees[optionKey] || repas.options[0].id;
+            
+            html += `<div class="option-selector">
+                <strong>🔄 Choix option :</strong><br>`;
+            
+            repas.options.forEach(opt => {
+                const isActive = opt.id === optionSelectionnee;
+                html += `<button class="option-btn ${isActive ? 'active' : ''}" onclick="selectOption('${repas.id}', '${opt.id}')">${opt.nom}</button>`;
+            });
+            
+            html += `</div>`;
+            
+            const optionChoisie = repas.options.find(o => o.id === optionSelectionnee);
+            
+            if (optionChoisie.plat) {
+                html += `<div class="meal-foods">
+                    <strong>🍽️ PLAT PRINCIPAL:</strong>
+                    <ul>${optionChoisie.plat.map(a => `<li>${a}</li>`).join('')}</ul>
+                </div>`;
+                
+                if (optionChoisie.dessert) {
+                    html += `<div class="meal-foods">
+                        <strong>🍨 DESSERT (30 min après):</strong>
+                        <ul>${optionChoisie.dessert.map(a => `<li>${a}</li>`).join('')}</ul>
+                    </div>`;
+                }
+            } else {
+                html += `<div class="meal-foods">
+                    <strong>🥘 Aliments:</strong>
+                    <ul>${optionChoisie.aliments.map(a => `<li>${a}</li>`).join('')}</ul>
+                </div>`;
+            }
+        } else if (repas.aliments) {
+            html += `<div class="meal-foods">
+                <strong>🥘 Aliments:</strong>
+                <ul>${repas.aliments.map(a => `<li>${a}</li>`).join('')}</ul>
+            </div>`;
         }
         
-        if (repas.cholesteroltip) {
-            html += `<div style="background: #fff3bf; border-left: 4px solid #f59f00; padding: 10px; margin: 10px 0; border-radius: 6px; font-size: 12px;"><strong>💊 CHOLESTÉROL :</strong> ${repas.cholesteroltip}</div>`;
-        }
-        
-        html += `<div class="validation-checkbox ${valide ? 'validated' : ''}" onclick="toggleRepas('${repas.id}', ${repas.hydration || 0})">
+        html += `<div class="validation-checkbox ${valide ? 'validated' : ''}" onclick="toggleRepas('${repas.id}')">
             <input type="checkbox" ${valide ? 'checked' : ''} onclick="event.stopPropagation()">
             <span><strong>${valide ? '✅ Validé' : '⏸️ À valider'}</strong></span>
         </div>
@@ -1231,10 +1074,36 @@ function afficherMenu() {
     </div>`;
     });
     
+    if (menu.supplements && menu.supplements.length > 0) {
+        html += `<div class="nutrition-section">
+            <h3>💊 SUPPLÉMENTS ${jourType === 'training' ? 'TRAINING' : 'REPOS'}</h3>`;
+        
+        menu.supplements.forEach(supp => {
+            html += `<div class="meal">
+                <strong style="color: #667eea; font-size: 14px;">${supp.moment}</strong>
+                <div class="meal-foods">
+                    <ul>${supp.liste.map(s => `<li>${s}</li>`).join('')}</ul>
+                </div>
+            </div>`;
+        });
+        
+        html += `</div>`;
+    }
+    
     document.getElementById('menu-container').innerHTML = html;
 }
 
-function toggleRepas(repasId, hydration) {
+// 🆕 Fonction sélection option
+function selectOption(repasId, optionId) {
+    const today = new Date().toISOString().split('T')[0];
+    const optionKey = `${today}-${repasId}`;
+    optionsSelectionnees[optionKey] = optionId;
+    localStorage.setItem('options-repas', JSON.stringify(optionsSelectionnees));
+    afficherMenu();
+    showAutoSave();
+}
+
+function toggleRepas(repasId) {
     const today = new Date().toISOString().split('T')[0];
     const key = `repas-${today}`;
     let validations = JSON.parse(localStorage.getItem(key) || '[]');
@@ -1242,19 +1111,11 @@ function toggleRepas(repasId, hydration) {
     
     if (index > -1) {
         validations.splice(index, 1);
-        if (hydration) {
-            hydratationJour -= hydration;
-        }
     } else {
         validations.push(repasId);
-        if (hydration) {
-            hydratationJour += hydration;
-        }
     }
     
-    hydratationJour = Math.max(0, hydratationJour);
     localStorage.setItem(key, JSON.stringify(validations));
-    localStorage.setItem(`hydra-${today}`, hydratationJour.toString());
     
     afficherMenu();
     calculerProgression();
@@ -1294,7 +1155,6 @@ function calculerProgression() {
     document.getElementById('prot-actuel').textContent = totalP;
     document.getElementById('gluc-actuel').textContent = totalG;
     document.getElementById('lip-actuel').textContent = totalL;
-    document.getElementById('hydra-actuel').textContent = hydratationJour.toFixed(1);
 
     const pct = Math.min(100, Math.round((totalCal / config.calories[jourType]) * 100));
     document.getElementById('progress-bar').style.width = pct + '%';
@@ -1310,6 +1170,7 @@ function afficherSemaine(num) {
     showAutoSave();
 }
 
+// 🆕 Timeline étendue à 10 semaines
 function updateTimelineVisuel() {
     const items = document.querySelectorAll('.timeline-item');
     const numActuel = parseInt(semaineActuelle.substring(1));
@@ -1328,7 +1189,7 @@ function updateTimelineVisuel() {
         }
     });
 
-    const progress = ((numActuel - 1) / 7) * 90;
+    const progress = ((numActuel - 1) / 9) * 90;
     document.getElementById('timeline-progress').style.width = progress + '%';
 }
 
@@ -1374,7 +1235,7 @@ function afficherCarteSemaine() {
             <strong>✅ Pesée enregistrée</strong><br>
             Poids: ${pesee.poids}kg (<span style="color: ${deltaColor}">${deltaKg > 0 ? '+' : ''}${deltaKg.toFixed(1)}kg</span>)<br>
             % Graisse: ${pesee.bf}% | Tour taille: ${pesee.taille}cm<br>
-            Énergie: ${pesee.energie}/10 | Digestion: ${pesee.digestion}/10 | Gaz: ${pesee.gaz}/10
+            Énergie: ${pesee.energie}/10 | Digestion: ${pesee.digestion}/10
         </div>`;
     } else {
         html += `<div class="alert-box alert-warning" style="margin-top: 15px;">
@@ -1404,7 +1265,6 @@ function enregistrerPesee() {
     const bras = parseFloat(document.getElementById('input-bras').value) || null;
     const energie = parseInt(document.getElementById('input-energie').value) || null;
     const digestion = parseInt(document.getElementById('input-digestion').value) || null;
-    const gaz = parseInt(document.getElementById('input-gaz').value) || null;
     const notes = document.getElementById('input-notes-pesee').value;
 
     if (!poids || !bf) {
@@ -1432,7 +1292,6 @@ function enregistrerPesee() {
         bras,
         energie,
         digestion,
-        gaz,
         notes,
         deltaKg: peseePrecedente ? parseFloat((poids - peseePrecedente.poids).toFixed(1)) : 0,
         deltaBF: peseePrecedente ? parseFloat((bf - peseePrecedente.bf).toFixed(1)) : 0,
@@ -1459,7 +1318,6 @@ function enregistrerPesee() {
     document.getElementById('input-bras').value = '';
     document.getElementById('input-energie').value = '';
     document.getElementById('input-digestion').value = '';
-    document.getElementById('input-gaz').value = '';
     document.getElementById('input-notes-pesee').value = '';
 
     closeModal('modal-pesee');
@@ -1565,10 +1423,9 @@ function afficherHistoriquePesees() {
                     <div class="stat-value">${p.masseMaigre}kg</div>
                 </div>
             </div>
-            ${p.energie || p.digestion || p.gaz ? `<div style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 12px;">
+            ${p.energie || p.digestion ? `<div style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 12px;">
                 ${p.energie ? `⚡ Énergie: ${p.energie}/10 | ` : ''}
-                ${p.digestion ? `🌿 Digestion: ${p.digestion}/10 | ` : ''}
-                ${p.gaz ? `💨 Gaz: ${p.gaz}/10` : ''}
+                ${p.digestion ? `🌿 Digestion: ${p.digestion}/10` : ''}
             </div>` : ''}
             ${p.notes ? `<div style="background: #fff9e6; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 12px;">
                 <strong>📝 Notes :</strong> ${p.notes}
@@ -1631,44 +1488,24 @@ function afficherAlertes() {
         </div>`;
     }
 
-    if (dernierePesee.gaz && dernierePesee.gaz > 5) {
-        html += `<div class="alert-box alert-warning">
-            <strong>💨 Gaz élevés (${dernierePesee.gaz}/10)</strong><br>
-            • Vérifier protocole anti-gaz (infusions, marche)<br>
-            • Cuisson vapeur 20 min minimum<br>
-            • Éviter aliments gazogènes
-        </div>`;
-    }
-
     if (dernierePesee.energie && dernierePesee.energie < 6) {
         html += `<div class="alert-box alert-warning">
             <strong>⚡ Énergie basse (${dernierePesee.energie}/10)</strong><br>
             • Augmenter glucides pré-training (+20g)<br>
             • Sommeil 8h minimum<br>
-            • Envisager refeed si phase agressive
+            • Envisager refeed si phase sèche
         </div>`;
     }
 
     const numSemaine = parseInt(dernierePesee.semaine.substring(1));
-    if (numSemaine === 4) {
-        html += `<div class="alert-box alert-info">
-            <strong>🩺 SEMAINE 4 : Contrôle sanguin</strong><br>
-            Penser à refaire analyses :<br>
-            • Bilan lipidique complet (cholestérol, LDL, HDL, triglycérides)<br>
-            • Glycémie + HbA1c<br>
-            • Vitamine D
-        </div>`;
-    }
-
-    if (numSemaine === 8) {
+    if (numSemaine === 10) {
         html += `<div class="alert-box alert-success">
-            <strong>🎉 SEMAINE 8 : BILAN FINAL</strong><br>
+            <strong>🎉 SEMAINE 10 : BILAN FINAL</strong><br>
             Félicitations pour avoir terminé le programme !<br>
-            Penser à faire le bilan sanguin final :<br>
-            • Cholestérol total (objectif &lt;2g/L)<br>
-            • LDL (objectif &lt;1.16g/L)<br>
-            • HDL (objectif &gt;0.6g/L)<br>
-            • Triglycérides (objectif &lt;1g/L)
+            Pense à faire le bilan complet :<br>
+            • Photos avant/après<br>
+            • Mensurations complètes<br>
+            • Analyses sanguines si nécessaire
         </div>`;
     }
 
@@ -1765,7 +1602,7 @@ function exportRapport() {
     const totalGrig = grigJour.reduce((sum, g) => sum + g.calories, 0);
     totalCal += totalGrig;
 
-    let rapport = `🔥 RAPPORT PLAN ANTI-CHOLESTÉROL - ${today}\n`;
+    let rapport = `🔥 RAPPORT PLAN SÈCHE - ${today}\n`;
     rapport += `${semaineActuelle} - ${config.nom} (${config.phase.toUpperCase()})\n`;
     rapport += `${jourType === 'training' ? '🏋️ JOUR TRAINING' : '💤 JOUR REPOS'}\n`;
     rapport += `${SAISON_ACTUELLE.emoji} Saison: ${SAISON_ACTUELLE.nom}\n\n`;
@@ -1773,13 +1610,11 @@ function exportRapport() {
     rapport += `🎯 OBJECTIFS SEMAINE\n`;
     rapport += `Calories: ${config.calories[jourType]} kcal | Déficit: ${config.deficitCible} kcal\n`;
     rapport += `Perte visée: -${config.perteVisee}kg\n`;
-    rapport += `Macros: P${config.macros[jourType].P}g / G${config.macros[jourType].G}g / L${config.macros[jourType].L}g\n`;
-    rapport += `Hydratation: ${menu.hydrationTotal}L\n\n`;
+    rapport += `Macros: P${config.macros[jourType].P}g / G${config.macros[jourType].G}g / L${config.macros[jourType].L}g\n\n`;
     
     rapport += `✅ RÉALISATIONS JOUR\n`;
     rapport += `Calories: ${totalCal} kcal (${Math.round((totalCal / config.calories[jourType]) * 100)}%)\n`;
     rapport += `Protéines: ${totalP}g | Glucides: ${totalG}g | Lipides: ${totalL}g\n`;
-    rapport += `Hydratation: ${hydratationJour.toFixed(1)}L / ${menu.hydrationTotal}L (${Math.round((hydratationJour / menu.hydrationTotal) * 100)}%)\n`;
     rapport += `Repas validés: ${validations.length}/${menu.repas.length}\n\n`;
     
     if (grigJour.length > 0) {
@@ -1788,18 +1623,11 @@ function exportRapport() {
         rapport += `\n`;
     }
 
-    rapport += `💊 PROTOCOLE ANTI-CHOLESTÉROL\n`;
-    rapport += `✅ Oméga-3 : 3 gélules\n`;
-    rapport += `✅ Berbérine : 500mg x2\n`;
-    rapport += `✅ Psyllium : 3g\n`;
-    rapport += `✅ Vitamine D3 : 10000 UI\n`;
-    rapport += `✅ Marche digestive : ${validations.includes('marche') ? 'OUI ✅' : 'NON ❌'}\n\n`;
-
     rapport += `📝 NOTES\n${document.getElementById('notes-jour')?.value || '(Aucune note)'}\n\n`;
     
     rapport += `📊 PROGRESSION PROGRAMME\n`;
-    rapport += `Semaine actuelle: ${semaineActuelle}/S8\n`;
-    rapport += `Pesées enregistrées: ${pesees.length}/8\n`;
+    rapport += `Semaine actuelle: ${semaineActuelle}/S10\n`;
+    rapport += `Pesées enregistrées: ${pesees.length}/10\n`;
     if (pesees.length > 0) {
         const dernierePesee = pesees[pesees.length - 1];
         rapport += `Dernier poids: ${dernierePesee.poids}kg (${dernierePesee.bf}%)\n`;
@@ -1847,14 +1675,6 @@ function exportRapportSemaine() {
             rapport += `\n`;
         }
         
-        if (pesee.energie || pesee.digestion || pesee.gaz) {
-            rapport += `🔍 INDICATEURS\n`;
-            if (pesee.energie) rapport += `Énergie: ${pesee.energie}/10\n`;
-            if (pesee.digestion) rapport += `Digestion: ${pesee.digestion}/10\n`;
-            if (pesee.gaz) rapport += `Gaz: ${pesee.gaz}/10\n`;
-            rapport += `\n`;
-        }
-        
         if (pesee.notes) {
             rapport += `📝 NOTES\n${pesee.notes}\n\n`;
         }
@@ -1862,21 +1682,6 @@ function exportRapportSemaine() {
         rapport += `⚠️ PESÉE NON EFFECTUÉE\n`;
         rapport += `Penser à se peser ce vendredi/samedi !\n\n`;
     }
-    
-    rapport += `💊 PROTOCOLE ANTI-CHOLESTÉROL\n`;
-    rapport += `✅ Oméga-3 3g/jour (baisse triglycérides -25%)\n`;
-    rapport += `✅ Berbérine 500mg x2 (baisse LDL -25%)\n`;
-    rapport += `✅ Psyllium 3g/soir (baisse LDL -18%)\n`;
-    rapport += `✅ Vitamine D3 10000 UI\n`;
-    rapport += `✅ Aliments clés : quinoa, noix, saumon, avocat\n`;
-    rapport += `✅ Marche après repas 15-20 min\n\n`;
-    
-    rapport += `🌿 PROTOCOLE ANTI-GAZ\n`;
-    rapport += `✅ Infusions fenouil après repas\n`;
-    rapport += `✅ Cuisson vapeur 20 min minimum\n`;
-    rapport += `✅ Épices carminatives (cumin, coriandre)\n`;
-    rapport += `✅ Marche digestive 20 min\n`;
-    rapport += `✅ Aliments de saison (${SAISON_ACTUELLE.nom})\n`;
 
     navigator.clipboard.writeText(rapport).then(() => alert('✅ Rapport semaine copié !')).catch(() => alert('❌ Erreur copie'));
 }
@@ -1885,10 +1690,8 @@ function resetJour() {
     if (!confirm('⚠️ Réinitialiser toutes les données d\'aujourd\'hui ?')) return;
     const today = new Date().toISOString().split('T')[0];
     localStorage.removeItem(`repas-${today}`);
-    localStorage.removeItem(`hydra-${today}`);
     grignotages = grignotages.filter(g => g.date !== today);
     localStorage.setItem('grignotages', JSON.stringify(grignotages));
-    hydratationJour = 0;
     afficherMenu();
     loadGrignotages();
     calculerProgression();
@@ -1896,7 +1699,7 @@ function resetJour() {
 }
 
 function resetSemaine() {
-    if (!confirm(`⚠️ Effacer TOUTES les données de ${semaineActuelle} ?\n\nCeci inclut :\n- Tous les repas validés cette semaine\n- Les grignotages\n- La pesée\n- L'hydratation\n\nCette action est IRRÉVERSIBLE !`)) return;
+    if (!confirm(`⚠️ Effacer TOUTES les données de ${semaineActuelle} ?`)) return;
     
     const dateDebut = new Date(PLAN_HYBRIDE.dateDebut);
     const numSemaine = parseInt(semaineActuelle.substring(1));
@@ -1908,7 +1711,6 @@ function resetSemaine() {
         date.setDate(debutSemaine.getDate() + i);
         const dateStr = date.toISOString().split('T')[0];
         localStorage.removeItem(`repas-${dateStr}`);
-        localStorage.removeItem(`hydra-${dateStr}`);
     }
     
     grignotages = grignotages.filter(g => {
@@ -1920,7 +1722,6 @@ function resetSemaine() {
     pesees = pesees.filter(p => p.semaine !== semaineActuelle);
     localStorage.setItem('pesees-hebdo', JSON.stringify(pesees));
     
-    hydratationJour = 0;
     afficherMenu();
     loadGrignotages();
     calculerProgression();
@@ -1933,32 +1734,25 @@ function resetSemaine() {
 }
 
 function resetTout() {
-    if (!confirm('🗑️ ATTENTION : Effacer TOUTES les données ?\n\nCeci supprimera :\n- TOUS les repas validés\n- TOUTES les pesées\n- TOUS les grignotages\n- Toute l\'hydratation\n- Toutes les notes\n\nCette action est DÉFINITIVE et IRRÉVERSIBLE !\n\nÊtes-vous SÛR ?')) return;
-    
-    if (!confirm('⚠️ DERNIÈRE CONFIRMATION\n\nVous allez perdre 100% de vos données.\n\nAvez-vous fait un backup ?\n\nContinuer ?')) return;
+    if (!confirm('🗑️ ATTENTION : Effacer TOUTES les données ?')) return;
+    if (!confirm('⚠️ DERNIÈRE CONFIRMATION\n\nVous allez perdre 100% de vos données.\n\nContinuer ?')) return;
     
     const keysToRemove = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (key.startsWith('repas-') || key.startsWith('hydra-') || key === 'grignotages' || key === 'pesees-hebdo' || key === 'jourType' || key === 'derniere-notif-pesee') {
+        if (key.startsWith('repas-') || key === 'grignotages' || key === 'pesees-hebdo' || key === 'jourType' || key === 'options-repas') {
             keysToRemove.push(key);
         }
     }
     
     keysToRemove.forEach(key => localStorage.removeItem(key));
     
-    grignotages = [];
-    pesees = [];
-    semaineActuelle = 'S1';
-    jourType = 'training';
-    hydratationJour = 0;
-    
     location.reload();
 }
 
 function telechargerBackup() {
     const backup = {
-        version: '4.0-anticholesterol',
+        version: '5.0-seche-10sem',
         dateExport: new Date().toISOString(),
         dateDebut: PLAN_HYBRIDE.dateDebut,
         poidsInitial: PLAN_HYBRIDE.poidsInitial,
@@ -1966,9 +1760,9 @@ function telechargerBackup() {
         semaineActuelle: semaineActuelle,
         jourType: jourType,
         repasValidations: {},
-        hydratation: {},
         grignotages: grignotages,
-        pesees: pesees
+        pesees: pesees,
+        optionsSelectionnees: optionsSelectionnees
     };
     
     for (let i = 0; i < localStorage.length; i++) {
@@ -1977,21 +1771,13 @@ function telechargerBackup() {
             const date = key.replace('repas-', '');
             backup.repasValidations[date] = JSON.parse(localStorage.getItem(key));
         }
-        if (key.startsWith('hydra-')) {
-            const date = key.replace('hydra-', '');
-            backup.hydratation[date] = parseFloat(localStorage.getItem(key));
-        }
     }
     
     const nbJours = Object.keys(backup.repasValidations).length;
     const nbPesees = backup.pesees.length;
     const nbGrignotages = backup.grignotages.length;
     
-    backup.stats = {
-        nbJours,
-        nbPesees,
-        nbGrignotages
-    };
+    backup.stats = {nbJours, nbPesees, nbGrignotages};
     
     const jsonString = JSON.stringify(backup, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
@@ -1999,7 +1785,7 @@ function telechargerBackup() {
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = `backup-anticholesterol-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `backup-seche-10sem-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -2008,14 +1794,14 @@ function telechargerBackup() {
     localStorage.setItem('last-backup', new Date().toISOString());
     updateLastBackupDate();
     
-    alert(`✅ Backup téléchargé !\n\n📊 Contenu :\n- ${nbJours} jours de données\n- ${nbPesees} pesées\n- ${nbGrignotages} grignotages\n\n💾 Sauvegarde ce fichier en lieu sûr !`);
+    alert(`✅ Backup téléchargé !\n\n📊 Contenu :\n- ${nbJours} jours de données\n- ${nbPesees} pesées\n- ${nbGrignotages} grignotages`);
 }
 
 function restaurerBackup(event) {
     const file = event.target.files[0];
     if (!file) return;
     
-    if (!confirm('📥 Restaurer ce backup ?\n\n⚠️ Cela va REMPLACER toutes tes données actuelles !\n\nFais un backup de tes données actuelles avant de continuer.\n\nContinuer ?')) {
+    if (!confirm('📥 Restaurer ce backup ?\n\n⚠️ Cela va REMPLACER toutes tes données actuelles !')) {
         event.target.value = '';
         return;
     }
@@ -2025,10 +1811,6 @@ function restaurerBackup(event) {
         try {
             const backup = JSON.parse(e.target.result);
             
-            if (!backup.version || !backup.dateExport) {
-                throw new Error('Fichier invalide');
-            }
-            
             PLAN_HYBRIDE.dateDebut = backup.dateDebut;
             PLAN_HYBRIDE.poidsInitial = backup.poidsInitial;
             PLAN_HYBRIDE.tailleInitiale = backup.tailleInitiale;
@@ -2037,29 +1819,28 @@ function restaurerBackup(event) {
                 localStorage.setItem(`repas-${date}`, JSON.stringify(validations));
             });
             
-            if (backup.hydratation) {
-                Object.entries(backup.hydratation).forEach(([date, hydra]) => {
-                    localStorage.setItem(`hydra-${date}`, hydra.toString());
-                });
-            }
-            
             grignotages = backup.grignotages || [];
             localStorage.setItem('grignotages', JSON.stringify(grignotages));
             
             pesees = backup.pesees || [];
             localStorage.setItem('pesees-hebdo', JSON.stringify(pesees));
             
+            if (backup.optionsSelectionnees) {
+                optionsSelectionnees = backup.optionsSelectionnees;
+                localStorage.setItem('options-repas', JSON.stringify(optionsSelectionnees));
+            }
+            
             if (backup.jourType) {
                 jourType = backup.jourType;
                 localStorage.setItem('jourType', jourType);
             }
             
-            alert(`✅ Backup restauré !\n\n📊 Données importées :\n- ${backup.stats?.nbJours || 0} jours\n- ${backup.stats?.nbPesees || 0} pesées\n- ${backup.stats?.nbGrignotages || 0} grignotages\n\nL'application va se recharger.`);
+            alert(`✅ Backup restauré !\n\n📊 Données importées :\n- ${backup.stats?.nbJours || 0} jours\n- ${backup.stats?.nbPesees || 0} pesées\n- ${backup.stats?.nbGrignotages || 0} grignotages`);
             
             location.reload();
             
         } catch (error) {
-            alert('❌ Erreur lors de la restauration !\n\nLe fichier est peut-être corrompu ou invalide.\n\nErreur : ' + error.message);
+            alert('❌ Erreur lors de la restauration !');
         }
     };
     
@@ -2090,7 +1871,7 @@ function showTab(tabName) {
     document.getElementById('tab-' + tabName).classList.add('active');
     event.target.classList.add('active');
     
-    if (tabName === 'suivi8sem') {
+    if (tabName === 'suivi10sem') {
         afficherCarteSemaine();
         afficherGraphiquePoids();
         afficherHistoriquePesees();
