@@ -48,6 +48,9 @@
         .meal-foods ul {margin-left: 20px;}
         .season-tag {background: #fff9e6; color: #ff6b00; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 5px;}
         .cholesterol-tag {background: #fff3bf; color: #f59f00; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 5px;}
+        /* 🆕 Styles pour suppléments et ajouts anti-inflammatoires */
+        .supplements-box {background: #e8f5e9; border-left: 4px solid #51cf66; padding: 10px; margin: 10px 0; border-radius: 6px; font-size: 12px;}
+        .anti-inflam-box {background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 10px 0; border-radius: 6px; font-size: 12px;}
         .gas-tip {background: #e8f5e9; border-left: 4px solid #51cf66; padding: 10px; margin: 10px 0; border-radius: 6px; font-size: 12px;}
         .hydration-note {background: #e3f2fd; border-left: 4px solid #2196f3; padding: 10px; margin: 10px 0; border-radius: 6px; font-size: 12px;}
         .validation-checkbox {display: flex; align-items: center; gap: 10px; background: #e8f5e9; padding: 10px; border-radius: 8px; margin-top: 10px; cursor: pointer;}
@@ -195,6 +198,8 @@
             <button class="tab active" onclick="showTab('menu')">📋 MENU</button>
             <button class="tab" onclick="showTab('suivi10sem')">📊 SUIVI</button>
             <button class="tab" onclick="showTab('saison')">🍂 SAISON</button>
+            <button class="tab" onclick="showTab('supplements')">💊 STACK</button>
+            <button class="tab" onclick="showTab('ajustements')">⚙️ AJUST</button>
             <button class="tab" onclick="showTab('grignotages')">🍪 SNACKS</button>
             <button class="tab" onclick="showTab('export')">📤 EXPORT</button>
         </div>
@@ -204,7 +209,7 @@
                 <h3 style="color: #667eea; margin-bottom: 10px;">📊 Progression du jour</h3>
                 <div class="progress-bar-container"><div class="progress-bar" id="progress-bar" style="width: 0%">0%</div></div>
                 <div class="macro-grid">
-                    <div class="macro-card calories"><div class="macro-label">Calories</div><div class="macro-value"><span id="cal-actuel">0</span>/<span id="cal-total">2550</span></div></div>
+                    <div class="macro-card calories"><div class="macro-label">Calories</div><div class="macro-value"><span id="cal-actuel">0</span>/<span id="cal-total">2580</span></div></div>
                     <div class="macro-card proteines"><div class="macro-label">Protéines</div><div class="macro-value"><span id="prot-actuel">0</span>/<span id="prot-total">240</span>g</div></div>
                     <div class="macro-card glucides"><div class="macro-label">Glucides</div><div class="macro-value"><span id="gluc-actuel">0</span>/<span id="gluc-total">250</span>g</div></div>
                     <div class="macro-card lipides"><div class="macro-label">Lipides</div><div class="macro-value"><span id="lip-actuel">0</span>/<span id="lip-total">75</span>g</div></div>
@@ -240,6 +245,41 @@
             <div class="info-box"><strong>📅 Saison actuelle :</strong> <span id="season-name-detail">Automne</span> (mise à jour automatique)</div>
             <div class="progress-card"><h3>🍎 Fruits disponibles</h3><div id="fruits-saison" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;"></div></div>
             <div class="progress-card"><h3>🥦 Légumes disponibles</h3><div id="legumes-saison" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;"></div></div>
+        </div>
+
+        <!-- 🆕 NOUVEAU ONGLET STACK SUPPLÉMENTS -->
+        <div id="tab-supplements" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 15px;">💊 Stack Suppléments Complet</h2>
+
+            <div class="alert-box alert-info">
+                <strong>📊 COÛT TOTAL MENSUEL</strong><br>
+                • Stack Basique : 207€/mois (~6.90€/jour)<br>
+                • Avec Berbérine (diabète) : 222€/mois<br>
+                • Stack Complet Diabète : 247€/mois<br>
+                • Maximum avec cholestérol : 272€/mois (~9€/jour)
+            </div>
+
+            <div id="stack-basique-container"></div>
+            <div id="stack-diabete-container"></div>
+            <div id="stack-cholesterol-container"></div>
+        </div>
+
+        <!-- 🆕 NOUVEAU ONGLET AJUSTEMENTS MACROS -->
+        <div id="tab-ajustements" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 15px;">⚙️ Ajustements Macros</h2>
+
+            <div class="alert-box alert-warning">
+                <strong>⚠️ QUAND UTILISER CES AJUSTEMENTS ?</strong><br>
+                Les menus standards donnent ~200g P / 320g G / 65g L<br>
+                Si ta perte de poids stagne >2 semaines, utilise ces ajustements pour respecter STRICTEMENT les macros cibles (240P / 250G / 75L)
+            </div>
+
+            <div id="ajustements-container"></div>
+
+            <div class="progress-card">
+                <h3 style="color: #667eea; margin-bottom: 15px;">💡 Détails Nutritionnels par Aliment</h3>
+                <div id="details-nutritionnels-container"></div>
+            </div>
         </div>
 
         <div id="tab-grignotages" class="tab-content">
@@ -366,26 +406,26 @@
 // 🆕 Saisons simplifiées
 const SAISONS={automne:{mois:[9,10,11],nom:'Automne',emoji:'🍂',fruits:['Pomme','Poire','Raisin'],legumes:['Courge','Potimarron','Carottes','Courgettes','Brocoli','Haricots verts','Épinards']},hiver:{mois:[12,1,2],nom:'Hiver',emoji:'❄️',fruits:['Pomme','Poire','Orange','Kiwi'],legumes:['Carottes','Courge','Épinards','Brocoli']},printemps:{mois:[3,4,5],nom:'Printemps',emoji:'🌸',fruits:['Fraise','Cerise','Pomme'],legumes:['Carottes','Haricots verts','Épinards','Asperges']},ete:{mois:[6,7,8],nom:'Été',emoji:'☀️',fruits:['Pêche','Abricot','Melon'],legumes:['Courgettes','Haricots verts','Carottes','Tomate']}};
 
-// 🆕 PLAN SÈCHE 10 SEMAINES
+// 🆕 PLAN SÈCHE 10 SEMAINES - MACROS AJUSTÉES
 const PLAN_HYBRIDE = {
     dateDebut: new Date().toISOString().split('T')[0],
     poidsInitial: 93.4,
     tailleInitiale: 105,
     semaines: {
-        S1: {phase:'seche',nom:'Sèche S1',objectif:'Kickstart sèche intensive',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
-        S2: {phase:'seche',nom:'Sèche S2',objectif:'Accélération perte gras',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
-        S3: {phase:'seche',nom:'Sèche S3',objectif:'Momentum optimal',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
-        S4: {phase:'seche',nom:'Sèche S4',objectif:'Finalisation phase 1',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
+        S1: {phase:'seche',nom:'Sèche S1',objectif:'Kickstart sèche intensive',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.7,couleur:'#ff6b6b'},
+        S2: {phase:'seche',nom:'Sèche S2',objectif:'Accélération perte gras',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.7,couleur:'#ff6b6b'},
+        S3: {phase:'seche',nom:'Sèche S3',objectif:'Momentum optimal',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.7,couleur:'#ff6b6b'},
+        S4: {phase:'seche',nom:'Sèche S4',objectif:'Finalisation phase 1',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.7,couleur:'#ff6b6b'},
         S5: {phase:'deload',nom:'Deload',objectif:'Récupération métabolique',calories:{training:2750,repos:2350},macros:{training:{P:230,G:280,L:85},repos:{P:220,G:200,L:95}},deficitCible:400,perteVisee:0.3,couleur:'#ffc107'},
-        S6: {phase:'seche',nom:'Sèche S6',objectif:'Reprise intensité',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
-        S7: {phase:'seche',nom:'Sèche S7',objectif:'Continuation sèche',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
-        S8: {phase:'seche',nom:'Sèche S8',objectif:'Phase finale approche',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
-        S9: {phase:'seche',nom:'Sèche S9',objectif:'Dernière ligne droite',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#ff6b6b'},
-        S10: {phase:'finale',nom:'Finale',objectif:'Bilan final & transition',calories:{training:2550,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:230,G:150,L:85}},deficitCible:650,perteVisee:0.7,couleur:'#51cf66'}
+        S6: {phase:'seche',nom:'Sèche S6',objectif:'Reprise intensité',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.7,couleur:'#ff6b6b'},
+        S7: {phase:'seche',nom:'Sèche S7',objectif:'Continuation sèche',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.7,couleur:'#ff6b6b'},
+        S8: {phase:'seche',nom:'Sèche S8',objectif:'Phase finale approche',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.7,couleur:'#ff6b6b'},
+        S9: {phase:'seche',nom:'Sèche S9',objectif:'Dernière ligne droite',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.7,couleur:'#ff6b6b'},
+        S10: {phase:'finale',nom:'Finale',objectif:'Bilan final & transition',calories:{training:2580,repos:2100},macros:{training:{P:240,G:250,L:75},repos:{P:240,G:160,L:75}},deficitCible:420,perteVisee:0.5,couleur:'#51cf66'}
     }
 };
 
-// 🆕 MENUS SÈCHE - 3 REPAS/JOUR AVEC OPTIONS MULTIPLES
+// 🆕 NOUVEAU MENUS_BASE COMPLET AVEC SUPPLÉMENTS
 const MENUS_BASE = {
     training: {
         repas: [
@@ -393,219 +433,170 @@ const MENUS_BASE = {
                 id: 'repas1_training',
                 nom: 'REPAS 1 - Pré-Training',
                 heure: '12:00',
-                calories: 750,
-                macros: {P: 75, G: 85, L: 15},
+                calories: 1060,
+                macros: {P: 78, G: 141, L: 22},
                 note: '⏰ Finir 1h45 avant training (13h45)',
                 options: [
                     {
                         id: 'A',
                         nom: 'Option A - Poulet-Riz',
                         aliments: [
-                            '🍗 Poulet (filet) : 220g cru',
-                            '🍚 Riz basmati : 80g cru (240g cuit)',
-                            '🥦 Brocoli : 200g',
-                            '🫑 Poivrons : 100g',
-                            '🫒 Huile olive : 10ml (1 c. soupe)',
-                            '🍎 Pomme : 1 moyenne (150g)',
-                            '💪 Whey vanille : 25g (shaker eau)'
+                            '🍗 Poulet grillé : 250g cru → 200g cuit',
+                            '🍚 Riz basmati : 90g cru → 270g cuit',
+                            '🥦 Légumes vapeur : 350g cru → 300g cuit',
+                            '🫒 Huile olive : 15ml (1 c. soupe)',
+                            '🍌 Banane : 120g (1 moyenne)',
+                            '🍎 Pomme : 150g (1 moyenne)'
                         ]
                     },
                     {
                         id: 'B',
                         nom: 'Option B - Dinde-Quinoa',
                         aliments: [
-                            '🦃 Escalope dinde : 220g cru',
-                            '🌾 Quinoa : 70g cru (210g cuit)',
-                            '🥦 Haricots verts : 200g',
-                            '🍅 Tomates cerises : 100g',
-                            '🫒 Huile olive : 10ml',
-                            '🍊 Orange : 1 (150g)',
-                            '💪 Whey : 25g'
+                            '🦃 Escalope dinde : 250g cru → 200g cuit',
+                            '🌾 Quinoa : 85g cru → 255g cuit',
+                            '🥦 Haricots verts : 350g',
+                            '🫒 Huile olive : 15ml',
+                            '🍌 Banane : 120g',
+                            '🍊 Orange : 150g'
                         ]
                     },
                     {
                         id: 'C',
                         nom: 'Option C - Bœuf-Pâtes',
                         aliments: [
-                            '🥩 Bœuf haché 5% : 180g cru',
-                            '🍝 Pâtes complètes : 70g crues (210g cuites)',
-                            '🥬 Épinards : 200g',
-                            '🍄 Champignons : 100g',
-                            '🫒 Huile olive : 10ml',
-                            '🍌 Banane : 1 petite (100g)',
-                            '💪 Whey : 25g'
+                            '🥩 Bœuf haché 5% : 220g cru → 180g cuit',
+                            '🍝 Pâtes complètes : 85g crues → 255g cuites',
+                            '🥬 Épinards : 350g',
+                            '🫒 Huile olive : 15ml',
+                            '🍌 Banane : 120g',
+                            '🍎 Poire : 150g'
                         ]
                     },
                     {
                         id: 'D',
                         nom: 'Option D - Poisson-Riz',
                         aliments: [
-                            '🐟 Cabillaud/Colin : 250g cru',
-                            '🍚 Riz basmati : 80g cru',
-                            '🥒 Courgettes : 200g',
-                            '🥕 Carottes : 100g',
-                            '🫒 Huile olive : 10ml',
-                            '🍎 Poire : 1 moyenne',
-                            '💪 Whey : 25g'
+                            '🐟 Cabillaud/Colin : 280g cru → 230g cuit',
+                            '🍚 Riz basmati : 90g cru → 270g cuit',
+                            '🥒 Courgettes : 350g',
+                            '🫒 Huile olive : 15ml',
+                            '🍌 Banane : 120g',
+                            '🍎 Pomme : 150g'
                         ]
                     }
+                ],
+                // 🆕 Suppléments associés au repas
+                supplements: [
+                    '💊 ARTICULATIONS (avec repas gras) :',
+                    '✅ Glucosamine : 1500mg (1 comprimé)',
+                    '✅ Chondroïtine : 1200mg (1 comprimé)',
+                    '✅ MSM : 2000mg (2 gélules)',
+                    '✅ Acide Hyaluronique : 200mg (1 gélule)',
+                    '✅ Boswellia : 500mg (1 gélule)',
+                    '',
+                    '💊 AUTRES :',
+                    '✅ Créatine : 5g (dans eau/thé)',
+                    '✅ Collagène : 10g (dans café/thé chaud)'
+                ],
+                // 🆕 Ajouts anti-inflammatoires
+                antiInflammatoires: [
+                    '🌿 Curcuma frais : 5g (saupoudrer)',
+                    '🫚 Gingembre frais : 5g (râper)',
+                    '🧄 Ail cru : 1 gousse (hacher, attendre 10 min)',
+                    '⚫ Poivre noir : Pincée (×2000 absorption curcuma)'
                 ]
             },
             {
                 id: 'repas2_training',
                 nom: 'REPAS 2 - Post-Training',
                 heure: '15:45',
-                calories: 550,
-                macros: {P: 60, G: 60, L: 10},
-                note: '⏰ Dans les 2h post-training MAX',
+                calories: 860,
+                macros: {P: 62, G: 148, L: 5},
+                note: '⏰ Dans les 30 min post-training MAX',
                 aliments: [
-                    '💪 SHAKER POST-WORKOUT (OBLIGATOIRE)',
+                    '💪 SHAKER ANTI-INFLAMMATOIRE :',
                     '━━━━━━━━━━━━━━━━━━',
-                    'Whey (vanille/chocolat) : 50g',
-                    'Bananes mûres : 2 moyennes (200g)',
-                    'Lait d\'avoine : 200ml',
-                    'Miel : 10g (1 c. café)',
-                    'Beurre cacahuète : 10g (optionnel)',
-                    'Eau : 200ml',
-                    'Glaçons : 3-4',
+                    '💪 Whey isolate nature : 60g',
+                    '🍌 Bananes mûres : 360g (3 moyennes)',
+                    '🥣 Flocons avoine : 40g secs',
+                    '🍒 Jus cerise acide : 150ml (Montmorency)',
+                    '🫐 Myrtilles surgelées : 100g',
+                    '🍯 Miel : 10g (1 c. café)',
+                    '💧 Eau : 200ml + glace',
                     '',
-                    '🔄 MIXER 30 secondes = Shake 750ml',
+                    '🔄 MIXER 30 sec = Shake 1L',
                     '',
-                    '💡 Alternative sans mixeur :',
-                    '• Whey 50g (shaker eau)',
-                    '• Bananes 2 (manger)',
-                    '• Lait avoine 200ml (boire)',
-                    '• Miel 10g (sur bananes)'
+                    '💰 Coût : ~2.80€'
                 ]
             },
             {
                 id: 'repas3_training',
-                nom: 'REPAS 3 - Familial Soir',
+                nom: 'REPAS 3 - Final',
                 heure: '19:30',
-                calories: 1250,
-                macros: {P: 105, G: 105, L: 50},
-                note: '🍽️ Repas familial adapté - Dessert 30 min après',
+                calories: 715,
+                macros: {P: 46, G: 54, L: 34},
+                note: '🍽️ Version standard Lun/Mer',
                 options: [
                     {
                         id: 'A',
-                        nom: 'Option A - Saumon-Patate Douce',
-                        plat: [
-                            '🐟 Saumon (pavé) : 300g cru',
-                            '🍠 Patate douce : 300g (four/vapeur)',
-                            '🥦 Brocoli : 250g',
-                            '🥕 Carottes : 100g',
-                            '🥗 Salade verte : 100g',
-                            '🥑 Avocat : 1 entier (150g)',
+                        nom: 'Option A - Saumon-Riz',
+                        aliments: [
+                            '🐟 Saumon sauvage : 180g cru → 150g cuit',
+                            '🍚 Riz basmati : 50g cru → 150g cuit',
+                            '🥗 Salade verte + légumes : 300g',
                             '🫒 Huile olive : 15ml',
-                            '🍋 Citron : 1/2 (sur saumon)',
-                            '🧄 Ail, herbes, épices'
-                        ],
-                        dessert: [
-                            '🍶 Skyr nature : 200g',
-                            '🫐 Fruits rouges : 100g',
-                            '🌰 Noix de Grenoble : 20g (8-10 cerneaux)',
-                            '🍯 Miel : 5g (optionnel)'
+                            '🌰 Graines lin moulues : 15g',
+                            '',
+                            '🌿 AJOUTS :',
+                            '• Curcuma frais : 3g',
+                            '• Gingembre : 3g',
+                            '• Ail cru : 1 gousse'
                         ]
                     },
                     {
                         id: 'B',
-                        nom: 'Option B - Poulet-Riz-Légumes',
-                        plat: [
-                            '🍗 Poulet (cuisses/filets) : 300g cru',
-                            '🍚 Riz basmati : 100g cru (300g cuit)',
-                            '🥦 Mix légumes : 400g (brocoli, carottes, courgettes)',
-                            '🥗 Salade composée : 100g',
-                            '🥑 Avocat : 1 entier',
+                        nom: 'Option B - Poulet-Patate',
+                        aliments: [
+                            '🍗 Poulet grillé : 200g cru → 160g cuit',
+                            '🍠 Patate douce : 200g crue → 180g cuite',
+                            '🥗 Salade + légumes : 300g',
                             '🫒 Huile olive : 20ml',
-                            '🍅 Sauce tomate maison (optionnel)'
-                        ],
-                        dessert: [
-                            '🍶 Skyr : 200g',
-                            '🍓 Fraises : 100g',
-                            '🥜 Amandes : 20g'
+                            '🌰 Graines lin : 15g',
+                            '',
+                            '🌿 AJOUTS identiques'
                         ]
                     },
                     {
                         id: 'C',
-                        nom: 'Option C - Bœuf-Pommes de Terre',
-                        plat: [
-                            '🥩 Steak bœuf ou pavé : 280g cru',
-                            '🥔 Pommes de terre : 300g (vapeur/four)',
-                            '🥦 Haricots verts : 250g',
-                            '🍄 Champignons poêlés : 150g',
-                            '🥗 Salade : 100g',
-                            '🫒 Huile olive : 20ml',
-                            '🥑 Avocat : 1/2'
-                        ],
-                        dessert: [
-                            '🍶 Fromage blanc 0% : 250g',
-                            '🍌 Banane : 1',
-                            '🌰 Noix cajou : 20g',
-                            '🍯 Miel : 5g'
-                        ]
-                    },
-                    {
-                        id: 'D',
-                        nom: 'Option D - Poisson-Lentilles',
-                        plat: [
-                            '🐟 Cabillaud/Lieu : 300g cru',
-                            '🫘 Lentilles corail : 80g crues (240g cuites)',
-                            '🥦 Brocoli : 200g',
-                            '🥕 Carottes : 150g',
-                            '🥗 Salade : 100g',
-                            '🥑 Avocat : 1 entier',
-                            '🫒 Huile olive : 15ml'
-                        ],
-                        dessert: [
-                            '🍶 Skyr : 200g',
-                            '🍎 Compote pomme sans sucre : 100g',
-                            '🌰 Noisettes : 20g'
-                        ]
-                    },
-                    {
-                        id: 'E',
-                        nom: 'Option E - Dinde-Pâtes Complètes',
-                        plat: [
-                            '🦃 Escalope dinde : 300g cru',
-                            '🍝 Pâtes complètes : 100g crues (300g cuites)',
-                            '🍅 Sauce tomate maison : 150g',
-                            '🥬 Épinards : 250g',
-                            '🍄 Champignons : 100g',
-                            '🥗 Salade : 100g',
-                            '🥑 Avocat : 1 entier',
-                            '🫒 Huile olive : 15ml',
-                            '🧀 Parmesan râpé : 10g (optionnel)'
-                        ],
-                        dessert: [
-                            '🍶 Skyr : 200g',
-                            '🫐 Mix fruits rouges : 100g',
-                            '🥜 Amandes : 20g'
-                        ]
-                    },
-                    {
-                        id: 'F',
-                        nom: 'Option F - Œufs-Légumes',
-                        plat: [
-                            '🥚 Œufs entiers : 6 (omelette ou dur)',
-                            '🥔 Pommes de terre : 300g',
-                            '🥦 Mix légumes : 400g',
-                            '🥗 Salade : 100g',
-                            '🥑 Avocat : 1 entier',
-                            '🫒 Huile olive : 20ml',
-                            '🧀 Fromage râpé : 30g (optionnel)'
-                        ],
-                        dessert: [
-                            '🍶 Skyr : 250g',
-                            '🍌 Banane : 1',
-                            '🌰 Noix : 25g'
+                        nom: '🍟 VENDREDI - Frites',
+                        aliments: [
+                            '⚠️ ORDRE IMPORTANT :',
+                            '1️⃣ SALADE (manger en premier) :',
+                            '🥗 Salade verte : 200g',
+                            '🫒 Huile olive : 10ml',
+                            '🌰 Graines lin : 15g',
+                            '',
+                            '2️⃣ VIANDE (puis viande) :',
+                            '🥩 Steak bœuf OU Poulet : 250g cru → 200g cuit',
+                            '',
+                            '3️⃣ FRITES (en dernier) :',
+                            '🍟 Pommes terre : 350g crues',
+                            '→ Air Fryer + spray huile 10ml',
+                            '',
+                            '⚠️ +160 kcal = 875 kcal total',
+                            '→ Compenser Lun/Mer (-80 kcal)'
                         ]
                     }
-                ]
+                ],
+                // 🆕 Suppléments spécifiques soir
+                supplements: []
             }
         ],
-        supplements: [
+        // 🆕 Nouvelle structure pour suppléments globaux
+        supplementsGlobaux: [
             {
-                moment: 'MATIN (6h30-7h00, à jeun)',
+                moment: 'MATIN (7h30, à jeun)',
                 liste: [
                     '☕ Café noir : 1-2 tasses (300mg caféine)',
                     '💊 Vitamine D3 : 5000 UI (1 capsule)',
@@ -613,30 +604,33 @@ const MENUS_BASE = {
                 ]
             },
             {
-                moment: 'PRÉ-TRAINING (11h45)',
+                moment: 'PENDANT TRAINING (14h-15h30)',
                 liste: [
-                    '💊 Créatine monohydrate : 5g (avec eau)'
-                ]
-            },
-            {
-                moment: 'POST-TRAINING (avec shaker 15h45)',
-                liste: [
-                    '✅ Déjà whey 50g dans shaker'
+                    '⚠️ PAS d\'intra-workout en sèche',
+                    '💧 Eau : 750ml-1L',
+                    '🧂 Sel : 1g (pincée)',
+                    '💊 Créatine : 5g (si pas pris repas 1)'
                 ]
             },
             {
                 moment: 'SOIR (22h00, avant coucher)',
                 liste: [
-                    '💊 Oméga-3 EPA/DHA : 3g (3 capsules)',
-                    '💊 Magnésium : 400mg (2 comprimés)',
-                    '💊 Zinc : 30mg (1 comprimé)',
-                    '💊 Vitamine C : 1000mg (1 comprimé)',
+                    '💊 ARTICULATIONS :',
+                    '• Oméga-3 EPA/DHA : 4g (4 capsules)',
+                    '  → ⚠️ 2g seulement si saumon au dîner',
+                    '• Curcuma + Poivre noir : 1000mg + 20mg',
+                    '• Boswellia : 500mg (1 gélule)',
+                    '• Collagène : 5g (eau chaude)',
                     '',
-                    '🦴 ARTICULATIONS (44 ans) :',
-                    '💊 Glucosamine : 1500mg (2 comprimés)',
-                    '💊 Chondroïtine : 1200mg (2 comprimés)',
-                    '💊 Collagène : 10g (poudre dans eau)',
-                    '💊 Curcuma : 1000mg (2 capsules)',
+                    '💊 RÉCUPÉRATION :',
+                    '• Magnésium bisglycinate : 400mg',
+                    '• Zinc : 30mg',
+                    '• Vitamine C : 1000mg',
+                    '• Glycine : 5g (sommeil +15%)',
+                    '',
+                    '💊 DIABÈTE (optionnel) :',
+                    '• Berbérine : 500mg (si glycémie >1g/L)',
+                    '• Chrome picolinate : 200mcg',
                     '',
                     '💧 Eau : 500ml'
                 ]
@@ -649,141 +643,167 @@ const MENUS_BASE = {
                 id: 'repas1_repos',
                 nom: 'REPAS 1',
                 heure: '12:00',
-                calories: 650,
-                macros: {P: 70, G: 50, L: 25},
+                calories: 935,
+                macros: {P: 76, G: 100, L: 27},
                 options: [
                     {
                         id: 'A',
-                        nom: 'Option A - Base',
+                        nom: 'Option A - Poulet-Riz',
                         aliments: [
-                            '🍗 Poulet : 200g cru',
-                            '🍚 Riz basmati : 50g cru (150g cuit)',
+                            '🍗 Poulet : 250g cru → 200g cuit',
+                            '🍚 Riz basmati : 70g cru → 210g cuit',
                             '🥦 Légumes : 400g (augmenté)',
-                            '🫒 Huile olive : 15ml (+5ml vs training)',
-                            '🍎 Pomme : 1',
-                            '💪 Whey : 20g (optionnel)'
+                            '🫒 Huile olive : 20ml (+5ml vs training)',
+                            '🍎 Pomme : 150g'
                         ]
                     },
                     {
                         id: 'B',
-                        nom: 'Option B - Dinde',
+                        nom: 'Option B - Dinde-Quinoa',
                         aliments: [
-                            '🦃 Dinde : 200g',
-                            '🌾 Quinoa : 50g cru',
+                            '🦃 Dinde : 250g cru → 200g cuit',
+                            '🌾 Quinoa : 65g cru → 195g cuit',
                             '🥦 Légumes : 400g',
-                            '🫒 Huile olive : 15ml',
-                            '🍊 Orange : 1',
-                            '💪 Whey : 20g'
+                            '🫒 Huile olive : 20ml',
+                            '🍊 Orange : 150g'
                         ]
                     },
                     {
                         id: 'C',
-                        nom: 'Option C - Bœuf',
+                        nom: 'Option C - Bœuf-Patate',
                         aliments: [
-                            '🥩 Bœuf 5% : 180g',
-                            '🍝 Pâtes : 50g crues',
+                            '🥩 Bœuf 5% : 220g cru → 180g cuit',
+                            '🍠 Patate douce : 250g cuite',
                             '🥬 Légumes : 400g',
-                            '🫒 Huile olive : 15ml',
-                            '🍌 Banane : 1'
+                            '🫒 Huile olive : 20ml',
+                            '🍌 Banane : 100g'
                         ]
                     }
+                ],
+                // 🆕 Suppléments identiques training
+                supplements: [
+                    '💊 ARTICULATIONS (avec repas) :',
+                    '✅ Glucosamine : 1500mg',
+                    '✅ Chondroïtine : 1200mg',
+                    '✅ MSM : 2000mg',
+                    '✅ Acide Hyaluronique : 200mg',
+                    '✅ Boswellia : 500mg',
+                    '✅ Créatine : 5g',
+                    '✅ Collagène : 10g'
+                ],
+                antiInflammatoires: [
+                    '🌿 Curcuma : 5g',
+                    '🫚 Gingembre : 5g',
+                    '🧄 Ail : 1 gousse'
                 ]
             },
             {
                 id: 'repas2_repos',
-                nom: 'REPAS 2 - Collation',
+                nom: 'COLLATION',
                 heure: '16:00',
-                calories: 400,
-                macros: {P: 40, G: 30, L: 15},
+                calories: 405,
+                macros: {P: 30, G: 49, L: 11},
                 options: [
                     {
                         id: 'A',
-                        nom: 'Option A',
+                        nom: 'Option A - Skyr',
                         aliments: [
-                            '🍶 Skyr : 200g',
-                            '🍎 Pomme : 1',
-                            '🥜 Amandes : 15g (12 amandes)'
+                            '🍶 Skyr 0% : 250g',
+                            '🍌 Banane : 120g',
+                            '🥜 Amandes : 20g (15-20 unités)',
+                            '🍯 Miel : 10g'
                         ]
                     },
                     {
                         id: 'B',
-                        nom: 'Option B',
+                        nom: 'Option B - Œufs',
                         aliments: [
                             '🥚 Œufs durs : 3 entiers',
-                            '🍌 Banane : 1',
-                            '🌰 Noix : 10g'
+                            '🍌 Banane : 120g',
+                            '🌰 Noix : 20g',
+                            '🍎 Pomme : 150g'
                         ]
                     },
                     {
                         id: 'C',
-                        nom: 'Option C',
+                        nom: 'Option C - Fromage blanc',
                         aliments: [
-                            '🧀 Fromage blanc 0% : 200g',
-                            '🫐 Fruits rouges : 80g',
-                            '🥜 Beurre cacahuète : 10g',
-                            '🍯 Miel : 5g'
+                            '🧀 Fromage blanc 0% : 300g',
+                            '🫐 Fruits rouges : 100g',
+                            '🥜 Beurre cacahuète : 15g',
+                            '🍯 Miel : 10g'
                         ]
                     },
                     {
                         id: 'D',
-                        nom: 'Option D',
+                        nom: 'Option D - Shaker',
                         aliments: [
-                            '💪 Whey : 30g',
-                            '🍌 Banane : 1',
+                            '💪 Whey : 35g',
+                            '🍌 Banane : 150g',
                             '🥛 Lait avoine : 200ml',
-                            '🥜 Amandes : 10g'
+                            '🥜 Amandes : 15g'
                         ]
                     }
                 ]
             },
             {
                 id: 'repas3_repos',
-                nom: 'REPAS 3 - Familial Soir',
+                nom: 'REPAS 3 - Soir',
                 heure: '19:30',
-                calories: 1050,
-                macros: {P: 120, G: 70, L: 45},
-                note: '🍽️ Portions légumes augmentées vs training',
+                calories: 765,
+                macros: {P: 47, G: 55, L: 39},
+                note: '🍽️ Rotation protéines selon jour',
                 options: [
                     {
                         id: 'A',
-                        nom: 'Option A - Saumon-Légumes',
-                        plat: [
-                            '🐟 Saumon : 300g cru',
-                            '🥔 Pommes de terre : 200g (-100g vs training)',
-                            '🥦 Légumes : 450g (+50g)',
-                            '🥗 Salade : 100g',
-                            '🥑 Avocat : 1 entier',
-                            '🫒 Huile olive : 20ml'
-                        ],
-                        dessert: [
-                            '🍶 Skyr : 250g (+50g)',
-                            '🫐 Fruits rouges : 50g',
-                            '🌰 Noix : 20g'
+                        nom: 'Option A - Saumon',
+                        aliments: [
+                            '🐟 Saumon sauvage : 180g cru → 150g cuit',
+                            '🍠 Patate douce : 200g cuite',
+                            '🥗 Salade + légumes : 350g',
+                            '🫒 Huile olive : 20ml',
+                            '🌰 Graines lin : 15g',
+                            '',
+                            '💡 ROTATION :',
+                            '• Mardi : Saumon',
+                            '• Jeudi : Sardines 200g',
+                            '• Samedi : Maquereaux 150g',
+                            '• Dimanche : Poulet 200g'
                         ]
                     },
                     {
                         id: 'B',
                         nom: 'Option B - Poulet-Légumes',
-                        plat: [
-                            '🍗 Poulet : 300g',
-                            '🍚 Riz : 70g cru (-30g vs training)',
-                            '🥦 Légumes : 450g',
-                            '🥗 Salade : 100g',
-                            '🥑 Avocat : 1',
-                            '🫒 Huile olive : 20ml'
-                        ],
-                        dessert: [
-                            '🍶 Fromage blanc : 250g',
-                            '🍓 Fraises : 50g',
-                            '🥜 Amandes : 20g'
+                        aliments: [
+                            '🍗 Poulet : 200g cru → 160g cuit',
+                            '🥔 Pommes terre : 200g vapeur',
+                            '🥦 Légumes : 400g',
+                            '🫒 Huile olive : 25ml',
+                            '🌰 Graines lin : 15g'
+                        ]
+                    },
+                    {
+                        id: 'C',
+                        nom: 'Option C - Œufs',
+                        aliments: [
+                            '🥚 Œufs entiers : 5 (omelette)',
+                            '🍠 Patate douce : 200g',
+                            '🥦 Mix légumes : 400g',
+                            '🫒 Huile olive : 15ml',
+                            '🧀 Fromage râpé : 30g'
                         ]
                     }
+                ],
+                supplements: [
+                    '💧 BOUILLON OS (3-4×/sem) :',
+                    '• 250ml après repas',
+                    '• P: 10g / Collagène naturel'
                 ]
             }
         ],
-        supplements: [
+        supplementsGlobaux: [
             {
-                moment: 'MATIN (7h00, à jeun)',
+                moment: 'MATIN (7h30, à jeun)',
                 liste: [
                     '☕ Café noir',
                     '💊 Vitamine D3 : 5000 UI',
@@ -791,25 +811,238 @@ const MENUS_BASE = {
                 ]
             },
             {
-                moment: 'APRÈS-MIDI (16h00 avec collation)',
-                liste: [
-                    '💊 Créatine : 5g (même jours repos)'
-                ]
-            },
-            {
                 moment: 'SOIR (22h00)',
                 liste: [
-                    '💊 Oméga-3 : 3g',
+                    '💊 Oméga-3 : 2g (si saumon) ou 4g',
+                    '💊 Curcuma + Poivre : 1000mg',
+                    '💊 Boswellia : 500mg',
+                    '💊 Collagène : 5g',
                     '💊 Magnésium : 400mg',
                     '💊 Zinc : 30mg',
-                    '💊 Articulations (mêmes doses)',
-                    '• Glucosamine 1500mg',
-                    '• Chondroïtine 1200mg',
-                    '• Collagène 10g',
-                    '• Curcuma 1000mg'
+                    '💊 Vitamine C : 1000mg',
+                    '💊 Glycine : 5g'
                 ]
             }
         ]
+    }
+};
+
+// 🆕 DÉTAILS NUTRITIONNELS COMPLETS PAR ALIMENT
+const DETAILS_NUTRITIONNELS = {
+    training: {
+        repas1: {
+            cout: '~2.50€',
+            total: {P: 78, G: 141, L: 22, kcal: 1060},
+            aliments: {
+                poulet_250g: {P: 60, G: 0, L: 5, kcal: 280},
+                riz_90g: {P: 7, G: 76, L: 1, kcal: 340},
+                legumes_350g: {P: 9, G: 18, L: 1, kcal: 115},
+                huile_15ml: {P: 0, G: 0, L: 15, kcal: 135},
+                banane_120g: {P: 1, G: 27, L: 0, kcal: 110},
+                pomme_150g: {P: 1, G: 20, L: 0, kcal: 80}
+            }
+        },
+        repas2: {
+            cout: '~2.80€',
+            total: {P: 62, G: 148, L: 5, kcal: 860},
+            aliments: {
+                whey_60g: {P: 51, G: 3, L: 1, kcal: 220},
+                bananes_360g: {P: 4, G: 81, L: 1, kcal: 330},
+                flocons_40g: {P: 5, G: 24, L: 3, kcal: 150},
+                jus_cerise_150ml: {P: 1, G: 20, L: 0, kcal: 80},
+                myrtilles_100g: {P: 1, G: 12, L: 0, kcal: 50},
+                miel_10g: {P: 0, G: 8, L: 0, kcal: 30}
+            }
+        },
+        repas3: {
+            cout: '~3.50€',
+            total: {P: 46, G: 54, L: 34, kcal: 715},
+            aliments: {
+                saumon_180g: {P: 35, G: 0, L: 12, kcal: 250},
+                riz_50g: {P: 4, G: 42, L: 0, kcal: 185},
+                salade_300g: {P: 4, G: 12, L: 1, kcal: 70},
+                huile_15ml: {P: 0, G: 0, L: 15, kcal: 135},
+                graines_lin_15g: {P: 3, G: 0, L: 6, kcal: 75}
+            }
+        },
+        repas3_vendredi: {
+            cout: '~2.50€',
+            total: {P: 73, G: 76, L: 30, kcal: 875},
+            aliments: {
+                salade_200g: {P: 2, G: 4, L: 0, kcal: 25},
+                viande_250g: {P: 60, G: 0, L: 8, kcal: 320},
+                frites_350g: {P: 8, G: 70, L: 10, kcal: 390},
+                huile_10ml: {P: 0, G: 0, L: 10, kcal: 90},
+                graines_lin_15g: {P: 3, G: 0, L: 6, kcal: 75}
+            },
+            note: '⚠️ SURPLUS +160 kcal → Compenser Lun/Mer (-80 kcal chaque)'
+        }
+    },
+    repos: {
+        repas1: {
+            cout: '~2.30€',
+            total: {P: 76, G: 100, L: 27, kcal: 935},
+            aliments: {
+                poulet_250g: {P: 60, G: 0, L: 5, kcal: 280},
+                riz_70g: {P: 5, G: 59, L: 1, kcal: 265},
+                legumes_400g: {P: 10, G: 21, L: 1, kcal: 130},
+                huile_20ml: {P: 0, G: 0, L: 20, kcal: 180},
+                pomme_150g: {P: 1, G: 20, L: 0, kcal: 80}
+            }
+        },
+        collation: {
+            cout: '~1.80€',
+            total: {P: 30, G: 49, L: 11, kcal: 405}
+        },
+        repas3: {
+            cout: '~3.20€',
+            total: {P: 47, G: 55, L: 39, kcal: 765}
+        }
+    }
+};
+
+// 🆕 OPTIONS AJUSTEMENT MACROS (si plateau perte poids)
+const AJUSTEMENTS_MACROS = {
+    training: {
+        optionA: {
+            nom: 'Option A - Équilibré (Recommandé)',
+            description: 'Ajustements légers pour approcher objectifs',
+            repas1: {
+                modifications: [
+                    '🍗 Poulet : 300g cru → 240g cuit (+20g protéines)',
+                    '🍚 Riz : 80g cru → 240g cuit (-8g glucides)',
+                    'Reste inchangé'
+                ],
+                macros: {P: 90, G: 125, L: 22, kcal: 1050}
+            },
+            repas2: {
+                modifications: ['Inchangé'],
+                macros: {P: 62, G: 148, L: 5, kcal: 860}
+            },
+            repas3: {
+                modifications: [
+                    '🐟 Saumon : 200g cru → 160g cuit (+3g protéines)',
+                    '🍚 Riz : 40g cru → 120g cuit (-8g glucides)',
+                    'Reste inchangé'
+                ],
+                macros: {P: 48, G: 48, L: 35, kcal: 685}
+            },
+            total: {P: 200, G: 321, L: 62, kcal: 2595},
+            note: '✅ Proche objectifs, bon compromis satiété/performance'
+        },
+        optionB: {
+            nom: 'Option B - Strict Macros (Si plateau)',
+            description: 'Ajustements stricts pour respecter EXACTEMENT macros',
+            repas1: {
+                modifications: [
+                    '🍗 Poulet : 300g cru → 240g cuit',
+                    '🍚 Riz : 70g cru → 210g cuit (-17g glucides)',
+                    '🫒 Huile : 10ml (-5ml = -5g lipides)',
+                    '🍌 Banane : SUPPRIMÉE (-27g glucides)'
+                ],
+                macros: {P: 90, G: 114, L: 17, kcal: 945}
+            },
+            repas2: {
+                modifications: [
+                    '🍌 Bananes : 2 au lieu de 3 (-27g glucides)',
+                    '🥣 Flocons : 30g au lieu 40g (-6g glucides)',
+                    'Reste inchangé'
+                ],
+                macros: {P: 62, G: 107, L: 4, kcal: 700}
+            },
+            repas3: {
+                modifications: [
+                    '🐟 Saumon : 200g cru (+3g protéines)',
+                    '🍚 Riz : SUPPRIMÉ (-42g glucides)',
+                    '🍠 Patate douce : 150g (+30g glucides)',
+                    '🫒 Huile : 20ml (+5ml = +5g lipides)'
+                ],
+                macros: {P: 50, G: 42, L: 48, kcal: 740}
+            },
+            total: {P: 202, G: 263, L: 69, kcal: 2385},
+            note: '⚠️ Plus restrictif, utiliser SI perte stagne >2 semaines'
+        }
+    }
+};
+
+// 🆕 STACK SUPPLÉMENTS COMPLET AVEC COÛTS ET BÉNÉFICES DIABÈTE
+const STACK_SUPPLEMENTS_COMPLET = {
+    basique: {
+        articulations: {
+            glucosamine: {dose: '1500mg', prix: '15€/mois', diabete: '✅ Neutre'},
+            chondroitine: {dose: '1200mg', prix: '12€/mois', diabete: '✅ Neutre'},
+            msm: {dose: '2000mg', prix: '10€/mois', diabete: '✅ Neutre', effet: '-82% inflammation'},
+            acide_hyaluronique: {dose: '200mg', prix: '18€/mois', diabete: '✅ Neutre'},
+            boswellia: {dose: '1000mg', prix: '15€/mois', diabete: '✅✅ Positif', effet: '-60% inflammation'}
+        },
+        performance: {
+            creatine: {dose: '5g/j', prix: '8€/mois', diabete: '✅ Neutre'},
+            whey: {dose: '60-90g/j', prix: '40€/mois', diabete: '✅ Neutre'},
+            omega3: {dose: '2-4g/j', prix: '20€/mois', diabete: '✅✅ Positif', effet: 'Cardio + inflamm'},
+            collagene: {dose: '15g/j', prix: '25€/mois', diabete: '✅ Neutre', effet: 'Tendons/peau'}
+        },
+        sante: {
+            vitamine_d3: {dose: '5000 UI', prix: '8€/mois', diabete: '✅✅ Positif'},
+            magnesium: {dose: '400mg', prix: '10€/mois', diabete: '✅✅ Positif', effet: 'Insuline ↑'},
+            zinc: {dose: '30mg', prix: '8€/mois', diabete: '✅✅ Positif'},
+            vitamine_c: {dose: '1000mg', prix: '6€/mois', diabete: '✅ Positif'},
+            glycine: {dose: '5g', prix: '12€/mois', diabete: '✅ Neutre', effet: 'Sommeil +15%'}
+        },
+        total_mensuel: '207€/mois (~6.90€/jour)'
+    },
+    diabete: {
+        titre: '🩸 AJOUTS SPÉCIFIQUES GLYCÉMIE 1.09 g/L',
+        berbérine: {
+            dose: '500mg 3×/jour (avec repas)',
+            prix: '15€/mois',
+            effet: 'Glycémie -20%, Insuline +30%',
+            note: 'PRIORITÉ #1 - "Metformine naturelle"'
+        },
+        chrome_picolinate: {
+            dose: '200mcg 2×/jour',
+            prix: '5€/mois',
+            effet: 'Régulation glucose',
+            note: 'Recommandé'
+        },
+        acide_alpha_lipoique: {
+            dose: '600mg 1×/jour',
+            prix: '20€/mois',
+            effet: 'Antioxydant + sensibilité insuline',
+            note: 'Optionnel'
+        },
+        total_diabete: '40€/mois additionnel',
+        minimum_recommande: 'Berbérine seule = 15€/mois'
+    },
+    cholesterol: {
+        titre: '🫀 CHOLESTÉROL - Déjà couvert par stack basique',
+        deja_present: [
+            'Oméga-3 4g : Réduit LDL, augmente HDL ✅',
+            'Curcuma : Effet hypocholestérol ✅',
+            'Saumon 3-5×/sem : Oméga-3 naturel ✅'
+        ],
+        optionnels: {
+            levure_riz_rouge: {
+                dose: '1200mg/jour',
+                prix: '15€/mois',
+                effet: 'LDL -20% (statine naturelle)',
+                note: '⚠️ Consulter médecin si statines chimiques'
+            },
+            psyllium: {
+                dose: '5g 2×/jour',
+                prix: '10€/mois',
+                effet: 'Cholestérol -10%, Transit',
+                note: 'Recommandé'
+            }
+        },
+        recommandation: 'Tester stack 10 sem + perte 6kg → Prise sang sem 10 → Ajuster si besoin'
+    },
+    cout_total: {
+        stack_basique: '207€/mois',
+        avec_diabete_minimum: '222€/mois (+15€ Berbérine)',
+        avec_diabete_complet: '247€/mois (+40€)',
+        avec_cholesterol_optionnel: '+25€/mois',
+        maximum_total: '272€/mois (~9€/jour)',
+        note: 'Investissement santé 44 ans : Articulations + Métabolisme + Performance'
     }
 };
 
@@ -998,7 +1231,7 @@ function loadDayType() {
     document.getElementById('day-display').textContent = jourType === 'training' ? '🏋️ JOUR TRAINING' : '💤 JOUR REPOS';
 }
 
-// 🆕 Fonction affichage menu avec options
+// 🆕 Fonction affichage menu MODIFIÉE avec suppléments et anti-inflammatoires
 function afficherMenu() {
     const menu = MENUS_BASE[jourType];
     const config = PLAN_HYBRIDE.semaines[semaineActuelle];
@@ -1066,6 +1299,22 @@ function afficherMenu() {
             </div>`;
         }
         
+        // 🆕 Ajout suppléments associés au repas
+        if (repas.supplements && repas.supplements.length > 0) {
+            html += `<div class="supplements-box">
+                <strong>💊 SUPPLÉMENTS À PRENDRE AVEC CE REPAS :</strong>
+                <ul style="margin-left: 10px; margin-top: 5px;">${repas.supplements.map(s => `<li style="margin: 3px 0;">${s}</li>`).join('')}</ul>
+            </div>`;
+        }
+        
+        // 🆕 Ajout anti-inflammatoires
+        if (repas.antiInflammatoires && repas.antiInflammatoires.length > 0) {
+            html += `<div class="anti-inflam-box">
+                <strong>🌿 AJOUTS ANTI-INFLAMMATOIRES :</strong>
+                <ul style="margin-left: 10px; margin-top: 5px;">${repas.antiInflammatoires.map(a => `<li style="margin: 3px 0;">${a}</li>`).join('')}</ul>
+            </div>`;
+        }
+        
         html += `<div class="validation-checkbox ${valide ? 'validated' : ''}" onclick="toggleRepas('${repas.id}')">
             <input type="checkbox" ${valide ? 'checked' : ''} onclick="event.stopPropagation()">
             <span><strong>${valide ? '✅ Validé' : '⏸️ À valider'}</strong></span>
@@ -1074,11 +1323,12 @@ function afficherMenu() {
     </div>`;
     });
     
-    if (menu.supplements && menu.supplements.length > 0) {
+    // 🆕 Ajout section suppléments globaux
+    if (menu.supplementsGlobaux && menu.supplementsGlobaux.length > 0) {
         html += `<div class="nutrition-section">
-            <h3>💊 SUPPLÉMENTS ${jourType === 'training' ? 'TRAINING' : 'REPOS'}</h3>`;
+            <h3>💊 SUPPLÉMENTS ${jourType === 'training' ? 'JOUR TRAINING' : 'JOUR REPOS'}</h3>`;
         
-        menu.supplements.forEach(supp => {
+        menu.supplementsGlobaux.forEach(supp => {
             html += `<div class="meal">
                 <strong style="color: #667eea; font-size: 14px;">${supp.moment}</strong>
                 <div class="meal-foods">
@@ -1865,12 +2115,13 @@ function showAutoSave() {
     setTimeout(() => indicator.classList.remove('show'), 2000);
 }
 
+// 🆕 FONCTION AFFICHAGE ONGLETS MODIFIÉE
 function showTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.getElementById('tab-' + tabName).classList.add('active');
     event.target.classList.add('active');
-    
+
     if (tabName === 'suivi10sem') {
         afficherCarteSemaine();
         afficherGraphiquePoids();
@@ -1878,6 +2129,205 @@ function showTab(tabName) {
         afficherAlertes();
     }
     if (tabName === 'saison') afficherSaison();
+
+    // 🆕 Nouveaux onglets
+    if (tabName === 'supplements') afficherStackSupplements();
+    if (tabName === 'ajustements') afficherAjustementsMacros();
+}
+
+// 🆕 FONCTION AFFICHAGE STACK SUPPLÉMENTS
+function afficherStackSupplements() {
+    const stack = STACK_SUPPLEMENTS_COMPLET;
+
+    // Stack basique
+    let htmlBasique = '<div class="week-card"><h3 style="color: #667eea;">💊 Stack Basique - 207€/mois</h3>';
+
+    // Articulations
+    htmlBasique += '<div class="progress-card"><h4 style="color: #667eea; margin-bottom: 10px;">🦴 Articulations (70€/mois)</h4>';
+    htmlBasique += '<div style="display: grid; gap: 10px;">';
+    Object.entries(stack.basique.articulations).forEach(([nom, data]) => {
+        if (nom === 'total_mensuel') return;
+        htmlBasique += `<div style="background: #f8f9fa; padding: 10px; border-radius: 8px; border-left: 4px solid #51cf66;">
+            <strong>${nom.replace(/_/g, ' ').toUpperCase()}</strong><br>
+            <small>📦 Dose: ${data.dose} | 💰 ${data.prix}</small><br>
+            <small>🩸 Diabète: ${data.diabete}</small>
+            ${data.effet ? `<br><small>✨ ${data.effet}</small>` : ''}
+        </div>`;
+    });
+    htmlBasique += '</div></div>';
+
+    // Performance
+    htmlBasique += '<div class="progress-card"><h4 style="color: #667eea; margin-bottom: 10px;">💪 Performance (93€/mois)</h4>';
+    htmlBasique += '<div style="display: grid; gap: 10px;">';
+    Object.entries(stack.basique.performance).forEach(([nom, data]) => {
+        htmlBasique += `<div style="background: #f8f9fa; padding: 10px; border-radius: 8px; border-left: 4px solid #667eea;">
+            <strong>${nom.replace(/_/g, ' ').toUpperCase()}</strong><br>
+            <small>📦 Dose: ${data.dose} | 💰 ${data.prix}</small><br>
+            <small>🩸 Diabète: ${data.diabete}</small>
+            ${data.effet ? `<br><small>✨ ${data.effet}</small>` : ''}
+        </div>`;
+    });
+    htmlBasique += '</div></div>';
+
+    // Santé
+    htmlBasique += '<div class="progress-card"><h4 style="color: #667eea; margin-bottom: 10px;">🌿 Santé Générale (44€/mois)</h4>';
+    htmlBasique += '<div style="display: grid; gap: 10px;">';
+    Object.entries(stack.basique.sante).forEach(([nom, data]) => {
+        htmlBasique += `<div style="background: #f8f9fa; padding: 10px; border-radius: 8px; border-left: 4px solid #ffc107;">
+            <strong>${nom.replace(/_/g, ' ').toUpperCase()}</strong><br>
+            <small>📦 Dose: ${data.dose} | 💰 ${data.prix}</small><br>
+            <small>🩸 Diabète: ${data.diabete}</small>
+            ${data.effet ? `<br><small>✨ ${data.effet}</small>` : ''}
+        </div>`;
+    });
+    htmlBasique += '</div></div>';
+    htmlBasique += '</div>';
+
+    document.getElementById('stack-basique-container').innerHTML = htmlBasique;
+
+    // Stack diabète
+    let htmlDiabete = `<div class="week-card" style="border-left-color: #ff6b6b;">
+        <h3 style="color: #ff6b6b;">🩸 ${stack.diabete.titre}</h3>
+        <div class="alert-box alert-danger">
+            <strong>💰 Coût additionnel :</strong> ${stack.diabete.total_diabete}<br>
+            <strong>🎯 Minimum recommandé :</strong> ${stack.diabete.minimum_recommande}
+        </div>`;
+
+    ['berbérine', 'chrome_picolinate', 'acide_alpha_lipoique'].forEach(nom => {
+        const data = stack.diabete[nom];
+        htmlDiabete += `<div style="background: #ffebee; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #ff6b6b;">
+            <strong>${nom.replace(/_/g, ' ').toUpperCase()}</strong><br>
+            <small>📦 Dose: ${data.dose}</small><br>
+            <small>💰 Prix: ${data.prix}</small><br>
+            <small>✨ Effet: ${data.effet}</small><br>
+            <small style="background: #fff; padding: 3px 6px; border-radius: 4px; display: inline-block; margin-top: 5px;">💡 ${data.note}</small>
+        </div>`;
+    });
+    htmlDiabete += '</div>';
+
+    document.getElementById('stack-diabete-container').innerHTML = htmlDiabete;
+
+    // Cholestérol
+    let htmlCholesterol = `<div class="week-card" style="border-left-color: #ffc107;">
+        <h3 style="color: #ffc107;">🫀 ${stack.cholesterol.titre}</h3>
+        <div class="alert-box alert-success">
+            <strong>✅ Déjà couvert :</strong><br>
+            ${stack.cholesterol.deja_present.map(item => `• ${item}`).join('<br>')}
+        </div>`;
+
+    htmlCholesterol += '<h4 style="margin-top: 15px;">Optionnels (si besoin):</h4>';
+    Object.entries(stack.cholesterol.optionnels).forEach(([nom, data]) => {
+        htmlCholesterol += `<div style="background: #fff9e6; padding: 15px; border-radius: 8px; margin: 10px 0;">
+            <strong>${nom.replace(/_/g, ' ').toUpperCase()}</strong><br>
+            <small>📦 ${data.dose} | 💰 ${data.prix}</small><br>
+            <small>✨ ${data.effet}</small><br>
+            <small style="color: #666;">💡 ${data.note}</small>
+        </div>`;
+    });
+
+    htmlCholesterol += `<div class="info-box" style="margin-top: 15px;">
+        <strong>📋 Recommandation :</strong> ${stack.cholesterol.recommandation}
+    </div></div>`;
+
+    document.getElementById('stack-cholesterol-container').innerHTML = htmlCholesterol;
+}
+
+// 🆕 FONCTION AFFICHAGE AJUSTEMENTS MACROS
+function afficherAjustementsMacros() {
+    const ajust = AJUSTEMENTS_MACROS.training;
+    const details = DETAILS_NUTRITIONNELS;
+
+    let html = '';
+
+    // Option A
+    html += `<div class="week-card moderee">
+        <div class="week-header">
+            <div class="week-title">${ajust.optionA.nom}</div>
+            <div class="phase-badge moderee">✅ RECOMMANDÉ</div>
+        </div>
+        <p style="color: #666; margin: 10px 0;">${ajust.optionA.description}</p>`;
+
+    ['repas1', 'repas2', 'repas3'].forEach(repas => {
+        const r = ajust.optionA[repas];
+        html += `<div class="meal" style="margin: 10px 0;">
+            <strong style="color: #667eea;">${repas.toUpperCase()}</strong>
+            <div class="meal-foods">
+                <ul>${r.modifications.map(m => `<li>${m}</li>`).join('')}</ul>
+            </div>
+            <div style="background: #f0f4ff; padding: 8px; border-radius: 6px; margin-top: 8px; font-size: 12px;">
+                P: ${r.macros.P}g | G: ${r.macros.G}g | L: ${r.macros.L}g | ${r.macros.kcal} kcal
+            </div>
+        </div>`;
+    });
+
+    html += `<div class="stats-grid" style="margin-top: 15px;">
+        <div class="stat-item"><div class="stat-label">Protéines</div><div class="stat-value">${ajust.optionA.total.P}g</div></div>
+        <div class="stat-item"><div class="stat-label">Glucides</div><div class="stat-value">${ajust.optionA.total.G}g</div></div>
+        <div class="stat-item"><div class="stat-label">Lipides</div><div class="stat-value">${ajust.optionA.total.L}g</div></div>
+        <div class="stat-item"><div class="stat-label">Calories</div><div class="stat-value">${ajust.optionA.total.kcal}</div></div>
+    </div>
+    <div class="alert-box alert-success" style="margin-top: 15px;">${ajust.optionA.note}</div>
+    </div>`;
+
+    // Option B
+    html += `<div class="week-card agressive">
+        <div class="week-header">
+            <div class="week-title">${ajust.optionB.nom}</div>
+            <div class="phase-badge agressive">⚠️ STRICT</div>
+        </div>
+        <p style="color: #666; margin: 10px 0;">${ajust.optionB.description}</p>`;
+
+    ['repas1', 'repas2', 'repas3'].forEach(repas => {
+        const r = ajust.optionB[repas];
+        html += `<div class="meal" style="margin: 10px 0;">
+            <strong style="color: #ff6b6b;">${repas.toUpperCase()}</strong>
+            <div class="meal-foods">
+                <ul>${r.modifications.map(m => `<li>${m}</li>`).join('')}</ul>
+            </div>
+            <div style="background: #ffebee; padding: 8px; border-radius: 6px; margin-top: 8px; font-size: 12px;">
+                P: ${r.macros.P}g | G: ${r.macros.G}g | L: ${r.macros.L}g | ${r.macros.kcal} kcal
+            </div>
+        </div>`;
+    });
+
+    html += `<div class="stats-grid" style="margin-top: 15px;">
+        <div class="stat-item"><div class="stat-label">Protéines</div><div class="stat-value">${ajust.optionB.total.P}g</div></div>
+        <div class="stat-item"><div class="stat-label">Glucides</div><div class="stat-value">${ajust.optionB.total.G}g</div></div>
+        <div class="stat-item"><div class="stat-label">Lipides</div><div class="stat-value">${ajust.optionB.total.L}g</div></div>
+        <div class="stat-item"><div class="stat-label">Calories</div><div class="stat-value">${ajust.optionB.total.kcal}</div></div>
+    </div>
+    <div class="alert-box alert-warning" style="margin-top: 15px;">${ajust.optionB.note}</div>
+    </div>`;
+
+    document.getElementById('ajustements-container').innerHTML = html;
+
+    // Détails nutritionnels
+    let htmlDetails = `<div class="info-box"><strong>💡 Astuce :</strong> Ces détails montrent les macros PRÉCISES de chaque aliment pour t'aider à ajuster tes portions si besoin.</div>`;
+
+    htmlDetails += '<h4 style="margin-top: 15px; color: #667eea;">🏋️ Jours TRAINING</h4>';
+
+    ['repas1', 'repas2', 'repas3', 'repas3_vendredi'].forEach(repas => {
+        const r = details.training[repas];
+        if (!r) return;
+
+        htmlDetails += `<div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 10px 0;">
+            <strong>${repas.toUpperCase()}</strong> - 💰 ${r.cout}<br>
+            <small style="color: #667eea; font-weight: bold;">Total: P${r.total.P}g | G${r.total.G}g | L${r.total.L}g | ${r.total.kcal} kcal</small>
+            <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 5px;">`;
+
+        Object.entries(r.aliments).forEach(([nom, macros]) => {
+            htmlDetails += `<div style="background: white; padding: 6px; border-radius: 4px; font-size: 11px;">
+                <strong>${nom.replace(/_/g, ' ')}</strong><br>
+                P:${macros.P}g G:${macros.G}g L:${macros.L}g | ${macros.kcal}kcal
+            </div>`;
+        });
+
+        htmlDetails += '</div>';
+        if (r.note) htmlDetails += `<div style="background: #fff9e6; padding: 6px; border-radius: 4px; margin-top: 5px; font-size: 11px;">${r.note}</div>`;
+        htmlDetails += '</div>';
+    });
+
+    document.getElementById('details-nutritionnels-container').innerHTML = htmlDetails;
 }
     </script>
 </body>
